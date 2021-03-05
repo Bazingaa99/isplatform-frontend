@@ -6,9 +6,9 @@
     "itemsharingplatformapp": {
       "projectType": "application",
       "schematics": {
-           "@schematics/angular:component": {
-                   "styleext": "scss"       
-             }  
+          "@schematics/angular:component": {
+                  "styleext": "scss"
+            }
   	},
       "root": "",
       "sourceRoot": "src",
