@@ -11,20 +11,10 @@ import { GroupCreationDialogComponent } from './group-creation-dialog/group-crea
 export class AppComponent {
   title = 'itemsharingplatformapp';
   rigtSidebarIsShown = false;
-
-  animal: string; 
-  name: string; 
   
   constructor(public dialog: MatDialog) {} 
   
   openDialog(): void { 
-    let dialogRef = this.dialog.open(GroupCreationDialogComponent, { 
-      width: '250px', 
-      data: { name: this.name, animal: this.animal } 
-    }); 
-  
-    dialogRef.afterClosed().subscribe(result => { 
-      this.animal = result; 
-    }); 
+    this.dialog.open(GroupCreationDialogComponent); 
   }
 }
