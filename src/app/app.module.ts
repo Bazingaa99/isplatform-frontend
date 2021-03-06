@@ -42,4 +42,5 @@ import { GroupCreationDialogComponent } from './group-creation-dialog/group-crea
   providers: [GroupsService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}
