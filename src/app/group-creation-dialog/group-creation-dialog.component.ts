@@ -1,20 +1,18 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder } from '@angular/forms';
-
-@Component({
-  selector: 'group-creation-dialog',
-  templateUrl: './group-creation-dialog.component.html',
-  styleUrls: ['./group-creation-dialog.component.css']
-})
-export class GroupCreationDialogComponent implements OnInit {
-
-  constructor(private formBuilder:FormBuilder) { }
-
-  groupForm = this.formBuilder.group({
-    groupName:[''],
-    groupDescription:['']
-  });
-  ngOnInit(): void {
-  }
-
+import { Component, Inject } from '@angular/core'; 
+import { MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog'; 
+  
+@Component({ 
+  selector: 'group-creation-dialog', 
+  templateUrl: 'group-creation-dialog.component.html', 
+}) 
+export class GroupCreationDialogComponent { 
+  
+  constructor( 
+    public dialogRef: MatDialogRef<GroupCreationDialogComponent>, 
+    @Inject(MAT_DIALOG_DATA) public data: any) { } 
+  
+  onCancel(): void { 
+    this.dialogRef.close(); 
+  } 
+  
 }

@@ -43,4 +43,5 @@ import { GroupCreationDialogComponent } from './group-creation-dialog/group-crea
   bootstrap: [AppComponent]
 })
 export class AppModule {
+  showRightSidebar = false;
 }

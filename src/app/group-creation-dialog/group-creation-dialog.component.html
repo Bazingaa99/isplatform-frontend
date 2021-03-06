@@ -1,17 +1,20 @@
-<style>
-    :host {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  }
-</style>
-  
-<div class="form-container">
-<mat-form-field>
-    <input matInput placeholder="Group name">
-</mat-form-field>
-
-<mat-form-field>
-    <textarea matInput placeholder="Description"></textarea>
-</mat-form-field>
-</div>
+<h1 mat-dialog-title>New group creation</h1> 
+<div mat-dialog-content> 
+    <mat-form-field> 
+        <mat-label>Group name</mat-label>
+        <input matInput [(ngModel)]="data.groupName"> 
+    </mat-form-field> 
+    <mat-form-field> 
+    <mat-label>Description</mat-label>
+    <textarea matInput
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5">
+    </textarea>
+    </mat-form-field> 
+</div> 
+<div mat-dialog-actions> 
+  <button mat-button (click)="onCancel()">Cancel</button> 
+  <button mat-button cdkFocusInitial>Create</button> 
+</div> 
