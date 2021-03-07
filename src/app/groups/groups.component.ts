@@ -7,7 +7,7 @@ import { GroupCreationDialogComponent } from '../group-creation-dialog/group-cre
 @Component({
   selector: 'groups',
   templateUrl: './groups.component.html',
-  styleUrls: ['./groups.component.css']
+  styleUrls: ['./groups.component.scss',]
 })
 export class GroupsComponent implements OnInit {
 

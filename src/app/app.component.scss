@@ -100,14 +100,18 @@ svg.material-icons:not(:last-child) {
     align-items: center;
 }
 
-.card-container .card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+.card-container .card,
+.card-container .card:visited,
+::ng-deep.card-container .card,
+::ng-deep.card-container .card:visited{
+    color: #1976d2;
+    text-decoration: none;
 }
 
-a,
-a:visited,
-a:hover{
+.card-container .card:hover,
+::ng-deep .card-container .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
     color: #1976d2;
     text-decoration: none;
 }

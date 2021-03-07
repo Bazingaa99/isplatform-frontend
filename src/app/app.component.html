@@ -22,17 +22,20 @@
   <div class="left-sidebar">
     <!-- Groups -->
     <div class="card-container">
-      <a (click)="openDialog()" class="card">
+      <div (click)="openDialog()" class="card">
         <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
         <span>Create a new group</span>
-      </a>
-      <groups></groups>
+      </div>
+      <groups class="card-container"></groups>
     </div>
+  </div>
+
+  <div class="content">
   </div>
 
   <!-- Right Sidebar -->
   <div *ngIf="rigtSidebarIsShown" class="right-sidebar">
-    <div class="user-navigation">
+    <!-- Profile Navigation -->
       <div class="card-container">
         <a class="card">
           <span>Profilis</span>
@@ -47,7 +50,6 @@
           <span>Logout</span>
         </a>
       </div>
-    </div>
   </div>
 </div>
 
