@@ -5,7 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './groups/groups.component';
-
+import { ItemComponent } from './item/item.component';
 import { GroupsService } from './groups.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -19,7 +19,8 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.component';
-import { ItemComponent } from './item/item.component';
+import { ItemService } from './services/item/item.service';
+
 
 @NgModule({
   declarations: [
@@ -47,7 +48,7 @@ import { ItemComponent } from './item/item.component';
     MatButtonModule,
     MatDialogModule,
   ],
-  providers: [GroupsService],
+  providers: [GroupsService, ItemService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
