@@ -11,7 +11,7 @@ import { GroupCreationDialogComponent } from './group-creation-dialog/group-crea
 export class AppComponent {
   title = 'itemsharingplatformapp';
   rigtSidebarIsShown = false;
-  
+
   constructor(public dialog: MatDialog) {} 
   
   openDialog(): void { 
