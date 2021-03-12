@@ -1,7 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog'; 
-import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component'; 
-
 
 @Component({
   selector: 'main-page',
@@ -10,15 +7,8 @@ import { GroupCreationDialogComponent } from '../group-creation-dialog/group-cre
 })
 export class MainPageComponent implements OnInit {
 
-  rigtSidebarIsShown = false;
-
-  constructor(public dialog: MatDialog) { }
 
   ngOnInit(): void {
-  }
-  
-  openDialog(): void { 
-    this.dialog.open(GroupCreationDialogComponent); 
   }
 
 }

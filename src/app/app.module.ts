@@ -20,6 +20,7 @@ import { GroupCreationDialogComponent } from './group-creation-dialog/group-crea
 import { MainPageComponent } from './main-page/main-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
+import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { HeaderComponent } from './header/header.component';
     GroupCreationDialogComponent,
     MainPageComponent,
     FooterComponent,
-    HeaderComponent
+    HeaderComponent,
+    ProfileSidebarComponent
   ],
   imports: [
     BrowserModule,
@@ -43,11 +45,10 @@ import { HeaderComponent } from './header/header.component';
     MatInputModule,
     MatCardModule,
     MatButtonModule,
-    MatDialogModule
+    MatDialogModule,
   ],
   providers: [GroupsService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
-  showRightSidebar = false;
 }

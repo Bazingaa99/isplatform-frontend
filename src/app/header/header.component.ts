@@ -7,8 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  rigtSidebarIsShown = false;
+  showProfileSidebar:boolean=true;
 
   ngOnInit(): void {
+  }
+
+  toggleProfileSidebar() {
+    this.showProfileSidebar=!this.showProfileSidebar;
   }
 }

@@ -1,4 +1,4 @@
-.toolbar {
+.header {
     position: absolute;
     top: 0;
     left: 0;
@@ -11,19 +11,27 @@
     font-weight: 600;
 }
 
-.toolbar img {
+.header img {
     margin: 0 16px;
 }
 
-.toolbar #twitter-logo {
+.header #twitter-logo {
     height: 40px;
     margin: 0 16px;
 }
 
-.toolbar #twitter-logo:hover {
+.header #twitter-logo:hover {
     opacity: 0.8;
 }
 
 .spacer {
     flex: 1;
+}
+
+.left-sidebar {
+    position: relative;
+    display: inline-block;
+    height: 100%;
+    margin-left: 8px;
+    margin-right: 8px;
 }
