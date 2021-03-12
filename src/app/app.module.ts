@@ -17,16 +17,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GroupCreationDialogComponent } from './group-creation-dialog/group-creation-dialog.component';
+import { HomePageComponent } from './home-page/home-page.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+
 
 @NgModule({
   declarations: [
     AppComponent,
     GroupsComponent,
-    GroupCreationDialogComponent
+    GroupCreationDialogComponent,
+    HomePageComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    MatToolbarModule,
     BrowserAnimationsModule,
     HttpClientModule,
     FormsModule,
