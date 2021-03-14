@@ -1,0 +1,28 @@
+<mat-grid-list cols="3" rowHeight="1:2" class="container ml-0">
+  <mat-grid-tile div *ngFor="let item of items">
+    <mat-card class="mat-card align-items-stretch col-lg-8">
+      <mat-card-header>
+        <mat-card-title>
+          {{ item.name }}
+        </mat-card-title>
+        <mat-card-subtitle>
+          {{ item.category.categoryName }},
+          {{ item.duration + " days" }}
+        </mat-card-subtitle>
+      </mat-card-header>
+      <img mat-card-image src="https://i.imgur.com/SGlPucc.png" alt="Photo of Lebron">
+      <mat-card-content>
+        <p>
+          {{ item.description }}
+        </p>
+      </mat-card-content>
+      <mat-card-actions>
+        <button mat-button>Request item</button>
+        <button mat-button>Show more</button>
+      </mat-card-actions>
+      <mat-card-footer>
+        <span class="m-4">{{ item.viewCount }}</span>
+      </mat-card-footer>
+    </mat-card>
+  </mat-grid-tile>
+</mat-grid-list>

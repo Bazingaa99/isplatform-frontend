@@ -5,8 +5,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './groups/groups.component';
-import { ItemComponent } from './item/item.component';
+import { ItemsComponent } from './items/items.component';
 import { GroupsService } from './groups.service';
+import { ItemService } from './services/item.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
@@ -15,11 +16,16 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { GroupCreationDialogComponent } from './group-creation-dialog/group-creation-dialog.component';
+import { ItemCreationDialogComponent } from './item-creation-dialog/item-creation-dialog.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.component';
-import { ItemService } from './services/item/item.service';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSelectModule } from '@angular/material/select';
+import { MatPaginatorModule } from '@angular/material/paginator';
+
 
 
 @NgModule({
@@ -31,7 +37,9 @@ import { ItemService } from './services/item/item.service';
     FooterComponent,
     HeaderComponent,
     ProfileSidebarComponent,
-    ItemComponent
+    ItemsComponent,
+    ItemsComponent,
+    ItemCreationDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +55,10 @@ import { ItemService } from './services/item/item.service';
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    MatGridListModule,
+    MatMenuModule,
+    MatSelectModule,
+    MatPaginatorModule
   ],
   providers: [GroupsService, ItemService],
   bootstrap: [AppComponent]

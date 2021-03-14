@@ -1,0 +1,21 @@
+.dialog-form {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+  padding: -2rem;
+}
+
+.fill-parent{
+  margin: 0;
+}
+
+.fill-parent-width{
+  width: 100%;
+}
+
+.columns {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}

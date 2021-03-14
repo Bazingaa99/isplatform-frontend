@@ -1,0 +1,41 @@
+<form #customerForm="ngForm"  class="dialog-form">
+  <mat-card class="fill-parent">
+    <mat-card-header>
+      <mat-card-title>
+        <h1>Add Item to ->Group name<-</h1>
+      </mat-card-title>
+      <mat-card-subtitle>
+        <span>Please enter details about your item</span>
+      </mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <div class="columns">
+        <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label color="primary">Item name</mat-label>
+          <input name="name" matInput ngModel>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label>Item description, lending process, etc.</mat-label>
+          <textarea matInput name="description"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label>Item category</mat-label>
+            <mat-select name="category">
+              <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</mat-option>
+            </mat-select>
+        </mat-form-field>
+        <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label>For how long will you lend the item?</mat-label>
+          <input name="email" matInput ngModel>
+        </mat-form-field>
+        <!-- <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label>Picture</mat-label>
+          <input name="picture" matInput ngModel>
+        </mat-form-field> -->
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button [disabled]="customerForm.invalid" mat-stroked-button color="primary" type="submit">Add Customer</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
