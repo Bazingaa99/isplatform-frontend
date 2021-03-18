@@ -6,10 +6,8 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { GroupsComponent } from './groups/groups.component';
 import { ItemsComponent } from './items/items.component';
-import { GroupsService } from './groups.service';
 import { ItemService } from './services/item.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -25,8 +23,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
-
-
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +36,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     ProfileSidebarComponent,
     ItemsComponent,
     ItemsComponent,
-    ItemCreationDialogComponent
+    ItemCreationDialogComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -60,7 +58,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
     MatSelectModule,
     MatPaginatorModule
   ],
-  providers: [GroupsService, ItemService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {

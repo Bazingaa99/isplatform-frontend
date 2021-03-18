@@ -1,10 +1,10 @@
 import { Component, OnInit} from '@angular/core';
-import { GroupsService } from '../groups.service';
 import { MatDialog } from '@angular/material/dialog'; 
 import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component'; 
 import { UsersGroup } from '../users-group';
 import { UsersGroupService } from '../users-group.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'groups',
@@ -15,7 +15,7 @@ export class GroupsComponent implements OnInit{
 
   public usersGroup: UsersGroup[];
 
-  constructor(private usersGroupService: UsersGroupService, public dialog: MatDialog){}
+  constructor(private usersGroupService: UsersGroupService, public dialog: MatDialog, private router: Router){}
 
   ngOnInit() {
     this.getUsersGroups();
@@ -32,15 +32,10 @@ export class GroupsComponent implements OnInit{
     );
   }
 
-  /*
-  public groups = [];
-
-  constructor(private _groupsService: GroupsService, public dialog: MatDialog) { }
-
-  ngOnInit(): void {
-    this.groups = this._groupsService.getGroups();
+  onSelect(usersGroup){
+    this.router.navigate(['/usersgroup', usersGroup.id]);
   }
-  */
+
   openDialog(): void { 
     this.dialog.open(GroupCreationDialogComponent); 
   }
