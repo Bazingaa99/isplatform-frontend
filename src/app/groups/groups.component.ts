@@ -1,8 +1,8 @@
 import { Component, OnInit} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog'; 
-import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component'; 
-import { UsersGroup } from '../users-group';
-import { UsersGroupService } from '../users-group.service';
+import { MatDialog } from '@angular/material/dialog';
+import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component';
+import { UsersGroup } from '../shared/users-group';
+import { UsersGroupService } from '../services/users-group.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 
@@ -36,7 +36,7 @@ export class GroupsComponent implements OnInit{
     this.router.navigate(['/usersgroup', usersGroup.id]);
   }
 
-  openDialog(): void { 
-    this.dialog.open(GroupCreationDialogComponent); 
+  openDialog(): void {
+    this.dialog.open(GroupCreationDialogComponent);
   }
 }
