@@ -1,22 +1,17 @@
 <h1 mat-dialog-title>New group creation</h1> 
-<div class="group-creation-dialog">
-    <div mat-dialog-content> 
-        <mat-form-field> 
+<div>
+    <div class="dialog" mat-dialog-content> 
+        <mat-form-field appearance="fill">
             <mat-label>Group name</mat-label>
-            <input matInput> 
-        </mat-form-field> 
-        <mat-form-field> 
-        <mat-label>Description</mat-label>
-        <textarea matInput
-                cdkTextareaAutosize
-                #autosize="cdkTextareaAutosize"
-                cdkAutosizeMinRows="1"
-                cdkAutosizeMaxRows="5">
-        </textarea>
-        </mat-form-field> 
+            <input matInput>
+          </mat-form-field>
+          <mat-form-field appearance="fill">
+            <mat-label>Description</mat-label>
+            <textarea matInput></textarea>
+          </mat-form-field>
     </div> 
     <div mat-dialog-actions> 
     <button mat-button (click)="onCancel()">Cancel</button> 
-    <button mat-button cdkFocusInitial>Create</button> 
+    <button mat-button>Create</button> 
     </div> 
 </div>
