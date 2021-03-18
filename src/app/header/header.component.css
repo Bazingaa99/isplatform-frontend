@@ -4,11 +4,27 @@
     left: 0;
     right: 0;
     height: 60px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     background-color: #889097;
     color: white;
     font-weight: 600;
+}
+
+*:focus {
+    outline: none;
+}
+
+.header div{
+    cursor: pointer;
+}
+
+.header span {
+    position: absolute;
+    top: 0;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
 }
 
 .header img {
@@ -32,6 +48,7 @@
     position: relative;
     display: inline-block;
     height: 100%;
+    margin-top: 82px;
     margin-left: 8px;
     margin-right: 8px;
 }

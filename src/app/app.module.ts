@@ -8,7 +8,6 @@ import { GroupsComponent } from './groups/groups.component';
 
 import { HttpClientModule } from '@angular/common/http';
 
-import { GroupsService } from './groups.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { MatCardModule } from '@angular/material/card';
@@ -21,6 +20,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +30,8 @@ import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.compo
     MainPageComponent,
     FooterComponent,
     HeaderComponent,
-    ProfileSidebarComponent
+    ProfileSidebarComponent,
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +48,7 @@ import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.compo
     MatButtonModule,
     MatDialogModule,
   ],
-  providers: [GroupsService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule {
