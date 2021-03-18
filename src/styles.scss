@@ -2,7 +2,7 @@
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
 @import '~@angular/material/theming';
-@import '~bootstrap/dist/css/bootstrap.min.css';
+
 // Plus imports for other components in your app.
 
 // Include the common styles for Angular Material. We include this here so that you only
@@ -39,6 +39,10 @@ $itemsharingplatformapp-theme: mat-light-theme((
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-.mat-dialog-container{
-  padding: 0px !important;
+btn.btn-danger{
+  background-color: #ff8875;
+}
+
+btn.btn-success{
+  background-color: #4ebf58;
 }

@@ -3,8 +3,16 @@
   width: 30%;
 }
 
-.mat-figure
-{
-  margin: 0 !important;
-  padding: 0 !important;
+.mat-grid-tile{
+  //background-color: lightblue;
+}
+
+.card-container{
+  position: absolute;
+  margin-right: 0.5rem;
+  margin-left: 0.5rem;
+}
+
+.item-title{
+  font-size: 1.25em;
 }

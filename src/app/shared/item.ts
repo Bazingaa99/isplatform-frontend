@@ -1,9 +1,12 @@
 export interface Item {
-    id: number;
+    id?: number;
+    group: number;
+    owner: number;
+    category: number;
     name: string;
     description: string;
-    pictureId: string;
-    dateCreated: Date;
-    viewCount: number;
+    pictureId?: string;
+    dateCreated?: Date;
+    viewCount?: number;
     duration: number;
 }

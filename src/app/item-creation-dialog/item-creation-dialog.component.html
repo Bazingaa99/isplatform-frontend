@@ -1,41 +1,85 @@
-<form #customerForm="ngForm"  class="dialog-form">
-  <mat-card class="fill-parent">
-    <mat-card-header>
-      <mat-card-title>
-        <h1>Add Item to ->Group name<-</h1>
-      </mat-card-title>
-      <mat-card-subtitle>
-        <span>Please enter details about your item</span>
-      </mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <div class="columns">
+<h1 class="text-center">
+  Add item to ->Group name <-
+</h1>
+<mat-dialog-content>
+  <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
+    <form [formGroup]="addItemForm">
+
+      <div class="form-control">
         <mat-form-field appearance="fill" class="fill-parent-width">
-          <mat-label color="primary">Item name</mat-label>
-          <input name="name" matInput ngModel>
+          <mat-label color="primary" for="name">Title</mat-label>
+            <input
+              matInput
+              type="text"
+              formControlName="name"
+              maxlength="51"/>
+              <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                <div *ngIf="name.errors.required">
+                  <span class="alert">Provide a title</span>
+                </div>
+                <div *ngIf="name.errors.maxlength">
+                  <span class="alert">Provide a shorter title</span>
+                </div>
+                <div *ngIf="name.errors.pattern">
+                  <span class="alert">Do not use special characters in the title</span>
+                </div>
+              </div>
         </mat-form-field>
-        <mat-form-field appearance="fill" class="fill-parent-width">
-          <mat-label>Item description, lending process, etc.</mat-label>
-          <textarea matInput name="description"></textarea>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="fill-parent-width">
-          <mat-label>Item category</mat-label>
-            <mat-select name="category">
-              <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</mat-option>
-            </mat-select>
-        </mat-form-field>
-        <mat-form-field appearance="fill" class="fill-parent-width">
-          <mat-label>For how long will you lend the item?</mat-label>
-          <input name="email" matInput ngModel>
-        </mat-form-field>
-        <!-- <mat-form-field appearance="fill" class="fill-parent-width">
-          <mat-label>Picture</mat-label>
-          <input name="picture" matInput ngModel>
-        </mat-form-field> -->
       </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button [disabled]="customerForm.invalid" mat-stroked-button color="primary" type="submit">Add Customer</button>
-    </mat-card-actions>
-  </mat-card>
+      <div class="form-control">
+        <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label color="primary" for="description">Item description, lending process, etc.</mat-label>
+            <textarea
+              matInput
+              type="textarea"
+              formControlName="description"
+              maxlength="1001"></textarea>
+              <div *ngIf="description.invalid && (description.dirty || description.touched)">
+                <div *ngIf="description.errors.required">
+                  <span class="alert">Provide a description</span>
+                </div>
+                <div *ngIf="description.errors.maxlength">
+                  <span class="alert">Provide a shorter description</span>
+                </div>
+              </div>
+        </mat-form-field>
+      </div>
+      <div class="form-control">
+        <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label color="primary" for="category">Category</mat-label>
+          <mat-select formControlName="category">
+            <mat-option *ngFor="let category of categories" [value]="category.id">{{ category.categoryName }}</mat-option>
+          </mat-select>
+          <div *ngIf="category.invalid && (category.dirty || category.touched)">
+            <div *ngIf="category.errors.required">
+              <span class="alert">Select a category</span>
+            </div>
+          </div>
+        </mat-form-field>
+      </div>
+      <div class="form-control">
+        <mat-form-field appearance="fill" class="fill-parent-width">
+          <mat-label color="primary" for="duration">Amount of days you can lend the item</mat-label>
+            <input
+              matInput
+              type="number"
+              formControlName="duration"/>
+            <div *ngIf="duration.invalid && (duration.dirty || duration.touched)">
+              <div *ngIf="duration.errors.required">
+                <span class="alert">Provide the amount of days</span>
+              </div>
+              <div *ngIf="duration.errors.max">
+                <span class="alert">You can lend the item for a maximum of 180 days</span>
+              </div>
+            </div>
+        </mat-form-field>
+        <div class="text-center">
+          <button mat-button class="" color="warn" (click)="onCancel()">Cancel</button>
+          <button mat-button [disabled]="addItemForm.invalid" class="" color="primary" (click)="onSubmit()">Add item</button>
+        </div>
+      </div>
 </form>
+  </div>
+
+</mat-dialog-content>
+
