@@ -1,26 +1,29 @@
-<mat-grid-list cols="6" rowHeight="1.05:1.7">
-  <mat-grid-tile  div *ngFor="let item of items" class="tile-container">
-    <mat-card class="card-container">
-      <img mat-card-image src="https://i.imgur.com/SGlPucc.png" alt="Photo of Lebron">
-      <mat-card-header>
-        <mat-card-title class="item-title">
-            {{ item.name }}
-        </mat-card-title>
-        <mat-card-subtitle class="mb-0">
-          {{ item.category.categoryName }},
-          {{ item.duration + " days" }}
-        </mat-card-subtitle>
-      </mat-card-header>
-      <mat-card-actions>
-        <button mat-button class="btn-sm ml-3">Request item</button>
-        <button mat-button class="btn-sm">Show more</button>
-      </mat-card-actions>
-      <mat-card-footer class="mt-0">
-        <span>Times viewed: {{ item.viewCount }}</span>
-      </mat-card-footer>
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list>
+<div class="item-container">
+  <mat-grid-list cols="6" rowHeight="1:2" >
+    <mat-grid-tile  div *ngFor="let item of items" class="tile-container">
+      <mat-card class="card-container">
+        <img mat-card-image src="https://i.imgur.com/SGlPucc.png" alt="Photo of Lebron">
+        <mat-card-header>
+          <mat-card-title class="item-title">
+              {{ item.name }}
+          </mat-card-title>
+          <mat-card-subtitle class="mb-0">
+            {{ item.category.categoryName }},
+            {{ item.duration + " days" }}
+          </mat-card-subtitle>
+        </mat-card-header>
+        <mat-card-actions>
+          <button mat-button class="btn-sm ml-3">Request item</button>
+          <button mat-button class="btn-sm">Show more</button>
+        </mat-card-actions>
+        <mat-card-footer class="mt-0">
+          <span>Times viewed: {{ item.viewCount }}</span>
+        </mat-card-footer>
+      </mat-card>
+    </mat-grid-tile>
+  </mat-grid-list>
+</div>
+
 
 <!-- <mat-grid-list cols="6" rowHeight="1.05:1.5">
   <mat-grid-tile *ngFor="let item of items">

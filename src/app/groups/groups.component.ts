@@ -33,7 +33,10 @@ export class GroupsComponent implements OnInit{
   }
 
   onSelect(usersGroup){
-    this.router.navigate(['/usersgroup', usersGroup.id]);
+    // this.router.navigateByUrl(['/usersgroup', usersGroup.id], );
+    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/usersgroup', usersGroup.id]);
+    });
   }
 
   openDialog(): void {

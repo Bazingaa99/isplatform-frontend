@@ -12,8 +12,8 @@ export class ItemService {
 
     constructor(private http: HttpClient) { }
 
-    public getItems(): Observable<Item[]>{
-        return this.http.get<Item[]>( this.apiServerUrl + '/isp/all/items')
+    public getItems(id: string): Observable<Item[]>{
+        return this.http.get<Item[]>( `${this.apiServerUrl}/isp/find/group/items/${id}`)
     }
 
     public addItem(item: Item): Observable<Item>{
@@ -22,5 +22,5 @@ export class ItemService {
 
     // public updateItem(item: Item): Observable<Item>{
     //   return this.http.put<Item>('${this.apiServerUrl}/isp/all/items', item);
-  //}
+    //}
 }

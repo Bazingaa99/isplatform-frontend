@@ -12,15 +12,17 @@ import { Item } from '../shared/item';
 
 export class ItemsComponent implements OnInit {
   public items: Item[];
+  public 
 
-  constructor(private router: Router, private itemService: ItemService) {}
+  constructor(private router: Router, private activatedRoute: ActivatedRoute, private itemService: ItemService) {}
 
   ngOnInit(): void {
-    this.getItems();
+    let id = this.activatedRoute.snapshot.paramMap.get("id");
+    this.getItems(id);
   }
 
-  public getItems(): void {
-    this.itemService.getItems().subscribe(
+  public getItems(id: string): void {
+    this.itemService.getItems(id).subscribe(
       (response: Item[]) => {
         this.items = response;
         console.log(this.items);
