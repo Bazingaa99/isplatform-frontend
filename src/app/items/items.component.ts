@@ -12,7 +12,7 @@ import { Item } from '../shared/item';
 
 export class ItemsComponent implements OnInit {
   public items: Item[];
-  public 
+  public
 
   constructor(private router: Router, private activatedRoute: ActivatedRoute, private itemService: ItemService) {}
 

@@ -6,7 +6,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 const routes: Routes = [
-  {path: '', component: MainPageComponent},
+  {path: '', component: MainPageComponent}, // <- gotta change this bad boy to home page component or something
   {path: 'usersgroup/:id', component: ItemsComponent}, // <- idek savo componenta
   {path: "**", component: PageNotFoundComponent}
 ];
