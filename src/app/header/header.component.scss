@@ -1,0 +1,48 @@
+#header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+    background-color: #889097;
+    color: white;
+}
+
+#home-page-div{
+    cursor: pointer;
+}
+
+#home-page-div:hover{
+    opacity: 0.8;
+}
+
+#home-page-div:focus {
+    outline: none;
+}
+
+#header span {
+    position: absolute;
+    top: 0;
+    height: 60px;
+    display: inline-flex;
+    align-items: center;
+}
+
+#header img {
+    margin: 0 16px;
+}
+
+#header #profile-button {
+    height: 40px;
+    margin: 0 16px;
+}
+
+#header #profile-button:hover {
+    opacity: 0.8;
+}
+
+#spacer {
+    flex: 1;
+}

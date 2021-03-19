@@ -1,7 +1,7 @@
 export interface UsersGroup {
-    id: number;
+    id?: number;
     admin_id: number;
     name: string;
     description: string;
-    groupCode: string;
+    groupCode?: string;
 }
