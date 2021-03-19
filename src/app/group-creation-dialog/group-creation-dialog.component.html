@@ -1,17 +1,17 @@
 <h1 mat-dialog-title>New group creation</h1> 
-<div>
-    <div class="dialog" mat-dialog-content> 
-        <mat-form-field appearance="fill">
-            <mat-label>Group name</mat-label>
-            <input matInput>
-          </mat-form-field>
-          <mat-form-field appearance="fill">
-            <mat-label>Description</mat-label>
-            <textarea matInput></textarea>
-          </mat-form-field>
-    </div> 
-    <div mat-dialog-actions> 
-    <button mat-button (click)="onCancel()">Cancel</button> 
-    <button mat-button>Create</button> 
-    </div> 
-</div>
+<form [formGroup]="userCreationForm" (ngSubmit)="onSubmit()" >
+  <div id="dialog-content" mat-dialog-content> 
+    <mat-form-field appearance="fill">
+        <mat-label>Group name</mat-label>
+        <input formControlName="name" id="name" matInput required>
+      </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Description</mat-label>
+      <textarea formControlName="description" id="description" matInput></textarea>
+    </mat-form-field>
+  </div>
+  <div mat-dialog-actions> 
+    <button type="button" (click)="closeDialog()" mat-button>Cancel</button> 
+    <button type="submit" [disabled]="userCreationForm.invalid" mat-button>Create</button> 
+  </div> 
+</form>

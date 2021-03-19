@@ -1,4 +1,4 @@
-.header {
+#header {
     position: absolute;
     top: 0;
     left: 0;
@@ -8,18 +8,21 @@
     align-items: center;
     background-color: #889097;
     color: white;
-    font-weight: 600;
 }
 
-*:focus {
-    outline: none;
-}
-
-.header div{
+#home-page-div{
     cursor: pointer;
 }
 
-.header span {
+#home-page-div:hover{
+    opacity: 0.8;
+}
+
+#home-page-div:focus {
+    outline: none;
+}
+
+#header span {
     position: absolute;
     top: 0;
     height: 60px;
@@ -27,28 +30,19 @@
     align-items: center;
 }
 
-.header img {
+#header img {
     margin: 0 16px;
 }
 
-.header #twitter-logo {
+#header #profile-button {
     height: 40px;
     margin: 0 16px;
 }
 
-.header #twitter-logo:hover {
+#header #profile-button:hover {
     opacity: 0.8;
 }
 
-.spacer {
+#spacer {
     flex: 1;
-}
-
-.left-sidebar {
-    position: relative;
-    display: inline-block;
-    height: 100%;
-    margin-top: 82px;
-    margin-left: 8px;
-    margin-right: 8px;
 }

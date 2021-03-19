@@ -6,7 +6,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 
 const routes: Routes = [
   {path: '', component: MainPageComponent},
-  //{path: 'usersgroup/:id', component: GroupsComponent}, // <- idek savo componenta
+  {path: 'usersgroup/:id', component: MainPageComponent},
   {path: "**", component: PageNotFoundComponent}
 ];
 
