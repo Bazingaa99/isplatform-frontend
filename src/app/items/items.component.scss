@@ -9,8 +9,8 @@
 
 .card-container{
   position: absolute;
-  margin-right: 0.5rem;
-  margin-left: 0.5rem;
+  margin-right: 0.4rem;
+  margin-left: 0.4rem;
 }
 
 .item-title{
@@ -22,9 +22,13 @@
 .item-container {
   margin: auto;
   width: 100%;
-
 }
 
 .mat-grid-list{
   background-color:transparent;
 }
+
+// .item-paginator{
+//   position: absolute;
+//   bottom: 0;
+// }
