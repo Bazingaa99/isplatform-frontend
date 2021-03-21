@@ -11,7 +11,7 @@ import { RoleGuardService } from './services/role-guard-service.service';
 const routes: Routes = [
   {
     path:"",
-    component:ItemsComponent
+    component:HomePageComponent
   },
   {
     path:"confirm",
