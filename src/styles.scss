@@ -46,3 +46,28 @@ btn.btn-danger{
 btn.btn-success{
   background-color: #4ebf58;
 }
+.blue-snackbar {
+  background: orange;
+  color: white;
+  text-align: center;
+}
+.red-snackbar {
+  background: red;
+  color: white;
+  text-align: center;
+}
+.green-snackbar {
+  background: green;
+  color: white;
+  text-align: center;
+}
+html, body, app-root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+body {
+  overflow: hidden;
+  margin:0;
+}

@@ -41,6 +41,7 @@ export class ItemCreationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
+    console.log(localStorage.getItem('email'))
   }
 
   onCancel(): void {
