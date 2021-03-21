@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
 export class GroupsComponent implements OnInit{
 
   public usersGroup: UsersGroup[];
+  selectedUsersGroup: UsersGroup;
 
   constructor(private usersGroupService: UsersGroupService, public dialog: MatDialog, private router: Router){}
 
@@ -34,6 +35,7 @@ export class GroupsComponent implements OnInit{
 
   onSelect(usersGroup){
     this.router.navigate(['/usersgroup', usersGroup.id]);
+    this.selectedUsersGroup=usersGroup;
   }
 
   openDialog(): void { 
