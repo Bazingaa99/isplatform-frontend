@@ -1,0 +1,13 @@
+.center {
+    top: 50%;
+    left: 25%;
+  }
+.container{
+    min-height: 200px;
+    max-width: 200px;
+}
+.mat-progress-spinner {
+    float:right;
+    right:45%;
+    margin-top:3px;
+  }

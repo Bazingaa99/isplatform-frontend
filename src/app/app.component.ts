@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog'; 
-import { GroupCreationDialogComponent } from './group-creation-dialog/group-creation-dialog.component'; 
+import { SessionService } from './services/session.service';
 
 @Component({
   selector: 'app-root',
@@ -10,11 +9,14 @@ import { GroupCreationDialogComponent } from './group-creation-dialog/group-crea
 
 export class AppComponent {
   title = 'itemsharingplatformapp';
-  rigtSidebarIsShown = false;
 
-  constructor(public dialog: MatDialog) {} 
-  
-  openDialog(): void { 
-    this.dialog.open(GroupCreationDialogComponent); 
+  constructor(private sessionService: SessionService) {
   }
+
+
+  ngOnInit() {
+    this.sessionService.onLogOut();
+    this.sessionService.onTokenExpired();
+  }
+
 }
