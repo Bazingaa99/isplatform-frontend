@@ -92,9 +92,11 @@
                     [type]="hide ? 'password' : 'text'" 
 
                 />               
-                <mat-error *ngIf="this.passwordReg.value != this.passwordRepeatReg.value">
-                    Passwords must match
-                </mat-error>
+                <!-- <div  class="alert alert-danger"> -->
+                    <mat-error *ngIf="registrationForm.controls.passwordRepeatReg.errors?.isMatching === false">
+                        Passwords do not match
+                    </mat-error>  
+                <!-- </div> -->
             </mat-form-field>
             </div>
         </form>

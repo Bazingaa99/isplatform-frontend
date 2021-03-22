@@ -1,5 +1,5 @@
 import {Component, OnInit, HostListener} from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, ValidationErrors, Validators} from '@angular/forms';
 import {HttpErrorResponse} from '@angular/common/http';
 import {Registration} from '../shared/registration';
 import {UserService} from '../services/user.service';
@@ -8,6 +8,12 @@ import {CustomValidators} from '../services/custom-validators.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SuccessfulRegistrationComponent } from '../successful-registration/successful-registration.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ErrorStateMatcher } from '@angular/material/core';
+import { FormControl, FormGroupDirective, NgForm} from '@angular/forms';
+
+
+
+
 
 @Component({
   selector: 'app-registration',
@@ -22,6 +28,7 @@ export class RegistrationComponent implements OnInit {
   passwordNotMatch: boolean;
   submission: boolean;
   isLoading = false;
+
   hide=true;
   constructor(
     private fb: FormBuilder,
@@ -36,16 +43,18 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-  validatePasswords(): boolean {
-    if (this.passwordReg.value !== this.passwordRepeatReg.value &&
-      this.passwordRepeatReg.value !== '') {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
+  
+  public static matchValues(
+    matchTo: string // name of the control to match to
+  ): (AbstractControl) => ValidationErrors | null {
+    return (control: AbstractControl): ValidationErrors | null => {
+      return !!control.parent &&
+        !!control.parent.value &&
+        control.value === control.parent.controls[matchTo].value
+        ? null
+        : { isMatching: false };
+    };
+}
   onSubmit() {
     this.passwordNotMatch = false;
     this.submission = false;
@@ -120,11 +129,14 @@ export class RegistrationComponent implements OnInit {
       passwordRepeatReg: ['', [
         Validators.required,
         Validators.minLength(7),
-        Validators.maxLength(30)
+        Validators.maxLength(30),
+        RegistrationComponent.matchValues('passwordReg')
       ]],
+    
     });
   }
 
+  
   get passwordReg() {
     return this.registrationForm.get('passwordReg');
   }
