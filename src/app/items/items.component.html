@@ -24,11 +24,22 @@
   </div>
 </div>
 
-<mat-paginator class="item-paginator" [length]="this.items.length"
-                [pageSize]="12"
-                [pageSizeOptions]="[12]"
-                (page)="onPageChange($event)">
-</mat-paginator>
+<div *ngIf="pageSlice.length > 6">
+  <mat-paginator class="item-paginator" style="margin-top: 0.5rem;" [length]="this.items.length"
+    [pageSize]="12"
+    [pageSizeOptions]="[12]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+
+<div *ngIf="pageSlice.length < 7">
+  <mat-paginator class="item-paginator" style="margin-top: 22.5rem;" [length]="this.items.length"
+    [pageSize]="12"
+    [pageSizeOptions]="[12]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>
+
 
 
 
