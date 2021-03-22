@@ -22,6 +22,7 @@ export class ItemsComponent implements OnInit {
     let id = this.activatedRoute.snapshot.paramMap.get("id");
     this.pageSize = 12;
     this.getItems(id);
+    console.log(this.items);
   }
 
   public getItems(id: string): void {

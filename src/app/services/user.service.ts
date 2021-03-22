@@ -7,6 +7,7 @@ import {LoginInfo} from '../shared/login';
 import { environment } from 'src/environments/environment';
 import { Token } from '../shared/confirm-email-token';
 import { ConfirmEmailResponse } from '../shared/confirm-email-response';
+import { User } from '../shared/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -48,7 +49,10 @@ export class UserService {
       .pipe(catchError(this.errorHandler));
   }
 
+  getUserByEmail(email: String): Observable<User>{
+    return this.httpClient.get<User>( `${this.apiServerUrl}/isp/user/${email}`)
 
+    }
 
   private errorHandlerForTxt(error: HttpErrorResponse) {
     return throwError(error.status);
