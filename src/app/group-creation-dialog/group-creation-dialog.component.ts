@@ -57,8 +57,7 @@ export class GroupCreationDialogComponent {
 
     this.usersGroupService.createUsersGroups(this.usersGroup).subscribe(
       (response: UsersGroup) => {
-        this.usersGroupService.getUsersGroups();
-        //this.updateUsersGroupsService.sendUpdate();
+        this.updateUsersGroupsService.sendUpdate();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
