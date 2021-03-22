@@ -8,6 +8,7 @@ import { ItemCreationDialogComponent } from '../item-creation-dialog/item-creati
   styleUrls: ['./main-page.component.scss']
 })
 export class MainPageComponent implements OnInit {
+  showOutlet: boolean;
 
   constructor(public dialog: MatDialog) { }
 
@@ -17,5 +18,4 @@ export class MainPageComponent implements OnInit {
   openItemDialog(): void {
     this.dialog.open(ItemCreationDialogComponent);
   }
-
 }

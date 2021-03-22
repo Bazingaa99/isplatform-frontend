@@ -7,6 +7,7 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RoleGuardService } from './services/role-guard-service.service';
+import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
     },
     canActivate: [RoleGuardService],
     children: [
+      {
+        path:'', 
+        component: WelcomeContentComponent
+      },
       {
         path: ':id',
         component: ItemsComponent

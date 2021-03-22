@@ -22,7 +22,6 @@ import {RoleGuardService} from './services/role-guard-service.service';
 import { MainPageComponent } from './main-page/main-page.component';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
-import { ProfileSidebarComponent } from './profile-sidebar/profile-sidebar.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
@@ -37,6 +36,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import {  JwtHelperService } from '@auth0/angular-jwt';
 import { SuccessfulRegistrationComponent } from './successful-registration/successful-registration.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
+import {MatDividerModule} from '@angular/material/divider';
+import { WelcomeContentComponent } from './welcome-content/welcome-content.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,6 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
     MainPageComponent,
     FooterComponent,
     HeaderComponent,
-    ProfileSidebarComponent,
     ItemsComponent,
     ItemsComponent,
     ItemCreationDialogComponent,
@@ -54,7 +54,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
     LoginComponent,
     RegistrationComponent,
     ConfirmEmailComponent,
-    SuccessfulRegistrationComponent
+    SuccessfulRegistrationComponent,
+    WelcomeContentComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +78,8 @@ import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
     MatMenuModule,
     MatSelectModule,
     MatPaginatorModule,
-    MatProgressSpinnerModule
+    MatProgressSpinnerModule,
+    MatDividerModule
   ],
   exports: [ ItemsComponent ],
   providers: [,

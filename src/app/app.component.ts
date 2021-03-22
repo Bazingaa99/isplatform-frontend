@@ -8,8 +8,6 @@ import { SessionService } from './services/session.service';
 })
 
 export class AppComponent {
-  title = 'itemsharingplatformapp';
-
   constructor(private sessionService: SessionService) {
   }
 
