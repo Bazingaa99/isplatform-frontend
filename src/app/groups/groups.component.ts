@@ -5,6 +5,8 @@ import { UsersGroup } from '../shared/users-group';
 import { UsersGroupService } from '../services/users-group.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service'; 
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'groups',
@@ -15,8 +17,16 @@ export class GroupsComponent implements OnInit{
 
   public usersGroup: UsersGroup[];
   selectedUsersGroup: UsersGroup;
+  updateEventSubscription:Subscription;
 
-  constructor(private usersGroupService: UsersGroupService, public dialog: MatDialog, private router: Router){}
+  constructor(private usersGroupService: UsersGroupService, 
+              public dialog: MatDialog, 
+              private router: Router,
+              private updateUsersGroupsService: UpdateUsersGroupsService){
+                this.updateEventSubscription = this.updateUsersGroupsService.getUpdate().subscribe(()=>{
+                  this.getUsersGroups();
+                });
+              }
 
   ngOnInit() {
     this.getUsersGroups();

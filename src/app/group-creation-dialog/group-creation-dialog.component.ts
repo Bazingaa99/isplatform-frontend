@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user'
+import { UpdateUsersGroupsService } from '../services/update-users-group.service'; 
 
 @Component({
   selector: 'group-creation-dialog',
@@ -21,7 +22,8 @@ export class GroupCreationDialogComponent {
   constructor(private router: Router, private fb: FormBuilder, 
               private usersGroupService: UsersGroupService, 
               public dialog: MatDialogRef<GroupCreationDialogComponent>,
-              private userService: UserService) {
+              private userService: UserService,
+              private updateUsersGroupsService: UpdateUsersGroupsService) {
     this.userCreationForm = this.setForm();
    }  
    
@@ -56,6 +58,7 @@ export class GroupCreationDialogComponent {
     this.usersGroupService.createUsersGroups(this.usersGroup).subscribe(
       (response: UsersGroup) => {
         this.usersGroupService.getUsersGroups();
+        //this.updateUsersGroupsService.sendUpdate();
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
