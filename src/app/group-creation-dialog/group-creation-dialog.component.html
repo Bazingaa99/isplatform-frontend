@@ -10,8 +10,8 @@
       <textarea formControlName="description" id="description" matInput></textarea>
     </mat-form-field>
   </div>
-  <div mat-dialog-actions>
-    <button type="button" (click)="closeDialog()" mat-button>Cancel</button>
-    <button type="submit" [disabled]="userCreationForm.invalid" mat-button>Create</button>
+  <div id="group-creation-dialog-footer" mat-dialog-actions>
+    <button type="button" color="warn" (click)="closeDialog()" mat-stroked-button>Cancel</button>
+    <button type="submit" [disabled]="userCreationForm.invalid" mat-stroked-button>Create</button>
   </div>
 </form>
