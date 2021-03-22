@@ -43,7 +43,7 @@ export class RegistrationComponent implements OnInit {
   ngOnInit(): void {
 
   }
-  
+
   public static matchValues(
     matchTo: string // name of the control to match to
   ): (AbstractControl) => ValidationErrors | null {
@@ -132,11 +132,11 @@ export class RegistrationComponent implements OnInit {
         Validators.maxLength(30),
         RegistrationComponent.matchValues('passwordReg')
       ]],
-    
+
     });
   }
 
-  
+
   get passwordReg() {
     return this.registrationForm.get('passwordReg');
   }

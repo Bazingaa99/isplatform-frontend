@@ -12,8 +12,6 @@
     justify-content: center;
     align-items: center;
     color: #1976d2;
-    animation: fadeIn 0.5s linear;
-    animation-fill-mode: both;
 }
 
 .selected{
@@ -28,24 +26,4 @@
 svg.material-icons{
     margin-right: 8px;
     fill: #888;
-}
-
-$total-items: 2000;
-
-@for $i from 1 through $total-items {
-  .card:nth-child(#{$i}) {
-    animation-delay: .20s * $i;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
 }

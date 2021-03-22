@@ -10,10 +10,6 @@
   flex-direction: column;
 }
 
-.mat-grid-tile{
-  //background-color: lightblue;
-}
-
 .item-paginator{
   margin-right: 8px;
   background-color: blanchedalmond;
@@ -90,10 +86,6 @@
 
 }
 
-.btn-sm{
-  padding: 0.25rem;
-}
-
 .item-title{
   overflow-wrap: break-word;
 }
@@ -102,12 +94,3 @@
   display: grid;
   grid-template-columns: 16.5% 16.5% 16.5% 16.5% 16.5% 16.5%;
 }
-
-.mat-grid-list{
-  background-color:transparent;
-}
-
-// .item-paginator{
-//   position: absolute;
-//   bottom: 0;
-// }

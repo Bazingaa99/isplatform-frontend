@@ -6,7 +6,7 @@ import { Category } from '../shared/category';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user'
 
@@ -21,12 +21,12 @@ export class ItemCreationDialogComponent implements OnInit {
               private categoryService: CategoryService,
               private itemService: ItemService,
               private router: Router,
-              private route: ActivatedRoute,
               private userService: UserService) { }
 
   public categories: Category[];
   public item: Item;
   public userId: number;
+  public groupId: number;
 
   public addItemForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*')]),
@@ -38,14 +38,12 @@ export class ItemCreationDialogComponent implements OnInit {
   get name(){return this.addItemForm.get('name')}
   get description(){return this.addItemForm.get('description')}
   get category(){return this.addItemForm.get('category')}
-
-  // duration geriau padaryti data nuo kada iki kada
   get duration(){return this.addItemForm.get('duration')}
-
 
   ngOnInit(): void {
     this.getCategories();
     this.getUserId();
+    this.groupId = Number(this.router.url.slice(12, this.router.url.length));
   }
 
   onCancel(): void {
@@ -55,7 +53,7 @@ export class ItemCreationDialogComponent implements OnInit {
   public onSubmit(): void {
     if (this.addItemForm.valid){
       this.item = {
-        group: Number(this.router.url.slice(12, this.router.url.length)),
+        group: this.groupId,
         owner: this.userId, //have to get current user
         category: this.addItemForm.get('category').value,
         name: this.addItemForm.get('name').value,
@@ -65,7 +63,9 @@ export class ItemCreationDialogComponent implements OnInit {
 
       this.itemService.addItem(this.item).subscribe(
         (response: Item) => {
+          this.dialogRef.close();
           console.log(response);
+          window.location.reload();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);
