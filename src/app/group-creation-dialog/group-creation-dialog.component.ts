@@ -5,6 +5,8 @@ import { UsersGroupService } from '../services/users-group.service';
 import { UsersGroup } from '../shared/users-group';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { User } from '../shared/user'
 
 @Component({
   selector: 'group-creation-dialog',
@@ -14,10 +16,29 @@ import { Router } from '@angular/router';
 export class GroupCreationDialogComponent {
   userCreationForm: FormGroup;
   usersGroup: UsersGroup;
+  public userId: number;
 
-  constructor(private router: Router, private fb: FormBuilder, private usersGroupService: UsersGroupService, public dialog: MatDialogRef<GroupCreationDialogComponent>) {
+  constructor(private router: Router, private fb: FormBuilder, 
+              private usersGroupService: UsersGroupService, 
+              public dialog: MatDialogRef<GroupCreationDialogComponent>,
+              private userService: UserService) {
     this.userCreationForm = this.setForm();
-   }
+   }  
+   
+  ngOnInit(): void {
+    this.getUserId();
+  }
+
+  public getUserId(): void {
+    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
+      (response: User) => {
+        this.userId = response.id;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
+  }
 
   closeDialog(): void {
     this.dialog.close(GroupCreationDialogComponent);
@@ -27,7 +48,7 @@ export class GroupCreationDialogComponent {
     this.closeDialog();
 
     this.usersGroup = {
-      admin_id: 1, // userio id
+      admin_id: this.userId,
       name: this.userCreationForm.get('name').value,
       description: this.userCreationForm.get('description').value,
     }

@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
         this.serverErrorMessage = '';
         this.closeDialog('login');
         if (localStorage.getItem('roles').includes('USER')) {
-          this.router.navigate(['usersgroup/1']);
+          this.router.navigate(['usersgroup']);
         }
       },
 
