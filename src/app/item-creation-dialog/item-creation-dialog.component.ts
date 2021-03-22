@@ -7,6 +7,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
 import { Router, ActivatedRoute } from '@angular/router';
+import { UserService } from '../services/user.service';
+import { User } from '../shared/user'
 
 @Component({
   selector: 'app-item-creation-dialog',
@@ -19,10 +21,12 @@ export class ItemCreationDialogComponent implements OnInit {
               private categoryService: CategoryService,
               private itemService: ItemService,
               private router: Router,
-              private route: ActivatedRoute) { }
+              private route: ActivatedRoute,
+              private userService: UserService) { }
 
   public categories: Category[];
   public item: Item;
+  public userId: number;
 
   public addItemForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*')]),
@@ -41,7 +45,7 @@ export class ItemCreationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
-    console.log(localStorage.getItem('email'))
+    this.getUserId();
   }
 
   onCancel(): void {
@@ -50,10 +54,9 @@ export class ItemCreationDialogComponent implements OnInit {
 
   public onSubmit(): void {
     if (this.addItemForm.valid){
-      console.log(this.addItemForm.value)
       this.item = {
         group: Number(this.router.url.slice(12, this.router.url.length)),
-        owner: 1, //have to get current user
+        owner: this.userId, //have to get current user
         category: this.addItemForm.get('category').value,
         name: this.addItemForm.get('name').value,
         description: this.addItemForm.get('description').value,
@@ -69,6 +72,17 @@ export class ItemCreationDialogComponent implements OnInit {
         }
       )
     }
+  }
+
+  public getUserId(): void {
+    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
+      (response: User) => {
+        this.userId = response.id;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    )
   }
 
   public getCategories(): void {
