@@ -11,19 +11,20 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 export class MainPageComponent implements OnInit {
   showOutlet: boolean;
+  groupId: string;
 
   constructor(public dialog: MatDialog,
               public router: Router,
               public snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
-
+    this.groupId =  this.router.url.slice(12, this.router.url.length);
   }
 
 
 
   openItemDialog(): void {
-    if(Number(this.router.url.slice(12, this.router.url.length)) === 0){
+    if(this.groupId === ""){
       this.snackBar.open("Please select a group before adding an item","✓",{
         duration: 400000000000000,
         panelClass: ['orange-snackbar']

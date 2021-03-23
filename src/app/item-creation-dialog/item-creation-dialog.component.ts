@@ -9,6 +9,7 @@ import { Item } from '../shared/item';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user'
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 
 @Component({
   selector: 'app-item-creation-dialog',
@@ -21,7 +22,8 @@ export class ItemCreationDialogComponent implements OnInit {
               private categoryService: CategoryService,
               private itemService: ItemService,
               private router: Router,
-              private userService: UserService) { }
+              private userService: UserService,
+              private updateService: UpdateUsersGroupsService) { }
 
   public categories: Category[];
   public item: Item;
@@ -51,6 +53,7 @@ export class ItemCreationDialogComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    this.dialogRef.close();
     if (this.addItemForm.valid){
       this.item = {
         group: this.groupId,
@@ -63,9 +66,9 @@ export class ItemCreationDialogComponent implements OnInit {
 
       this.itemService.addItem(this.item).subscribe(
         (response: Item) => {
-          this.dialogRef.close();
+
           console.log(response);
-          window.location.reload();
+          this.updateService.sendUpdate();
         },
         (error: HttpErrorResponse) => {
           alert(error.message);

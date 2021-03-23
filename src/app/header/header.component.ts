@@ -63,6 +63,13 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('email', '');
   }
 
+  onSelect(){
+    this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
+      this.router.navigate(['/usersgroup']);
+    });
+  }
+
+
   openDialog() {
     this.dialog.open(RegistrationComponent);
   }

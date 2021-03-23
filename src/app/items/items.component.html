@@ -24,8 +24,10 @@
   </div>
 </div>
 
-  <mat-paginator class="item-paginator" style="margin-top: 0.5rem;" [length]="this.items.length"
+  <mat-paginator class="item-paginator" style="margin-top: 0.5rem;" [length]="this.itemsLength"
     [pageSize]="12"
     [pageSizeOptions]="[12]"
     (page)="onPageChange($event)">
   </mat-paginator>
+
+
