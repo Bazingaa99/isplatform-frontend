@@ -27,7 +27,7 @@ const routes: Routes = [
     canActivate: [RoleGuardService],
     children: [
       {
-        path:'', 
+        path:'',
         component: WelcomeContentComponent
       },
       {

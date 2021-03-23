@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
 import { PageEvent } from '@angular/material/paginator';
@@ -15,13 +15,14 @@ export class ItemsComponent implements OnInit {
   public items: Item[];
   public pageSize: number;
   public pageSlice;
+  public groupId: string;
 
-  constructor(private activatedRoute: ActivatedRoute, private itemService: ItemService) {}
+  constructor(private activatedRoute: ActivatedRoute, private itemService: ItemService, private router: Router) {}
 
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.paramMap.get("id");
+    this.groupId = this.router.url.slice(12, this.router.url.length);
     this.pageSize = 12;
-    this.getItems(id);
+    this.getItems(this.groupId);
   }
 
   public getItems(id: string): void {

@@ -73,9 +73,9 @@
               </div>
             </div>
         </mat-form-field>
-        <div class="text-center">
-          <button mat-button color="warn" (click)="onCancel()">Cancel</button>
-          <button mat-button [disabled]="addItemForm.invalid" type="submit">Add item</button>
+        <div class="dialog-footer">
+          <button mat-stroked-button class="footer-btn" color="warn" (click)="onCancel()">Cancel</button>
+          <button mat-stroked-button class="footer-btn" [disabled]="addItemForm.invalid" type="submit">Add item</button>
         </div>
       </div>
 </form>

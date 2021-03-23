@@ -19,9 +19,6 @@ export class MainPageComponent implements OnInit {
   ngOnInit(): void {
 
   }
-
-
-
   openItemDialog(): void {
     if(Number(this.router.url.slice(12, this.router.url.length)) === 0){
       this.snackBar.open("Please select a group before adding an item","✓",{
