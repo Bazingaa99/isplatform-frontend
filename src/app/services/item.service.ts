@@ -13,11 +13,11 @@ export class ItemService {
     constructor(private http: HttpClient) { }
 
     public getItems(id: string): Observable<Item[]>{
-        return this.http.get<Item[]>( `${this.apiServerUrl}/isp/find/group/items/${id}`)
+        return this.http.get<Item[]>( `${this.apiServerUrl}/isp/items/find/group/${id}`)
     }
 
     public addItem(item: Item): Observable<Item>{
-      return this.http.post<Item>(this.apiServerUrl + '/isp/add/item', item);
+      return this.http.post<Item>(this.apiServerUrl + '/isp/items/add/', item);
     }
 
     // public updateItem(item: Item): Observable<Item>{
