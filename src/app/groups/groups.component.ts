@@ -1,6 +1,4 @@
 import { Component, OnInit} from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
-import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component';
 import { UsersGroup } from '../shared/users-group';
 import { UsersGroupService } from '../services/users-group.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -16,11 +14,9 @@ import { Subscription } from 'rxjs';
 export class GroupsComponent implements OnInit{
 
   public usersGroup: UsersGroup[];
-  selectedUsersGroup: UsersGroup;
   updateEventSubscription:Subscription;
 
-  constructor(private usersGroupService: UsersGroupService, 
-              public dialog: MatDialog, 
+  constructor(private usersGroupService: UsersGroupService,
               private router: Router,
               private updateUsersGroupsService: UpdateUsersGroupsService){
                 this.updateEventSubscription = this.updateUsersGroupsService.getUpdate().subscribe(()=>{
@@ -32,7 +28,7 @@ export class GroupsComponent implements OnInit{
     this.getUsersGroups();
   }
 
-  public getUsersGroups(): void {
+  getUsersGroups(): void {
     this.usersGroupService.getUsersGroups().subscribe(
       (response: UsersGroup[]) => {
         this.usersGroup = response;
@@ -48,11 +44,5 @@ export class GroupsComponent implements OnInit{
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/usersgroup', usersGroup.id]);
     });
-
-    this.selectedUsersGroup=usersGroup;
-  }
-
-  openDialog(): void {
-    this.dialog.open(GroupCreationDialogComponent);
   }
 }

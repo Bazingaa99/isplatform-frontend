@@ -19,7 +19,7 @@ export class SessionService {
           if (!isNotNullOrUndefined(token)) {
             // Perform logout
             //Navigate to home
-            this.router.navigate(['home']);
+            this.router.navigate(['']);
           }
         }
       }
@@ -34,7 +34,7 @@ export class SessionService {
           localStorage.removeItem('token');
           localStorage.removeItem('email');
           localStorage.removeItem('roles');
-          this.router.navigate(['home']);
+          this.router.navigate(['']);
         }
       }
     }, 60 * 100);

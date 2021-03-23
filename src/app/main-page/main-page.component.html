@@ -2,16 +2,23 @@
 <div id="body">
     <!-- Left Sidebar -->
     <div id="left-sidebar">
-      <div id="card-container">
+      <div id="creation-buttons">
         <div (click)="openItemDialog()" class="card">
           <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
           <span>Add a new item</span>
         </div>
+        <div (click)="openGroupDialog()" class="card">
+          <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+          <span>Create a new group</span>
+        </div>
       </div>
+      
       <!-- Groups -->
       <groups></groups>
+      <img src="https://icons-for-free.com/iconfiles/png/512/keyboard+arrow+down+24px-131985225788660182.png" id="icon"/>
+      <img src="https://icons-for-free.com/iconfiles/png/512/keyboard+arrow+down+24px-131985225788660182.png" id="icon"/>
+      
     </div>
-
     <div id="content">
       <router-outlet></router-outlet>
     </div>
