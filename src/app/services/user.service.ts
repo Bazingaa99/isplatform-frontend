@@ -35,20 +35,6 @@ export class UserService {
       .pipe(catchError(this.errorHandler));
   }
 
-  sendEmail(email: string): Observable<any> {
-
-    const formData: FormData = new FormData();
-    formData.append('email', email);
-
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'multipart/form-data');
-    headers.append('Accept', 'application/json');
-
-    return this.httpClient
-      .post <LoginInfo>(environment.apiBaseUrl + `api/user/reset-password`, formData, {headers})
-      .pipe(catchError(this.errorHandler));
-  }
-
   getUserByEmail(email: String): Observable<User>{
     return this.httpClient.get<User>( `${this.apiServerUrl}/isp/user/${email}`)
     }
