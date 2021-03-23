@@ -1,29 +1,14 @@
 #header {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: inline-flex;
-    align-items: center;
-    background-color: #889097;
     color: white;
 }
 
 .loginbutton{
   margin-right: 20px;
+  cursor: pointer;
 }
+
 #header img {
   margin: 0 16px;
-}
-
-#header #twitter-logo {
-  height: 40px;
-  margin: 0 16px;
-}
-
-#header #twitter-logo:hover {
-  opacity: 0.8;
 }
 
 .spacer {
@@ -42,6 +27,11 @@
     outline: none;
 }
 
+#profile-image {
+  filter: brightness(600%) contrast(600%);
+  cursor: pointer;
+}
+
 #header span {
     position: absolute;
     top: 0;
@@ -50,16 +40,12 @@
     align-items: center;
 }
 
-#header img {
-    margin: 0 16px;
-}
-
 #header #profile-button {
     height: 40px;
     margin: 0 16px;
 }
 
-#header #profile-button:hover {
+#header #profile-image:hover {
     opacity: 0.8;
 }
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component';
 import { ItemCreationDialogComponent } from '../item-creation-dialog/item-creation-dialog.component';
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
@@ -34,4 +35,10 @@ export class MainPageComponent implements OnInit {
     }
     this.dialog.open(ItemCreationDialogComponent);
   }
+
+  openGroupDialog(): void {
+    this.dialog.open(GroupCreationDialogComponent);
+  }
+
+
 }

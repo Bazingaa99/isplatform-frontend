@@ -51,7 +51,6 @@ export class UserService {
 
   getUserByEmail(email: String): Observable<User>{
     return this.httpClient.get<User>( `${this.apiServerUrl}/isp/user/${email}`)
-
     }
 
   private errorHandlerForTxt(error: HttpErrorResponse) {

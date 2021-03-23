@@ -14,15 +14,6 @@
     color: #1976d2;
 }
 
-.selected{
-    border: 1px solid #889097;
-}
-
-#card-container .card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-}
-
 svg.material-icons{
     margin-right: 8px;
     fill: #888;

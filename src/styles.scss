@@ -14,7 +14,7 @@
 // (imported above). For each palette, you can optionally specify a default, lighter, and darker
 // hue. Available color palettes: https://material.io/design/color/
 $itemsharingplatformapp-primary: mat-palette($mat-indigo);
-$itemsharingplatformapp-accent: mat-palette($mat-pink, A200, A100, A400);
+$itemsharingplatformapp-accent: mat-palette($mat-amber, A200, A100, A400);
 
 // The warn palette is optional (defaults to red).
 $itemsharingplatformapp-warn: mat-palette($mat-red);
@@ -76,4 +76,12 @@ html, body, app-root {
 body {
   overflow: hidden;
   margin:0;
+}
+
+mat-card.card-primary {
+  background-color: #3F51B5;
+}
+
+.mat-paginator-icon {
+  fill: white !important;
 }

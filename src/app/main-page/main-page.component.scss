@@ -9,6 +9,51 @@
 #left-sidebar {
     margin-left: 8px;
     margin-right: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    position: relative;
+    align-items:center;
+}
+
+groups{
+  height: 100%;
+  overflow: auto;
+}
+
+::-webkit-scrollbar {
+  width: 0;  /* Remove scrollbar space */
+  background: transparent;  /* make scrollbar invisible */
+}
+
+/* show position indicator in red */
+::-webkit-scrollbar-thumb {
+  background: #FF0000;
+}
+
+img {
+  bottom: 0;
+  margin-bottom: -35px;
+  height:70px;
+  position:absolute;
+  width:auto;
+  animation: flash 5s linear infinite;
+}
+
+img:last-child {
+  margin-bottom: -20px;
+}
+
+@keyframes flash { 
+  100% {
+    opacity: 0.5;
+  } 
+  50% {
+    opacity: 0.2;
+  }
+  0% {
+    opacity: 0.5;
+  }
 }
 
 #content {
@@ -37,7 +82,7 @@
   color: #1976d2;
 }
 
-#card-container .card:hover{
+::ng-deep #left-sidebar .card:hover{
   transform: translateY(-3px);
   box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
 }
