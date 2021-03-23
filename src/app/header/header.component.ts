@@ -63,7 +63,7 @@ export class HeaderComponent implements OnInit {
     localStorage.setItem('email', '');
   }
 
-  onSelect(){
+  onClick(){
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/usersgroup']);
     });

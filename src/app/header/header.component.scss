@@ -1,22 +1,17 @@
-#header {
-    color: white;
-}
-
-.loginbutton{
-  margin-right: 20px;
-  cursor: pointer;
-}
-
-#header img {
-  margin: 0 16px;
-}
-
-.spacer {
-  flex: 1;
-}
-
 #logo-div{
-    cursor: pointer;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  margin-top: 10px;
+}
+
+#header span {
+  position: absolute;
+  top: 0;
+  margin-left: 60px;
+  height: 60px;
+  display: inline-flex;
+  align-items: center;
 }
 
 #logo-div:hover{
@@ -27,28 +22,20 @@
     outline: none;
 }
 
+.spacer {
+  flex: 1;
+}
+
+.loginbutton{
+  margin-right: 20px;
+  cursor: pointer;
+}
+
 #profile-image {
   filter: brightness(600%) contrast(600%);
   cursor: pointer;
 }
 
-#header span {
-    position: absolute;
-    top: 0;
-    height: 60px;
-    display: inline-flex;
-    align-items: center;
-}
-
-#header #profile-button {
-    height: 40px;
-    margin: 0 16px;
-}
-
 #header #profile-image:hover {
     opacity: 0.8;
-}
-
-#spacer {
-    flex: 1;
 }
