@@ -48,7 +48,7 @@ export class GroupCreationDialogComponent {
 
   onSubmit(): void {
     this.closeDialog();
-
+    console.log(this.userId);
     this.usersGroup = {
       admin_id: this.userId,
       name: this.userCreationForm.get('name').value,

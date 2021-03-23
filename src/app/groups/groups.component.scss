@@ -1,8 +1,5 @@
-.card {
-    cursor: pointer;
-    border-radius: 4px;
+mat-card {
     border: 1px solid #eee;
-    background-color: #fafafa;
     height: 40px;
     width: 200px;
     margin-bottom: 8px;
@@ -16,9 +13,8 @@
     animation-fill-mode: both;
 }
 
-svg.material-icons{
-    margin-right: 8px;
-    fill: #888;
+mat-card {
+  cursor: pointer;
 }
 
 $total-items: 2000;
