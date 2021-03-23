@@ -1,3 +1,3 @@
-<mat-card (click)="onSelect(usersGroup)" *ngFor="let usersGroup of usersGroup">
+<mat-card id="group{{ usersGroup.id }}" (click)="onSelect(usersGroup)"  [ngClass]="{'card': true, 'selected': usersGroup.id === selectedId}" *ngFor="let usersGroup of usersGroup">
   {{usersGroup?.name}}
 </mat-card>

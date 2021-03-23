@@ -1,7 +1,7 @@
 <div class="item-container">
   <div class="grid-item" *ngFor="let item of pageSlice">
       <div class="card">
-        <img class="card-image" src="https://i.imgur.com/SGlPucc.png" alt="Photo of Lebron">
+        <img class="card-image" src="https://i.imgur.com/3m7URcq.png" alt="Item image" width="250" height="200">
         <div class="card-container">
           <div class="card-header">
             <div class="item-title">
@@ -17,26 +17,17 @@
             <button class="btn">Show more</button>
           </div>
           <div class="card-footer">
-            <span>Times viewed: {{ item.viewCount }}</span>
+            <span>views: {{ item.viewCount }}</span>
           </div>
         </div>
       </div>
   </div>
 </div>
 
-<mat-paginator class="item-paginator" [length]="this.items.length"
-                [pageSize]="12"
-                [pageSizeOptions]="[12]"
-                (page)="onPageChange($event)">
-</mat-paginator>
+  <mat-paginator class="item-paginator" style="margin-top: 0.5rem;" [length]="this.itemsLength"
+    [pageSize]="12"
+    [pageSizeOptions]="[12]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
 
 
-
-
-<!-- <mat-grid-list cols="6" rowHeight="1.05:1.5">
-  <mat-grid-tile *ngFor="let item of items">
-    <mat-card class="card-container">
-
-    </mat-card>
-  </mat-grid-tile>
-</mat-grid-list> -->

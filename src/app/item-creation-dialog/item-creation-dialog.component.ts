@@ -6,9 +6,11 @@ import { Category } from '../shared/category';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user'
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-item-creation-dialog',
@@ -21,31 +23,31 @@ export class ItemCreationDialogComponent implements OnInit {
               private categoryService: CategoryService,
               private itemService: ItemService,
               private router: Router,
-              private route: ActivatedRoute,
-              private userService: UserService) { }
+              private userService: UserService,
+              private updateService: UpdateUsersGroupsService,
+              private snackBar: MatSnackBar) { }
 
   public categories: Category[];
   public item: Item;
   public userId: number;
+  public groupId: number;
 
   public addItemForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*')]),
     description: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
     category: new FormControl('', [Validators.required]),
-    duration: new FormControl('', [Validators.required, Validators.max(180)])
+    duration: new FormControl('', [Validators.required, Validators.max(180), Validators.min(1)])
   })
 
   get name(){return this.addItemForm.get('name')}
   get description(){return this.addItemForm.get('description')}
   get category(){return this.addItemForm.get('category')}
-
-  // duration geriau padaryti data nuo kada iki kada
   get duration(){return this.addItemForm.get('duration')}
-
 
   ngOnInit(): void {
     this.getCategories();
     this.getUserId();
+    this.groupId = Number(this.router.url.slice(12, this.router.url.length));
   }
 
   onCancel(): void {
@@ -53,9 +55,10 @@ export class ItemCreationDialogComponent implements OnInit {
   }
 
   public onSubmit(): void {
+    this.dialogRef.close();
     if (this.addItemForm.valid){
       this.item = {
-        group: Number(this.router.url.slice(12, this.router.url.length)),
+        group: this.groupId,
         owner: this.userId, //have to get current user
         category: this.addItemForm.get('category').value,
         name: this.addItemForm.get('name').value,
@@ -65,10 +68,17 @@ export class ItemCreationDialogComponent implements OnInit {
 
       this.itemService.addItem(this.item).subscribe(
         (response: Item) => {
-          console.log(response);
+          this.updateService.sendUpdate();
+          this.snackBar.open("Item successfuly added","✓",{
+            duration: 400000000000000,
+            panelClass: ['green-snackbar']
+          })
         },
         (error: HttpErrorResponse) => {
-          alert(error.message);
+          this.snackBar.open("Couldn't add item. Please try again.","✓",{
+            duration: 400000000000000,
+            panelClass: ['red-snackbar']
+          })
         }
       )
     }

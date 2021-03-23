@@ -1,9 +1,11 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, NgModule, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
 import { PageEvent } from '@angular/material/paginator';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'items',
@@ -13,24 +15,34 @@ import { PageEvent } from '@angular/material/paginator';
 
 export class ItemsComponent implements OnInit {
   public items: Item[];
+  public itemsLength: number;
   public pageSize: number;
   public pageSlice;
+  public groupId: string;
+  public updateEventSubscription: Subscription;
 
-  constructor(private router: Router, private activatedRoute: ActivatedRoute, private itemService: ItemService) {}
+  constructor(private activatedRoute: ActivatedRoute,
+              private itemService: ItemService,
+              private router: Router,
+              private updateService: UpdateUsersGroupsService) {
+                this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
+                  this.getItems();
+                });
+              }
 
   ngOnInit(): void {
-    let id = this.activatedRoute.snapshot.paramMap.get("id");
     this.pageSize = 12;
-    this.getItems(id);
-    console.log(this.items);
+    this.itemsLength = 0;
+    this.getItems();
   }
 
-  public getItems(id: string): void {
-    this.itemService.getItems(id).subscribe(
+  public getItems(): void {
+    this.groupId = this.router.url.slice(12, this.router.url.length);
+    this.itemService.getItems(this.groupId).subscribe(
       (response: Item[]) => {
         this.items = response;
+        this.itemsLength = this.items.length;
         this.pageSlice = this.items.slice(0, this.pageSize);
-        console.log(this.pageSlice, this.pageSize);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

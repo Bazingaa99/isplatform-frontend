@@ -9,30 +9,14 @@ mat-card {
     justify-content: center;
     align-items: center;
     color: #1976d2;
-    animation: fadeIn 0.5s linear;
-    animation-fill-mode: both;
+}
+
+.card.selected{
+  background-color: #ff9900;
+  color: black;
+  font-weight: bold;
 }
 
 mat-card {
   cursor: pointer;
-}
-
-$total-items: 2000;
-
-@for $i from 1 through $total-items {
-  .card:nth-child(#{$i}) {
-    animation-delay: .20s * $i;
-  }
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-  }
-  75% {
-    opacity: 0.5;
-  }
-  100% {
-    opacity: 1;
-  }
 }

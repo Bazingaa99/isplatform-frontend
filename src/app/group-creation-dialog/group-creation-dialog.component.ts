@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user'
 import { UpdateUsersGroupsService } from '../services/update-users-group.service'; 
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'group-creation-dialog',
@@ -23,6 +24,7 @@ export class GroupCreationDialogComponent {
               private usersGroupService: UsersGroupService, 
               public dialog: MatDialogRef<GroupCreationDialogComponent>,
               private userService: UserService,
+              private snackBar: MatSnackBar,
               private updateUsersGroupsService: UpdateUsersGroupsService) {
     this.userCreationForm = this.setForm();
    }  
@@ -58,9 +60,16 @@ export class GroupCreationDialogComponent {
     this.usersGroupService.createUsersGroups(this.usersGroup).subscribe(
       (response: UsersGroup) => {
         this.updateUsersGroupsService.sendUpdate();
+        this.snackBar.open("Group successfuly created","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
       },
       (error: HttpErrorResponse) => {
-        alert(error.message);
+        this.snackBar.open("Couldn't add item. Please try again.","✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
       }
     );
   }

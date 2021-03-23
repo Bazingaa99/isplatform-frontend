@@ -15,11 +15,18 @@
       
       <!-- Groups -->
       <groups></groups>
-      <img src="https://icons-for-free.com/iconfiles/png/512/keyboard+arrow+down+24px-131985225788660182.png" id="icon"/>
-      <img src="https://icons-for-free.com/iconfiles/png/512/keyboard+arrow+down+24px-131985225788660182.png" id="icon"/>
-      
+      <div *ngIf="this.showArrows">
+        <img src="https://icons-for-free.com/iconfiles/png/512/keyboard+arrow+down+24px-131985225788660182.png" id="icon"/>
+        <img src="https://icons-for-free.com/iconfiles/png/512/keyboard+arrow+down+24px-131985225788660182.png" id="icon"/>  
+      </div>
     </div>
+
     <div id="content">
-      <router-outlet></router-outlet>
+      <ng-template [ngIf]="this.groupId === ''">
+        <welcome-content></welcome-content>
+      </ng-template>
+      <ng-template [ngIf]="this.groupId !== ''">
+        <items></items>
+      </ng-template>
     </div>
 </div>

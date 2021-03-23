@@ -24,8 +24,15 @@
   color: red;
 }
 
-.text-center{
-  text-align: center;
+.dialog-footer{
+  display: flex;
+  justify-content: space-between;
+  padding-left: 4rem;
+  padding-right: 4rem;
+}
+
+.footer-btn{
+  display: flex;
 }
 
 .m-2{

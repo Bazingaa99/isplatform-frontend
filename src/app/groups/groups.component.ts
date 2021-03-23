@@ -3,7 +3,7 @@ import { UsersGroup } from '../shared/users-group';
 import { UsersGroupService } from '../services/users-group.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { UpdateUsersGroupsService } from '../services/update-users-group.service'; 
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
 import { User } from '../shared/user';
 import { UserService } from '../services/user.service';
@@ -18,22 +18,20 @@ export class GroupsComponent{
   public userId: number;
   public usersGroup: UsersGroup[];
   updateEventSubscription:Subscription;
+  public selectedId: number;
 
   constructor(private usersGroupService: UsersGroupService,
               private router: Router,
               private userService: UserService,
-              private updateUsersGroupsService: UpdateUsersGroupsService){/*
+              private updateUsersGroupsService: UpdateUsersGroupsService){
                 this.updateEventSubscription = this.updateUsersGroupsService.getUpdate().subscribe(()=>{
                   this.getUserId();
-                  this.getUserGroups(this.userId);
                 });
-                */
               }
 
   ngOnInit(): void{
     this.getUserId();
-    //this.getUserGroups();
-    console.log("2" + this.userId);
+    this.selectedId = Number(this.router.url.slice(12, this.router.url.length))
   }
 
   public getUserId(): void {
@@ -61,7 +59,6 @@ export class GroupsComponent{
   }
 
   onSelect(usersGroup){
-    // this.router.navigateByUrl(['/usersgroup', usersGroup.id], );
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
      this.router.navigate(['/usersgroup', usersGroup.id]);
     });

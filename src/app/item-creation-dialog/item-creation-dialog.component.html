@@ -1,10 +1,9 @@
 <h1 class="text-center">
-  Add item to ->Group name <-
+  Add item
 </h1>
 <mat-dialog-content>
   <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <form [formGroup]="addItemForm">
-
+    <form [formGroup]="addItemForm" (ngSubmit)="onSubmit()">
       <div class="form-control">
         <mat-form-field appearance="fill" class="fill-parent-width">
           <mat-label color="primary" for="name">Title</mat-label>
@@ -61,6 +60,7 @@
         <mat-form-field appearance="fill" class="fill-parent-width">
           <mat-label color="primary" for="duration">Amount of days you can lend the item</mat-label>
             <input
+              min="1"
               matInput
               type="number"
               formControlName="duration"/>
@@ -71,11 +71,14 @@
               <div *ngIf="duration.errors.max">
                 <span class="alert">You can lend the item for a maximum of 180 days</span>
               </div>
+              <div *ngIf="duration.errors.min">
+                <span class="alert">You have to lend the item for at least 1 day</span>
+              </div>
             </div>
         </mat-form-field>
-        <div class="text-center">
-          <button mat-button class="" color="warn" (click)="onCancel()">Cancel</button>
-          <button mat-button [disabled]="addItemForm.invalid" class="" color="primary" (click)="onSubmit()">Add item</button>
+        <div class="dialog-footer">
+          <button mat-stroked-button class="btn-footer" color="warn" (click)="onCancel()">Cancel</button>
+          <button mat-stroked-button class="btn-footer" [disabled]="addItemForm.invalid" type="submit">Add item</button>
         </div>
       </div>
 </form>
