@@ -3,7 +3,7 @@ import { UsersGroup } from '../shared/users-group';
 import { UsersGroupService } from '../services/users-group.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { UpdateUsersGroupsService } from '../services/update-users-group.service'; 
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -15,6 +15,7 @@ export class GroupsComponent implements OnInit{
 
   public usersGroup: UsersGroup[];
   updateEventSubscription:Subscription;
+  public selectedId: number;
 
   constructor(private usersGroupService: UsersGroupService,
               private router: Router,
@@ -26,6 +27,7 @@ export class GroupsComponent implements OnInit{
 
   ngOnInit() {
     this.getUsersGroups();
+    this.selectedId = Number(this.router.url.slice(12, this.router.url.length))
   }
 
   getUsersGroups(): void {
@@ -40,7 +42,6 @@ export class GroupsComponent implements OnInit{
   }
 
   onSelect(usersGroup){
-    // this.router.navigateByUrl(['/usersgroup', usersGroup.id], );
     this.router.navigateByUrl('/RefreshComponent', { skipLocationChange: true }).then(() => {
       this.router.navigate(['/usersgroup', usersGroup.id]);
     });
