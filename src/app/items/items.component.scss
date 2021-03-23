@@ -12,9 +12,7 @@
 
 .item-paginator{
   margin-right: 8px;
-  margin-top: 0.5rem;
-  background-color: #3F51B5;
-  color: white;
+  background-color: blanchedalmond;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   border-radius: 5px;
   position: absolute;
@@ -32,6 +30,9 @@
   max-height:100%;
   border-top-left-radius: 5px;
   border-top-right-radius: 5px;
+  margin: auto;
+  display: block;
+  margin-top: 0.3rem;
 }
 
 .card-header{
