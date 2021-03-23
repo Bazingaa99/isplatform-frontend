@@ -36,7 +36,7 @@ export class ItemCreationDialogComponent implements OnInit {
     name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*')]),
     description: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
     category: new FormControl('', [Validators.required]),
-    duration: new FormControl('', [Validators.required, Validators.max(180)])
+    duration: new FormControl('', [Validators.required, Validators.max(180), Validators.min(1)])
   })
 
   get name(){return this.addItemForm.get('name')}
