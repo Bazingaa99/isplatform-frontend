@@ -19,6 +19,7 @@ export class GroupsComponent{
   public usersGroup: UsersGroup[];
   updateEventSubscription:Subscription;
   public selectedId: number;
+  showArrows: boolean;
 
   constructor(private usersGroupService: UsersGroupService,
               private router: Router,
@@ -50,7 +51,7 @@ export class GroupsComponent{
     this.usersGroupService.getUserGroups(id.toString()).subscribe(
       (response: UsersGroup[]) => {
         this.usersGroup = response;
-        console.log(response);
+        this.usersGroupService.groupsLength = response.length;
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

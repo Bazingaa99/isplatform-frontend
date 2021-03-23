@@ -7,6 +7,7 @@ import { UsersGroup } from '../shared/users-group';
 @Injectable({providedIn: 'root'})
 export class UsersGroupService {
     private apiServerUrl = environment.apiBaseUrl;
+    public groupsLength: number;
 
     constructor(private http: HttpClient) { }
 
