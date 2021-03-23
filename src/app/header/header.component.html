@@ -14,10 +14,10 @@
     <div class="spacer"></div>
 
     <div *ngIf="!logInCheck()">
-      <button mat-raised-button (click)="openDialog()" class="loginbutton">Register</button>
+      <div (click)="openDialog()" class="loginbutton">Register</div>
     </div>
     <div *ngIf="!logInCheck()">
-      <button mat-raised-button (click)="openLoginDialog()" class="loginbutton">Login</button>
+      <div (click)="openLoginDialog()" class="loginbutton">Login</div>
     </div>
     
     <!-- Profile button -->

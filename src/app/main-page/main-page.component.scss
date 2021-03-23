@@ -37,16 +37,22 @@ img {
   height:70px;
   position:absolute;
   width:auto;
-  animation: flash 3s linear infinite;
+  animation: flash 5s linear infinite;
 }
 
 img:last-child {
   margin-bottom: -20px;
 }
 
-@keyframes flash {  
-  50% { 
-    opacity: 0; 
+@keyframes flash { 
+  100% {
+    opacity: 0.5;
+  } 
+  50% {
+    opacity: 0.2;
+  }
+  0% {
+    opacity: 0.5;
   }
 }
 
