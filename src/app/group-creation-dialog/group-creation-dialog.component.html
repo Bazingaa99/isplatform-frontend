@@ -4,10 +4,19 @@
     <mat-form-field appearance="fill">
         <mat-label>Group name</mat-label>
         <input formControlName="name" id="name" matInput required>
+        <mat-error *ngIf="userCreationForm.controls.name.errors?.required">
+          Group name is mandatory
+        </mat-error>
+        <mat-error *ngIf="userCreationForm.controls.name.errors?.maxlength">
+          Provide a shorter group name
+        </mat-error >
       </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Description</mat-label>
       <textarea formControlName="description" id="description" matInput></textarea>
+      <mat-error *ngIf="userCreationForm.controls.description.errors?.maxlength">
+        Provide a shorter description
+      </mat-error >
     </mat-form-field>
   </div>
   <div id="group-creation-dialog-footer" mat-dialog-actions>
