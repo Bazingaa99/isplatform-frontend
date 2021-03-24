@@ -13,7 +13,8 @@
                 class="form-control"
                 id="username"
                 formControlName="usernameReg"
-                maxlength="50">
+                maxlength="50"
+                required>
                 <mat-error *ngIf="registrationForm.controls.emailReg.errors?.required || registrationForm.controls.emailReg.valid">
                     Username is mandatory
                 </mat-error>
@@ -32,6 +33,7 @@
                     id="email"
                     formControlName="emailReg"
                     maxlength="50"
+                    required
                 />
                 <mat-error *ngIf="registrationForm.controls.emailReg.errors?.required || registrationForm.controls.emailReg.valid">
                     Email is mandatory
@@ -54,6 +56,7 @@
                     class="form-control"
                     formControlName="passwordReg"
                     maxlength="30"
+                    required
                 />
                 <mat-error *ngIf="registrationForm.controls.passwordReg.errors?.required" class="pd-30">
                     Password is mandatory
@@ -90,7 +93,7 @@
                     formControlName="passwordRepeatReg"
                     maxlength="30"
                     [type]="hide ? 'password' : 'text'" 
-
+                    required
                 />               
                 <!-- <div  class="alert alert-danger"> -->
                     <mat-error *ngIf="registrationForm.controls.passwordRepeatReg.errors?.isMatching === false">
