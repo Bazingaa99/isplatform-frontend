@@ -46,7 +46,6 @@ export class ItemCreationDialogComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCategories();
-    this.getUserId();
     this.groupId = Number(this.router.url.slice(12, this.router.url.length));
   }
 
@@ -59,14 +58,13 @@ export class ItemCreationDialogComponent implements OnInit {
     if (this.addItemForm.valid){
       this.item = {
         group: this.groupId,
-        owner: this.userId, //have to get current user
         category: this.addItemForm.get('category').value,
         name: this.addItemForm.get('name').value,
         description: this.addItemForm.get('description').value,
         duration: this.addItemForm.get('duration').value,
       }
 
-      this.itemService.addItem(this.item).subscribe(
+      this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
         (response: Item) => {
           this.updateService.sendUpdate();
           this.snackBar.open("Item successfuly added","✓",{
@@ -82,17 +80,6 @@ export class ItemCreationDialogComponent implements OnInit {
         }
       )
     }
-  }
-
-  public getUserId(): void {
-    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
-      (response: User) => {
-        this.userId = response.id;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
   }
 
   public getCategories(): void {

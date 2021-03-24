@@ -16,8 +16,8 @@ export class ItemService {
         return this.http.get<Item[]>( `${this.apiServerUrl}/isp/items/find/group/${id}`)
     }
 
-    public addItem(item: Item): Observable<Item>{
-      return this.http.post<Item>(this.apiServerUrl + '/isp/items/add/', item);
+    public addItem(item: Item, email: string): Observable<Item>{
+      return this.http.post<Item>(`${this.apiServerUrl} + /isp/items/add/${email}`, item);
     }
 
     // public updateItem(item: Item): Observable<Item>{

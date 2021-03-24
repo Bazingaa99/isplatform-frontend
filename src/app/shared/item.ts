@@ -1,7 +1,9 @@
+import { User } from "./user";
+
 export interface Item {
     id?: number;
     group: number;
-    owner: number;
+    owner?: number;
     category: number;
     name: string;
     description: string;
