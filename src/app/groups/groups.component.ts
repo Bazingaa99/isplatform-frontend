@@ -26,29 +26,17 @@ export class GroupsComponent{
               private userService: UserService,
               private updateUsersGroupsService: UpdateUsersGroupsService){
                 this.updateEventSubscription = this.updateUsersGroupsService.getUpdate().subscribe(()=>{
-                  this.getUserId();
+                  this.getUserGroups(localStorage.getItem('email'));
                 });
               }
 
   ngOnInit(): void{
-    this.getUserId();
     this.selectedId = Number(this.router.url.slice(12, this.router.url.length))
+    this.getUserGroups(localStorage.getItem('email'));
   }
 
-  public getUserId(): void {
-    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
-      (response: User) => {
-        this.userId = response.id;
-        this.getUserGroups(this.userId);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
-  }
-
-  getUserGroups(id): void {
-    this.usersGroupService.getUserGroups(id.toString()).subscribe(
+  getUserGroups(email: string): void {
+    this.usersGroupService.getUserGroups(email).subscribe(
       (response: UsersGroup[]) => {
         this.usersGroup = response;
         this.usersGroupService.groupsLength = response.length;

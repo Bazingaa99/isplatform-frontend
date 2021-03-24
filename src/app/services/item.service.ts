@@ -17,7 +17,10 @@ export class ItemService {
     }
 
     public addItem(item: Item, email: string): Observable<Item>{
-      return this.http.post<Item>(`${this.apiServerUrl} + /isp/items/add/${email}`, item);
+      let data = {item, email}
+      data.item = item;
+      data.email = email;
+      return this.http.post<Item>(`${this.apiServerUrl}/isp/items/add/`, data);
     }
 
     // public updateItem(item: Item): Observable<Item>{

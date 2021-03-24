@@ -73,6 +73,7 @@ export class ItemCreationDialogComponent implements OnInit {
           })
         },
         (error: HttpErrorResponse) => {
+          alert(error.message)
           this.snackBar.open("Couldn't add item. Please try again.","✓",{
             duration: 400000000000000,
             panelClass: ['red-snackbar']
