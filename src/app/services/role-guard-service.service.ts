@@ -10,6 +10,7 @@ import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
 
 
 
+
 @Injectable()
 export class RoleGuardService implements CanActivate {
   public jwtHelper: JwtHelperService = new JwtHelperService();
@@ -28,20 +29,10 @@ export class RoleGuardService implements CanActivate {
   }
 
   canActivate(route: ActivatedRouteSnapshot): boolean {
-    // this will be passed from the route config
-    // on the data property
     const expectedRole = route.data.expectedRole;
-    const token: string = localStorage.getItem('token');
-    // decode the token to get its payload
-    const tokenPayload = this.jwtHelper.decodeToken(token);
-    let roles: string;
-    if (tokenPayload) {
-      roles = JSON.stringify(tokenPayload.roles);
-    } else {
-      roles = '';
-    }
+    const role: string = localStorage.getItem('roles'); 
     if (
-      roles.includes(expectedRole) && this.auth.isAuthenticated()
+      role.includes(expectedRole) && this.auth.isAuthenticated()
     ) {
       return true;
     }
