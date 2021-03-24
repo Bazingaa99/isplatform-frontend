@@ -48,9 +48,8 @@ export class GroupCreationDialogComponent {
     this.dialog.close(GroupCreationDialogComponent);
   }
 
-  onSubmit(): void {
+  onCreateGroup(): void {
     this.closeDialog();
-    console.log(this.userId);
     this.usersGroup = {
       admin_id: this.userId,
       name: this.userCreationForm.get('name').value,
@@ -66,7 +65,7 @@ export class GroupCreationDialogComponent {
         })
       },
       (error: HttpErrorResponse) => {
-        this.snackBar.open("Couldn't add item. Please try again.","✓",{
+        this.snackBar.open("Couldn't create a group. Please try again.","✓",{
           duration: 400000000000000,
           panelClass: ['red-snackbar']
         })
