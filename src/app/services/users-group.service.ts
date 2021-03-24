@@ -26,7 +26,7 @@ export class UsersGroupService {
     public deleteUsersGroups(usersgroupId: number): Observable<UsersGroup> {
         return this.http.delete<UsersGroup>(`${this.apiServerUrl}/usersgroup/delete/${usersgroupId}`);
     }
-    
+
     public getUserGroups(id: string): Observable<UsersGroup[]> {
         return this.http.get<UsersGroup[]>(`${this.apiServerUrl}/usersgroup/find/user/groups/${id}`);
     }

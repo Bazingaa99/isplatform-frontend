@@ -54,7 +54,7 @@ export class ItemCreationDialogComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public onSubmit(): void {
+  public onSubmitItem(): void {
     this.dialogRef.close();
     if (this.addItemForm.valid){
       this.item = {
