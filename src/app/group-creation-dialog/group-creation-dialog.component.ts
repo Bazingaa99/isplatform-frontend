@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
-import { FormBuilder, FormGroup, NgForm, Validators }   from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersGroupService } from '../services/users-group.service';
 import { UsersGroup } from '../shared/users-group';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { User } from '../shared/user'
 import { UpdateUsersGroupsService } from '../services/update-users-group.service'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -18,30 +16,16 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class GroupCreationDialogComponent {
   userCreationForm: FormGroup;
   usersGroup: UsersGroup;
-  public userId: number;
 
   constructor(private router: Router, private fb: FormBuilder, 
               private usersGroupService: UsersGroupService, 
               public dialog: MatDialogRef<GroupCreationDialogComponent>,
-              private userService: UserService,
               private snackBar: MatSnackBar,
               private updateUsersGroupsService: UpdateUsersGroupsService) {
     this.userCreationForm = this.setForm();
    }  
    
   ngOnInit(): void {
-    this.getUserId();
-  }
-
-  public getUserId(): void {
-    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
-      (response: User) => {
-        this.userId = response.id;
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    )
   }
 
   closeDialog(): void {
@@ -51,12 +35,11 @@ export class GroupCreationDialogComponent {
   onCreateGroup(): void {
     this.closeDialog();
     this.usersGroup = {
-      admin_id: this.userId,
       name: this.userCreationForm.get('name').value,
       description: this.userCreationForm.get('description').value,
     }
 
-    this.usersGroupService.createUsersGroups(this.usersGroup).subscribe(
+    this.usersGroupService.createUsersGroups(this.usersGroup, localStorage.getItem('email')).subscribe(
       (response: UsersGroup) => {
         this.updateUsersGroupsService.sendUpdate();
         this.snackBar.open("Group successfuly created","✓",{

@@ -15,8 +15,11 @@ export class UsersGroupService {
         return this.http.get<UsersGroup[]>(`${this.apiServerUrl}/usersgroup/all`);
     }
 
-    public createUsersGroups(usersgroup: UsersGroup): Observable<UsersGroup> {
-        return this.http.post<UsersGroup>(`${this.apiServerUrl}/usersgroup/create`, usersgroup);
+    public createUsersGroups(usersGroup: UsersGroup, email: string): Observable<UsersGroup> {
+        let data = {usersGroup, email}
+        data.usersGroup = usersGroup;
+        data.email = email;
+        return this.http.post<UsersGroup>(`${this.apiServerUrl}/usersgroup/create`, data);
     }
 
     public updateUsersGroups(usersgroup: UsersGroup): Observable<UsersGroup> {
