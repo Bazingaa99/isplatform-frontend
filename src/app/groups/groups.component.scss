@@ -20,3 +20,14 @@ mat-card {
 mat-card {
   cursor: pointer;
 }
+
+.item-paginator{
+  background-color: #3F51B5;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  position: absolute;
+  left:0;
+  right: 0;
+  bottom: 0;
+}

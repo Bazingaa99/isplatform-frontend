@@ -1,3 +1,9 @@
-<mat-card id="group{{ usersGroup.id }}" (click)="onSelect(usersGroup)"  [ngClass]="{'card': true, 'selected': usersGroup.id === selectedId}" *ngFor="let usersGroup of usersGroup">
+<mat-card id="group{{ usersGroup.id }}" (click)="onSelect(usersGroup)"  [ngClass]="{'card': true, 'selected': usersGroup.id === selectedId}" *ngFor="let usersGroup of usersGroupsPageSlice">
   {{usersGroup?.name}}
 </mat-card>
+
+<mat-paginator *ngIf="this.usersGroupsLength>7" class="item-paginator" [length]="this.usersGroupsLength"
+  [pageSize]="this.usersGroupsPageSize"
+  (page)="onGroupsPageChange($event)"
+  hidePageSize="true">
+</mat-paginator>

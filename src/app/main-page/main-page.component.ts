@@ -39,8 +39,4 @@ export class MainPageComponent implements OnInit {
   openGroupDialog(): void {
     this.dialog.open(GroupCreationDialogComponent);
   }
-
-  public get groupLength(): number{
-    return this.userGroupService.groupsLength;
-  }
 }
