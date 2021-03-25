@@ -5,8 +5,6 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
-import { User } from '../shared/user';
-import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'groups',
@@ -23,20 +21,19 @@ export class GroupsComponent{
 
   constructor(private usersGroupService: UsersGroupService,
               private router: Router,
-              private userService: UserService,
               private updateUsersGroupsService: UpdateUsersGroupsService){
                 this.updateEventSubscription = this.updateUsersGroupsService.getUpdate().subscribe(()=>{
-                  this.getUserGroups(localStorage.getItem('email'));
+                  this.getUserGroups();
                 });
               }
 
   ngOnInit(): void{
     this.selectedId = Number(this.router.url.slice(12, this.router.url.length))
-    this.getUserGroups(localStorage.getItem('email'));
+    this.getUserGroups();
   }
 
-  getUserGroups(email: string): void {
-    this.usersGroupService.getUserGroups(email).subscribe(
+  getUserGroups(): void {
+    this.usersGroupService.getUserGroups(localStorage.getItem('email')).subscribe(
       (response: UsersGroup[]) => {
         this.usersGroup = response;
         this.usersGroupService.groupsLength = response.length;

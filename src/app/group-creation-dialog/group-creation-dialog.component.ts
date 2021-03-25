@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UsersGroupService } from '../services/users-group.service';
 import { UsersGroup } from '../shared/users-group';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service'; 
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -17,7 +16,7 @@ export class GroupCreationDialogComponent {
   userCreationForm: FormGroup;
   usersGroup: UsersGroup;
 
-  constructor(private router: Router, private fb: FormBuilder, 
+  constructor(private fb: FormBuilder, 
               private usersGroupService: UsersGroupService, 
               public dialog: MatDialogRef<GroupCreationDialogComponent>,
               private snackBar: MatSnackBar,
