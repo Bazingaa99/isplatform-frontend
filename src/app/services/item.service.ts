@@ -22,8 +22,4 @@ export class ItemService {
       data.email = email;
       return this.http.post<Item>(`${this.apiServerUrl}/isp/items/add/`, data);
     }
-
-    // public updateItem(item: Item): Observable<Item>{
-    //   return this.http.put<Item>('${this.apiServerUrl}/isp/all/items', item);
-    //}
 }
