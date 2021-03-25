@@ -23,7 +23,6 @@ export class ItemCreationDialogComponent implements OnInit {
               private categoryService: CategoryService,
               private itemService: ItemService,
               private router: Router,
-              private userService: UserService,
               private updateService: UpdateUsersGroupsService,
               private snackBar: MatSnackBar) { }
 
@@ -33,7 +32,7 @@ export class ItemCreationDialogComponent implements OnInit {
   public groupId: number;
 
   public addItemForm = new FormGroup({
-    name: new FormControl('', [Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z0-9 ]*')]),
+    name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     description: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
     category: new FormControl('', [Validators.required]),
     duration: new FormControl('', [Validators.required, Validators.max(180), Validators.min(1)])
@@ -72,12 +71,25 @@ export class ItemCreationDialogComponent implements OnInit {
             panelClass: ['green-snackbar']
           })
         },
-        (error: HttpErrorResponse) => {
-          alert(error.message)
-          this.snackBar.open("Couldn't add item. Please try again.","✓",{
-            duration: 400000000000000,
-            panelClass: ['red-snackbar']
-          })
+        (httpErrorResponse: HttpErrorResponse) => {
+          let errorString = ""
+          console.log(httpErrorResponse.error.errors[0].defaultMessage);
+          let errors = httpErrorResponse.error.errors;
+          if(errors.length > 0){
+          for(let i = 0; i < errors.length; i++){
+              errorString += errors[i].defaultMessage + "\n"
+            }
+            this.snackBar.open(errorString,"✓",{
+              duration: 400000000000000,
+              panelClass: ['red-snackbar']
+            })
+          }else{
+            this.snackBar.open("Couldn't add item. Please try again.","✓",{
+              duration: 400000000000000,
+              panelClass: ['red-snackbar']
+            })
+          }
+
         }
       )
     }
