@@ -8,11 +8,6 @@ import {CustomValidators} from '../services/custom-validators.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { SuccessfulRegistrationComponent } from '../successful-registration/successful-registration.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { ErrorStateMatcher } from '@angular/material/core';
-import { FormControl, FormGroupDirective, NgForm} from '@angular/forms';
-
-
-
 
 
 @Component({
@@ -56,6 +51,7 @@ export class RegistrationComponent implements OnInit {
     };
 }
   onSubmit() {
+    this.serverErrorMessage=""
     this.passwordNotMatch = false;
     this.submission = false;
     this.isLoading = true;
@@ -77,7 +73,15 @@ export class RegistrationComponent implements OnInit {
           this.closeDialog();
           this.openDialog();
         },
-        error => {console.log(error), this.isLoading = false, this.serverErrorMessage=error}
+        (error:HttpErrorResponse) =>{
+          console.log(error)
+          let errors = error.error.errors;
+          //this.serverErrorMessage=error.error.errors[0].defaultMessage;
+          this.isLoading=false; 
+          for(let i = 0; i < errors.length; i++){
+            this.serverErrorMessage += errors[i].defaultMessage + "\n"
+          }        
+        }
       );
     } else {
 

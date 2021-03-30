@@ -5,6 +5,7 @@ import {UserService} from '../services/user.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {RoleGuardService} from '../services/role-guard-service.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -36,7 +37,7 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-
+    this.serverErrorMessage = '';
     this.passwordNotMatch = false;
     this.submission = false;
     this.isLoading = true;
@@ -57,9 +58,17 @@ export class LoginComponent implements OnInit {
         }
       },
 
-      error => {
-        this.serverErrorMessage = error;
-        this.isLoading = false;
+      (error:HttpErrorResponse) => {
+        this.isLoading=false;
+        if(error.status==401){
+          this.serverErrorMessage="Wrong credentials";
+        }
+        else{
+          let errors = error.error.errors;
+          for(let i = 0; i < errors.length; i++){
+            this.serverErrorMessage += errors[i].defaultMessage + "\n"
+          }  
+        }
       }
     );
   }
