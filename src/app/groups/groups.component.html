@@ -2,7 +2,9 @@
   {{usersGroup?.name}}
 </mat-card>
 
-<mat-paginator *ngIf="this.usersGroupsLength>7" class="item-paginator" [length]="this.usersGroupsLength"
+<mat-paginator *ngIf="this.usersGroupsLength>7" class="item-paginator" 
+  [length]="this.usersGroupsLength" 
+  [pageIndex]="this.usersGroupsPageIndex"
   [pageSize]="this.usersGroupsPageSize"
   (page)="onGroupsPageChange($event)"
   hidePageSize="true">

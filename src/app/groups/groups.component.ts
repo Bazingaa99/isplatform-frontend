@@ -17,10 +17,10 @@ export class GroupsComponent{
   public userId: number;
   public usersGroup: UsersGroup[];
   updateEventSubscription:Subscription;
-  public usersGroupsPageSize: number;
-  public usersGroupsPageSlice;
-  public usersGroupsLength: number;
   selectedId: number;
+  pageIndex: number;
+  usersGroupsLength: number;
+  usersGroupsPageSize = 7;
 
   constructor(private usersGroupService: UsersGroupService,
               private router: Router,
@@ -31,7 +31,6 @@ export class GroupsComponent{
               }
 
   ngOnInit(): void{
-    this.usersGroupsPageSize = 7;
     this.getUserGroups();
     this.selectedId = Number(this.router.url.slice(12, this.router.url.length))
   }
@@ -41,7 +40,10 @@ export class GroupsComponent{
       (response: UsersGroup[]) => {
         this.usersGroup = response;
         this.usersGroupsLength = response.length;
-        this.usersGroupsPageSlice = this.usersGroup.slice(0, this.usersGroupsPageSize);
+        if(typeof this.usersGroupsPageSlice === 'undefined')
+        {
+          this.usersGroupService.usersGroupsPageSlice = this.usersGroup.slice(0, this.usersGroupsPageSize);
+        }
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -56,13 +58,23 @@ export class GroupsComponent{
   }
 
   onGroupsPageChange(event: PageEvent){
+    console.log("wtz");
+    this.usersGroupService.usersGroupsPageIndex = event.pageIndex;
+    
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
 
     if(endIndex > this.usersGroup.length){
       endIndex = this.usersGroup.length;
     }
+    this.usersGroupService.usersGroupsPageSlice = this.usersGroup.slice(startIndex, endIndex);
+  }
+  
+  public get usersGroupsPageIndex(): number{
+    return this.usersGroupService.usersGroupsPageIndex;
+  }
 
-    this.usersGroupsPageSlice = this.usersGroup.slice(startIndex, endIndex);
+  public get usersGroupsPageSlice(): UsersGroup[]{
+    return this.usersGroupService.usersGroupsPageSlice;
   }
 }
