@@ -1,11 +1,13 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
 import { PageEvent } from '@angular/material/paginator';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
+import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 
 @Component({
   selector: 'items',
@@ -21,7 +23,8 @@ export class ItemsComponent implements OnInit {
   public groupId: string;
   public updateEventSubscription: Subscription;
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(public dialog: MatDialog,
+              private activatedRoute: ActivatedRoute,
               private itemService: ItemService,
               private router: Router,
               private updateService: UpdateUsersGroupsService) {
@@ -34,6 +37,12 @@ export class ItemsComponent implements OnInit {
     this.pageSize = 12;
     this.itemsLength = 0;
     this.getItems();
+  }
+
+  openItemDialog(itemData): void {
+    this.dialog.open(ItemDialogComponent, {
+      data: itemData,
+    });
   }
 
   public getItems(): void {

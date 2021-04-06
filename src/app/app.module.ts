@@ -26,6 +26,7 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatIconModule } from '@angular/material/icon';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 import { LoginComponent } from './login/login.component';
@@ -37,7 +38,8 @@ import {  JwtHelperService } from '@auth0/angular-jwt';
 import { SuccessfulRegistrationComponent } from './successful-registration/successful-registration.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {MatDividerModule} from '@angular/material/divider';
-import { WelcomeContentComponent } from './welcome-content/welcome-content.component'
+import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
+import { ItemDialogComponent } from './item-dialog/item-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,8 @@ import { WelcomeContentComponent } from './welcome-content/welcome-content.compo
     RegistrationComponent,
     ConfirmEmailComponent,
     SuccessfulRegistrationComponent,
-    WelcomeContentComponent
+    WelcomeContentComponent,
+    ItemDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -79,7 +82,8 @@ import { WelcomeContentComponent } from './welcome-content/welcome-content.compo
     MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
-    MatDividerModule
+    MatDividerModule,
+    MatIconModule
   ],
   exports: [ ItemsComponent ],
   providers: [,

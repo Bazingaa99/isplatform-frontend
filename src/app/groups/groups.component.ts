@@ -58,7 +58,6 @@ export class GroupsComponent{
   }
 
   onGroupsPageChange(event: PageEvent){
-    console.log("wtz");
     this.usersGroupService.usersGroupsPageIndex = event.pageIndex;
     
     const startIndex = event.pageIndex * event.pageSize;

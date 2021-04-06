@@ -1,0 +1,30 @@
+<mat-dialog-content id="item-dialog" (click)="closeItemDialog()">
+    <div id="item-dialog-header">
+        <button mat-icon-button color="primary" class="close-button" [mat-dialog-close]="true">
+            <mat-icon class="close-icon">close</mat-icon>
+        </button>
+    </div>
+    <div id="item-information">
+        <div id="item-photos">
+            <img class="card-image" src="https://i.imgur.com/3m7URcq.png" alt="Item image">
+        </div>
+        <div id="item-content">
+            <hr>
+            <div>
+                <p id="id">ID: {{ item.id }}</p>
+                <p id="date">{{ item.dateCreated }}</p>
+            </div>
+            <hr>
+            <div class="spacer"></div>
+            <p>Kategorija: {{ item.category['categoryName'] }}</p>
+            <p>Trukmė: {{ item.duration }}</p>
+            <div class="spacer"></div>
+            <p id="item-name">{{ item.name }}</p>
+            <p>{{ item.description }}</p>
+            <div class="spacer"></div>
+            <div id="request-div">
+                <button type="submit" mat-stroked-button>Request item</button>
+            </div>
+        </div>
+    </div>
+</mat-dialog-content>
