@@ -25,14 +25,12 @@ export class UserService {
   submitRegistration(info: Registration): Observable<Registration> {
     console.log(info)
     return this.httpClient
-      .post<Registration>((environment.apiBaseUrl + `/auth/registration`), info.user)
-      .pipe(catchError(this.errorHandler));
+      .post<Registration>((environment.apiBaseUrl + `/auth/registration`), info.user);
   }
 
   submitLogin(loginInfo: LoginInfo): Observable<LoginInfo> {
     return this.httpClient
-      .post <LoginInfo>((environment.apiBaseUrl + `/auth/login`), loginInfo)
-      .pipe(catchError(this.errorHandler));
+      .post <LoginInfo>((environment.apiBaseUrl + `/auth/login`), loginInfo);
   }
 
   getUserByEmail(email: String): Observable<User>{
