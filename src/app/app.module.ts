@@ -37,7 +37,9 @@ import {  JwtHelperService } from '@auth0/angular-jwt';
 import { SuccessfulRegistrationComponent } from './successful-registration/successful-registration.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {MatDividerModule} from '@angular/material/divider';
-import { WelcomeContentComponent } from './welcome-content/welcome-content.component'
+import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
+import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
+import { AddToGroupComponent } from './add-to-group/add-to-group.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,7 +57,9 @@ import { WelcomeContentComponent } from './welcome-content/welcome-content.compo
     RegistrationComponent,
     ConfirmEmailComponent,
     SuccessfulRegistrationComponent,
-    WelcomeContentComponent
+    WelcomeContentComponent,
+    InviteToGroupComponent,
+    AddToGroupComponent
   ],
   imports: [
     BrowserModule,
