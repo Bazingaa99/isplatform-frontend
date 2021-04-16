@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { UserService } from '../services/user.service';
 import { UsersGroupService } from '../services/users-group.service';
 import { AddToGroupResponse } from '../shared/add-to-group-response';
@@ -16,6 +17,7 @@ export class AddToGroupComponent implements OnInit {
   private token:string
   constructor(private  router: Router,
               private route: ActivatedRoute,
+              private updateUsersGroupsService: UpdateUsersGroupsService,
               private usersGroupService: UsersGroupService,
               private snackBar:MatSnackBar) { }
 
@@ -49,6 +51,7 @@ export class AddToGroupComponent implements OnInit {
             panelClass: ['yellow-snackbar']
           })
         }
+        this.updateUsersGroupsService.sendUpdate();
       }
     )
   }
