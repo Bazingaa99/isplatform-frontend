@@ -39,6 +39,20 @@ export class ItemsComponent implements OnInit {
     this.getItems();
   }
 
+  test(itemData): any {
+    if(!itemData.isHidden) {
+      return true;
+    } else if (this.checkIfOwner(itemData)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  checkIfOwner(itemData): any {
+    return (itemData.owner['email'] === localStorage.getItem('email'))
+  }
+
   openItemDialog(itemData): void {
     this.dialog.open(ItemDialogComponent, {
       data: itemData,

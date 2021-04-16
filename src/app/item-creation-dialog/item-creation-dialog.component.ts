@@ -1,6 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { CategoryService } from '../services/category.service';
 import { Category } from '../shared/category';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -24,12 +24,14 @@ export class ItemCreationDialogComponent implements OnInit {
               private itemService: ItemService,
               private router: Router,
               private updateService: UpdateUsersGroupsService,
-              private snackBar: MatSnackBar) { }
+              private snackBar: MatSnackBar,
+              @Inject(MAT_DIALOG_DATA) public updatableItemData: Item) { }
 
   public categories: Category[];
   public item: Item;
   public userId: number;
   public groupId: number;
+  public isHidden = false;
 
   public addItemForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -46,6 +48,18 @@ export class ItemCreationDialogComponent implements OnInit {
   ngOnInit(): void {
     this.getCategories();
     this.groupId = Number(this.router.url.slice(12, this.router.url.length));
+    if(this.updatableItemData != null){
+      var div = document.getElementById('item-form-title');
+      div.innerHTML = div.innerHTML.replace('Add','Update');
+      div = document.getElementById('submit-button');
+      div.innerHTML = div.innerHTML.replace('Add','Update');
+      this.isHidden = this.updatableItemData.isHidden;
+      
+      this.addItemForm.patchValue({name: this.updatableItemData.name, 
+        description: this.updatableItemData.description,
+        category: this.updatableItemData.category['id'],
+        duration: this.updatableItemData.duration});
+    }
   }
 
   onCancel(): void {
@@ -61,8 +75,8 @@ export class ItemCreationDialogComponent implements OnInit {
         name: this.addItemForm.get('name').value,
         description: this.addItemForm.get('description').value,
         duration: this.addItemForm.get('duration').value,
+        isHidden: this.isHidden,
       }
-
       this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
         (response: Item) => {
           this.updateService.sendUpdate();

@@ -11,4 +11,5 @@ export interface Item {
     dateCreated?: Date;
     viewCount?: number;
     duration: number;
+    isHidden: boolean;
 }
