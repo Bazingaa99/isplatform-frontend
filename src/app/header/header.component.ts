@@ -3,13 +3,12 @@ import { ItemCreationDialogComponent } from '../item-creation-dialog/item-creati
 import { MatDialog } from '@angular/material/dialog';
 import {LoginComponent} from '../login/login.component';
 import {AuthServiceService} from '../services/auth-service.service';
-import {Router} from '@angular/router';
-import {isNotNullOrUndefined} from 'codelyzer/util/isNotNullOrUndefined';
+import {Router,ActivatedRoute} from '@angular/router';
 import { RegistrationComponent } from '../registration/registration.component';
 import {RoleGuardService} from '../services/role-guard-service.service';
-import { UsersGroupService } from '../services/users-group.service';
-import { AddToGroupToken } from '../shared/add-to-group-token';
 import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.component';
+import { ItemsComponent } from '../items/items.component';
+import { ItemService } from '../services/item.service';
 
 @Component({
   selector: 'header',
@@ -17,9 +16,9 @@ import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.compo
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
-  private groupId: string;
-  private bodyText: string;
+  currentRout: string;
+  groupId: string;
+  bodyText: string;
   showProfileSidebar:boolean;
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
@@ -30,6 +29,16 @@ export class HeaderComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  isGroupOpened():boolean{
+    this.groupId = this.router.url.slice(12, this.router.url.length)
+    if(this.groupId ===''){
+      return true
+    }else{
+      false
+    }
+    
+    
+  }
   logInCheck(): boolean {
     if (!this.auth.isAuthenticated()) {
       return false;

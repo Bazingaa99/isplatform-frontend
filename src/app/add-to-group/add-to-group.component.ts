@@ -34,7 +34,7 @@ export class AddToGroupComponent implements OnInit {
         if (this.response=="You have successfully added to the group"){
           this.snackBar.open(this.response,"✓",{
             duration: 400000000000000,
-            panelClass: ['blue-snackbar']
+            panelClass: ['green-snackbar']
           })
         }
         if (this.response=="Your invitation has expired"){
@@ -46,7 +46,7 @@ export class AddToGroupComponent implements OnInit {
         if (this.response=="You are already in this group"){
           this.snackBar.open(this.response,"✓",{
             duration: 400000000000000,
-            panelClass: ['green-snackbar']
+            panelClass: ['yellow-snackbar']
           })
         }
       }

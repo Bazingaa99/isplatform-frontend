@@ -18,7 +18,7 @@
     <div *ngIf="!logInCheck()">
       <div (click)="openLoginDialog()" class="loginbutton">Login</div>
     </div>
-    <div *ngIf="logInCheck()">
+    <div *ngIf="logInCheck()&&!isGroupOpened()">
       <div (click)="openInviteDialog()" class="loginbutton">Invite</div>
     </div>
 
