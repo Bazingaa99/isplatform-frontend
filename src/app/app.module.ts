@@ -43,6 +43,8 @@ import { ItemDialogComponent } from './item-dialog/item-dialog.component'
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
 import { AddToGroupComponent } from './add-to-group/add-to-group.component'
+import { RequestedItemsComponent } from './requested-items/requested-items.component';
+import { RequestsPageComponent } from './requests-page/requests-page.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -53,7 +55,6 @@ import { AddToGroupComponent } from './add-to-group/add-to-group.component'
     FooterComponent,
     HeaderComponent,
     ItemsComponent,
-    ItemsComponent,
     ItemCreationDialogComponent,
     PageNotFoundComponent,
     LoginComponent,
@@ -63,7 +64,9 @@ import { AddToGroupComponent } from './add-to-group/add-to-group.component'
     WelcomeContentComponent,
     ItemDialogComponent,
     InviteToGroupComponent,
-    AddToGroupComponent
+    AddToGroupComponent,
+    RequestedItemsComponent,
+    RequestsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -91,7 +94,7 @@ import { AddToGroupComponent } from './add-to-group/add-to-group.component'
     MatIconModule,
     MatCheckboxModule
   ],
-  exports: [ ItemsComponent ],
+  exports: [  ],
   providers: [,
     MatSnackBarModule,
     MatProgressSpinnerModule,
