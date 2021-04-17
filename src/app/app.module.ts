@@ -41,6 +41,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component'
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
+import { AddToGroupComponent } from './add-to-group/add-to-group.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -59,7 +61,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
     ConfirmEmailComponent,
     SuccessfulRegistrationComponent,
     WelcomeContentComponent,
-    ItemDialogComponent
+    ItemDialogComponent,
+    InviteToGroupComponent,
+    AddToGroupComponent
   ],
   imports: [
     BrowserModule,

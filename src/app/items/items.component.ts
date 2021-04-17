@@ -30,7 +30,7 @@ export class ItemsComponent implements OnInit {
               private updateService: UpdateUsersGroupsService) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
                   this.getItems();
-                });
+                });  
               }
 
   ngOnInit(): void {

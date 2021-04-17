@@ -8,6 +8,7 @@ import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RoleGuardService } from './services/role-guard-service.service';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
+import { AddToGroupComponent } from './add-to-group/add-to-group.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path:"confirm",
     component:ConfirmEmailComponent
+  },
+  {
+    path:"inv",
+    component:AddToGroupComponent
   },
   {
     path:"usersgroup",

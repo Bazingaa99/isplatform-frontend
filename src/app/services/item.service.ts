@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 })
 export class ItemService {
     private apiServerUrl = environment.apiBaseUrl;
-
+    public groupId;
     constructor(private http: HttpClient) { }
 
     public getItems(id: string): Observable<Item[]>{
