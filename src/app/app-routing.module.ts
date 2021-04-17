@@ -8,6 +8,8 @@ import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RoleGuardService } from './services/role-guard-service.service';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
+import { RequestsPageComponent } from './requests-page/requests-page.component';
+import { RequestedItemsComponent } from './requested-items/requested-items.component';
 
 const routes: Routes = [
   {
@@ -35,6 +37,22 @@ const routes: Routes = [
         component: ItemsComponent
       }
     ]
+  },
+  {
+    path:"requesteditems",
+    component:RequestsPageComponent,
+  },
+  {
+    path:"myrequesteditems",
+    component:RequestsPageComponent,
+  },
+  {
+    path:"borroweditems",
+    component:RequestsPageComponent,
+  },
+  {
+    path:"lentitems",
+    component:RequestsPageComponent,
   },
   {
     path: "**", component: PageNotFoundComponent

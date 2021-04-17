@@ -1,0 +1,22 @@
+<!-- Main container -->
+<div id="body">
+  <div id="left-sidebar">
+    <mat-card (click)="onSelect('/requesteditems')"  [ngClass]="{'card': true, 'selected': requestsId === selectedId}">
+      Requested Items
+    </mat-card>
+    <mat-card (click)="onSelect('/myrequesteditems')"  [ngClass]="{'card': true, 'selected': myRequestsId === selectedId}">
+      My Requested Items
+    </mat-card>
+    <mat-card (click)="onSelect('/borroweditems')"  [ngClass]="{'card': true, 'selected': borrowedId === selectedId}">
+      Borrowed Items
+    </mat-card>
+    <mat-card (click)="onSelect('/lentitems')"  [ngClass]="{'card': true, 'selected': lentId === selectedId}">
+      Lent Items
+    </mat-card>
+  </div>
+
+  <div id="content">
+      <requested-items></requested-items>
+  </div>
+</div>
+

@@ -1,5 +1,3 @@
-import { User } from "./user";
-
 export interface Item {
     id?: number;
     group: number;

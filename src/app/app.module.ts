@@ -37,7 +37,9 @@ import {  JwtHelperService } from '@auth0/angular-jwt';
 import { SuccessfulRegistrationComponent } from './successful-registration/successful-registration.component';
 import {MatProgressSpinnerModule} from '@angular/material/progress-spinner'
 import {MatDividerModule} from '@angular/material/divider';
-import { WelcomeContentComponent } from './welcome-content/welcome-content.component'
+import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
+import { RequestedItemsComponent } from './requested-items/requested-items.component';
+import { RequestsPageComponent } from './requests-page/requests-page.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,14 +50,15 @@ import { WelcomeContentComponent } from './welcome-content/welcome-content.compo
     FooterComponent,
     HeaderComponent,
     ItemsComponent,
-    ItemsComponent,
     ItemCreationDialogComponent,
     PageNotFoundComponent,
     LoginComponent,
     RegistrationComponent,
     ConfirmEmailComponent,
     SuccessfulRegistrationComponent,
-    WelcomeContentComponent
+    WelcomeContentComponent,
+    RequestedItemsComponent,
+    RequestsPageComponent
   ],
   imports: [
     BrowserModule,
@@ -81,7 +84,7 @@ import { WelcomeContentComponent } from './welcome-content/welcome-content.compo
     MatProgressSpinnerModule,
     MatDividerModule
   ],
-  exports: [ ItemsComponent ],
+  exports: [  ],
   providers: [,
     MatSnackBarModule,
     MatProgressSpinnerModule,

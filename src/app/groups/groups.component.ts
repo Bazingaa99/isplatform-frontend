@@ -60,7 +60,7 @@ export class GroupsComponent{
   onGroupsPageChange(event: PageEvent){
     console.log("wtz");
     this.usersGroupService.usersGroupsPageIndex = event.pageIndex;
-    
+
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
 
@@ -69,7 +69,7 @@ export class GroupsComponent{
     }
     this.usersGroupService.usersGroupsPageSlice = this.usersGroup.slice(startIndex, endIndex);
   }
-  
+
   public get usersGroupsPageIndex(): number{
     return this.usersGroupService.usersGroupsPageIndex;
   }

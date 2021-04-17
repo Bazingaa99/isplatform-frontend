@@ -1,0 +1,33 @@
+mat-card {
+  border: 1px solid #eee;
+  height: 40px;
+  width: 200px;
+  margin-bottom: 8px;
+  padding: 16px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  color: #1976d2;
+}
+
+.card.selected{
+background-color: #ff9900;
+color: black;
+font-weight: bold;
+}
+
+mat-card {
+cursor: pointer;
+}
+
+.item-paginator{
+background-color: #3F51B5;
+color: white;
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+border-radius: 5px;
+position: absolute;
+left:0;
+right: 0;
+bottom: 0;
+}
