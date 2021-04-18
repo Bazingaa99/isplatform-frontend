@@ -15,18 +15,11 @@
             {{ item.category.categoryName }},
             {{ item.duration + " days" }}
           </div>
-          <div *ngIf="item.owner.email != currentUserEmail; else elseBlock">
+          <div *ngIf="checkIfOwner(item)">
             <div  class="card-actions">
-              <button class="btn ml-3" (click)="requestItem(item.id)">Request item</button>
-              <button class="btn">Show more</button>
+              <span class="important-info">My item</span>
             </div>
           </div>
-          <ng-template #elseBlock>
-            <div class="card-actions">
-              <span class="important-info">My item</span>
-              <button class="btn">Show more</button>
-            </div>
-          </ng-template>
           <div class="card-footer">
             <span>views: {{ item.viewCount }}</span>
           </div>

@@ -10,37 +10,24 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'item-dialog',
-  templateUrl: './item-dialog.component.html',
-  styleUrls: ['./item-dialog.component.scss']
+  templateUrl: './requested-item-dialog.component.html',
+  styleUrls: ['./requested-item-dialog.component.scss']
 })
-export class ItemDialogComponent implements OnInit {
+export class RequestedItemDialogComponent implements OnInit {
   currentUserEmail: string;
   isItemRequested: boolean;
-  request: Request;
 
   constructor( public updateDialog: MatDialog,
-                public itemDialog: MatDialogRef<ItemDialogComponent>,
+                public requestedItemDialog: MatDialogRef<RequestedItemDialogComponent>,
                 public requestService: RequestService,
                 public itemService: ItemService,
                 public router: Router,
-                @Inject(MAT_DIALOG_DATA) public data: any ) {
-                  data['item'] = data['0']
-                  delete data['0']
-                  data['isItemRequested'] = data['1']
-                  delete data['1']
-                  console.log(data['isItemRequested'])
+                @Inject(MAT_DIALOG_DATA) public request: any ) {
+                  console.log(request);
                 }
 
   ngOnInit(): void {
     this.currentUserEmail = localStorage.getItem('email')
-  }
-
-  checkIfUserIsOwner(): boolean {
-    if(this.data.item.owner['email'] === this.currentUserEmail){
-      return true;
-    } else {
-      return false;
-    }
   }
 
   openItemUpdateDialog(itemData): void {
@@ -50,21 +37,17 @@ export class ItemDialogComponent implements OnInit {
   }
 
   closeItemDialog(): void {
-    this.itemDialog.close(ItemDialogComponent);
+    this.requestedItemDialog.close(RequestedItemDialogComponent);
   }
 
-  public requestItem(itemId: number): void {
+  removeRequest(requestId: number){
+    this.requestService.deleteRequest(requestId);
+  }
 
-    this.request = {
-      item: itemId
-    }
-    this.itemService.requestItem(this.request, localStorage.getItem('email')).subscribe(
-      (response: Request) => {
-        console.log(response);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.message);
-      }
-    )
+  dueDate(date: string, days: number) {
+    var dueDate = new Date(date);
+    dueDate.setDate(dueDate.getDate() + days);
+    var result = dueDate.toISOString().split('T')[0]
+    return result;
   }
 }

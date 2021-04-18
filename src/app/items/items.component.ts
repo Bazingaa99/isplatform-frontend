@@ -9,6 +9,7 @@ import { PageEvent } from '@angular/material/paginator';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
+import { RequestService } from '../services/request.service';
 
 @Component({
   selector: 'items',
@@ -30,10 +31,11 @@ export class ItemsComponent implements OnInit {
               private activatedRoute: ActivatedRoute,
               private itemService: ItemService,
               private router: Router,
-              private updateService: UpdateUsersGroupsService) {
+              private updateService: UpdateUsersGroupsService,
+              private requestService: RequestService) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
                   this.getItems();
-                });  
+                });
               }
 
   ngOnInit(): void {
@@ -59,9 +61,16 @@ export class ItemsComponent implements OnInit {
   }
 
   openItemDialog(itemData): void {
-    this.dialog.open(ItemDialogComponent, {
-      data: itemData,
-    });
+    this.requestService.checkIfRequested(itemData.id, this.currentUserEmail).subscribe(
+      (response: boolean) => {
+        this.dialog.open(ItemDialogComponent, {
+          data: [itemData, response],
+        });
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    )
   }
 
   public getItems(): void {
@@ -91,7 +100,6 @@ export class ItemsComponent implements OnInit {
   }
 
   public requestItem(itemId: number): void {
-
     this.request = {
       item: itemId
     }
@@ -103,5 +111,5 @@ export class ItemsComponent implements OnInit {
         console.log(error.message);
       }
     )
-  }
+    }
 }

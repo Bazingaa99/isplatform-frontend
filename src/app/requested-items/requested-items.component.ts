@@ -6,6 +6,8 @@ import { Request } from '../shared/request';
 import { PageEvent } from '@angular/material/paginator';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
+import { RequestedItemDialogComponent } from '../requested-item-dialog/requested-item-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 @Component({
   selector: 'requested-items',
@@ -22,7 +24,7 @@ export class RequestedItemsComponent implements OnInit {
   public updateEventSubscription: Subscription;
   public currentUserEmail: string;
 
-  constructor(private activatedRoute: ActivatedRoute,
+  constructor(private dialog: MatDialog,
               private requestService: RequestService,
               private router: Router,
               private updateService: UpdateUsersGroupsService) {
@@ -35,11 +37,8 @@ export class RequestedItemsComponent implements OnInit {
     this.pageSize = 12;
     this.requestsLength = 0;
     this.currentUserEmail = localStorage.getItem('email');
-
-
+    this.getRequests();
     console.log(this.router.url);
-
-
   }
 
   public getRequests(): void {
@@ -79,6 +78,7 @@ export class RequestedItemsComponent implements OnInit {
     this.requestService.getRequestsByRequesterEmail(localStorage.getItem('email'), accepted).subscribe(
       (response: Request[]) => {
         this.requests = response;
+
         this.requestsLength = this.requests.length;
         this.pageSlice = this.requests.slice(0, this.pageSize);
       },
@@ -86,6 +86,10 @@ export class RequestedItemsComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
+
+  checkIfOwner(itemData): any {
+    return (itemData.owner['email'] === localStorage.getItem('email'))
   }
 
   public onPageChange(event: PageEvent){
@@ -97,6 +101,12 @@ export class RequestedItemsComponent implements OnInit {
     }
 
     this.pageSlice = this.requests.slice(startIndex, endIndex);
+  }
+
+  openItemDialog(requestData): void {
+    this.dialog.open(RequestedItemDialogComponent, {
+      data: requestData
+    });
   }
 
 }

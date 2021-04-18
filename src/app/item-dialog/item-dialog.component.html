@@ -11,22 +11,25 @@
         <div id="item-content">
             <hr>
             <div>
-                <p id="id">ID: {{ item.id }}</p>
-                <p id="date">{{ item.dateCreated }}</p>
+                <p id="id">ID: {{ data.item.id }}</p>
+                <p id="date">{{ data.item.dateCreated }}</p>
             </div>
             <hr>
             <div class="spacer"></div>
-            <p>Kategorija: {{ item.category['categoryName'] }}</p>
-            <p>Trukmė: {{ item.duration }}</p>
+            <p>Category: {{ data.item.category['categoryName'] }}</p>
+            <p>Duration: {{ data.item.duration + " days" }}</p>
             <div class="spacer"></div>
-            <p id="item-name">{{ item.name }}</p>
-            <p>{{ item.description }}</p>
+            <p id="item-name">{{ data.item.name }}</p>
+            <p>{{ data.item.description }}</p>
             <div class="spacer"></div>
-
-            <div class="action-div" *ngIf="!checkIfUserIsOwner()">
-                <button type="submit" mat-stroked-button>Request item</button>
+              <div class="action-div" *ngIf="!checkIfUserIsOwner() && !data.isItemRequested">
+                <button type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request item</button>
             </div>
-            
+
+            <div class="action-div" *ngIf="!checkIfUserIsOwner() && data.isItemRequested">
+              <span class="important-info">Requested</span>
+            </div>
+
             <div class="action-div" *ngIf="checkIfUserIsOwner()" (click)="openItemUpdateDialog(item)">
                 <button type="submit" mat-stroked-button>Update item</button>
             </div>

@@ -52,8 +52,8 @@ export class ItemCreationDialogComponent implements OnInit {
       div = document.getElementById('submit-button');
       div.innerHTML = div.innerHTML.replace('Add','Update');
       this.isHidden = this.updatableItemData.isHidden;
-      
-      this.addItemForm.patchValue({name: this.updatableItemData.name, 
+
+      this.addItemForm.patchValue({name: this.updatableItemData.name,
         description: this.updatableItemData.description,
         category: this.updatableItemData.category['id'],
         duration: this.updatableItemData.duration});

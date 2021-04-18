@@ -1,0 +1,67 @@
+<mat-dialog-content id="item-dialog" (click)="closeItemDialog()">
+  <div id="item-dialog-header">
+      <button mat-icon-button color="primary" class="close-button" [mat-dialog-close]="true">
+          <mat-icon class="close-icon">close</mat-icon>
+      </button>
+  </div>
+  <div id="item-information">
+      <div id="item-photos">
+          <img class="card-image" src="https://i.imgur.com/3m7URcq.png" alt="Item image">
+      </div>
+      <div id="item-content">
+          <hr>
+          <div>
+              <p id="id">ID: {{ request.item.id }}</p>
+              <p id="date">{{ request.item.dateCreated }}</p>
+          </div>
+          <hr>
+          <div class="spacer"></div>
+          <p>Category: {{ request.item.category['categoryName'] }}</p>
+          <p>Duration: {{ request.item.duration + " days" }}</p>
+          <div class="spacer"></div>
+          <p id="item-name">{{ request.item.name }}</p>
+          <p>{{ request.item.description }}</p>
+          <div *ngIf="this.router.url === '/requesteditems'">
+            <label for="requesterName">Item requested by:</label>
+            <span class="important-info" name="requesterName"> {{ request.requester.username }}</span>
+            <div class="spacer"></div>
+            <div class="row">
+              <button type="button" mat-stroked-button>Chat</button>
+            </div>
+            <div class="spacer"></div>
+            <div class="row">
+              <button class="m-1" type="button" mat-stroked-button>Accept</button>
+              <button class="m-1" type="button" mat-stroked-button>Decline</button>
+            </div>
+          </div>
+          <div *ngIf="this.router.url === '/myrequesteditems'">
+            <span class="important-info"> Waiting for response from owner. </span>
+            <div class="spacer"></div>
+            <button type="button" mat-stroked-button>Chat</button>
+            <div class="spacer"></div>
+            <button type="button" mat-stroked-button (click)="removeRequest(request.id)">Remove request</button>
+          </div>
+
+          <div *ngIf="this.router.url === '/borroweditems'">
+            <span class="important-info"> You currently have this item. </span>
+            <div class="spacer"></div>
+            <label for="returnDate"> Item should be returned by </label>
+            <br>
+            <span class="important-info"> {{ dueDate(request.item.dateCreated, request.item.duration) }} </span>
+          </div>
+          <div *ngIf="this.router.url === '/lentitems'">
+            <span class="important-info"> {{ request.requester.username + " currently has your item" }} </span>
+            <div class="spacer"></div>
+            <label for="returnDate"> Item should be returned by: </label>
+            <br>
+            <span class="important-info"> {{ dueDate(request.item.dateCreated, request.item.duration) }} </span>
+            <div *ngIf="!request.returned" class="spacer"></div>
+              <button type="button" mat-stroked-button>Item returned</button>
+            <div *ngIf="request.returned" class="spacer">
+              <button type="button" mat-stroked-button>Relist item</button>
+            </div>
+          </div>
+      </div>
+  </div>
+</mat-dialog-content>
+

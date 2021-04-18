@@ -44,7 +44,8 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
 import { AddToGroupComponent } from './add-to-group/add-to-group.component'
 import { RequestedItemsComponent } from './requested-items/requested-items.component';
-import { RequestsPageComponent } from './requests-page/requests-page.component'
+import { RequestsPageComponent } from './requests-page/requests-page.component';
+import { RequestedItemDialogComponent } from './requested-item-dialog/requested-item-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -66,7 +67,8 @@ import { RequestsPageComponent } from './requests-page/requests-page.component'
     InviteToGroupComponent,
     AddToGroupComponent,
     RequestedItemsComponent,
-    RequestsPageComponent
+    RequestsPageComponent,
+    RequestedItemDialogComponent
   ],
   imports: [
     BrowserModule,
