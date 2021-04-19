@@ -4,21 +4,33 @@ import { HttpClient } from '@angular/common/http';
 import { Request } from '../shared/request';
 import { environment } from 'src/environments/environment';
 import { Item } from '../shared/item';
+import { ResponseToRequest } from '../shared/response-to-request';
 
 @Injectable({
     providedIn: 'root'
 })
 export class RequestService {
+
     private apiServerUrl = environment.apiBaseUrl;
 
     constructor(private http: HttpClient) { }
 
-    public getRequestsByOwnerEmail(email: string, accepted: boolean): Observable<Request[]>{
+    public getRequestsByOwnerEmail(email: string, accepted?: boolean): Observable<Request[]>{
+      if(accepted===undefined){
+        return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/notRespondedByOwner/${email}`)
+      }
+      else{
         return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/for/${email}&${accepted}`)
+      }
     }
 
-    public getRequestsByRequesterEmail(email: string, accepted: boolean): Observable<Request[]>{
-      return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/by/${email}&${accepted}`)
+    public getRequestsByRequesterEmail(email: string, accepted?: boolean): Observable<Request[]>{
+      if(accepted===undefined){
+        return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/notRespondedByRequester/${email}`)
+      }else{
+        return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/by/${email}&${accepted}`)
+      }
+      
   }
 
   checkIfRequested(itemId: number, email: string): Observable<boolean>{
@@ -31,5 +43,13 @@ export class RequestService {
         console.log(data);
       }
     )
+  }
+
+  responseToRequest(requestId: number, isAccepted: boolean){
+
+    let data={isAccepted,requestId}
+    data.isAccepted=isAccepted;
+    data.requestId=requestId;
+    return this.http.put(`${this.apiServerUrl}/isp/request/update-acceptance`, data);
   }
 }

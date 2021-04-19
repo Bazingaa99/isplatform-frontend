@@ -30,8 +30,8 @@
             </div>
             <div class="spacer"></div>
             <div class="row">
-              <button class="m-1" type="button" mat-stroked-button>Accept</button>
-              <button class="m-1" type="button" mat-stroked-button>Decline</button>
+              <button class="m-1" type="button" mat-stroked-button (click)="responseToRequest(request.id,true)" >Accept</button>
+              <button class="m-1" type="button" mat-stroked-button (click)="responseToRequest(request.id)" >Decline</button>
             </div>
           </div>
           <div *ngIf="this.router.url === '/myrequesteditems'">

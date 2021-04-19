@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Request } from '../shared/request';
 import { ItemService } from '../services/item.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'item-dialog',
@@ -22,6 +23,7 @@ export class RequestedItemDialogComponent implements OnInit {
                 public requestService: RequestService,
                 public itemService: ItemService,
                 public router: Router,
+                public snackBar: MatSnackBar,
                 @Inject(MAT_DIALOG_DATA) public request: any ) {
                   console.log(request);
                 }
@@ -49,5 +51,16 @@ export class RequestedItemDialogComponent implements OnInit {
     dueDate.setDate(dueDate.getDate() + days);
     var result = dueDate.toISOString().split('T')[0]
     return result;
+  }
+
+  responseToRequest(requestId: number, acceptance: boolean){
+    console.log(acceptance,requestId)
+    this.requestService.responseToRequest(requestId, acceptance).subscribe(
+      () => {
+        this.snackBar.open("You have succesfully responded","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      })
   }
 }

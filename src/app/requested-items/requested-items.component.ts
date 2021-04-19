@@ -44,10 +44,10 @@ export class RequestedItemsComponent implements OnInit {
   public getRequests(): void {
     switch(this.router.url){
       case '/requesteditems':
-        this.getOtherRequests(false)
+        this.getOtherRequests()
         break
       case '/myrequesteditems':
-        this.getMyRequests(false)
+        this.getMyRequests()
         break
       case '/borroweditems':
         this.getMyRequests(true)
@@ -60,7 +60,7 @@ export class RequestedItemsComponent implements OnInit {
     }
   }
 
-  public getOtherRequests(accepted: boolean): void {
+  public getOtherRequests(accepted?: boolean): void {
     this.requestService.getRequestsByOwnerEmail(localStorage.getItem('email'), accepted).subscribe(
       (response: Request[]) => {
         this.requests = response;
@@ -73,7 +73,7 @@ export class RequestedItemsComponent implements OnInit {
     );
   }
 
-  public getMyRequests(accepted: boolean): void {
+  public getMyRequests(accepted?: boolean): void {
     this.requests = [];
     this.requestService.getRequestsByRequesterEmail(localStorage.getItem('email'), accepted).subscribe(
       (response: Request[]) => {
@@ -87,6 +87,8 @@ export class RequestedItemsComponent implements OnInit {
       }
     );
   }
+
+  
 
   checkIfOwner(itemData): any {
     return (itemData.owner['email'] === localStorage.getItem('email'))

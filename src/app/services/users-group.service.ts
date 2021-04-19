@@ -41,7 +41,7 @@ export class UsersGroupService {
         return token
     }
 
-    addToGroup(token: string, email:string){
+    public addToGroup(token: string, email:string){
         let data={email,token}
         data.token=token
         data.email=email
