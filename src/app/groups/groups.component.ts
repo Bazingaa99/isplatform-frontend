@@ -22,12 +22,14 @@ export class GroupsComponent{
   pageIndex: number;
   usersGroupsLength: number;
   usersGroupsPageSize = 7;
+  pageSliceChanged = true;
 
   constructor(private usersGroupService: UsersGroupService,
               private router: Router,
               private updateUsersGroupsService: UpdateUsersGroupsService){
                 this.updateEventSubscription = this.updateUsersGroupsService.getUpdate().subscribe(()=>{
                   this.getUserGroups();
+                  this.pageSliceChanged = true;
                 });
               }
 
@@ -43,9 +45,10 @@ export class GroupsComponent{
       (response: UsersGroup[]) => {
         this.usersGroup = response;
         this.usersGroupsLength = response.length;
-        if(typeof this.usersGroupsPageSlice === 'undefined')
+        if(this.pageSliceChanged)
         {
-          this.usersGroupService.usersGroupsPageSlice = this.usersGroup.slice(0, this.usersGroupsPageSize);
+          this.usersGroupService.usersGroupsPageSlice = this.usersGroup.slice(this.usersGroupService.usersGroupsPageIndex*this.usersGroupsPageSize, this.usersGroupService.usersGroupsPageIndex*this.usersGroupsPageSize+this.usersGroupsPageSize);
+          this.pageSliceChanged = false;
         }
       },
       (error: HttpErrorResponse) => {

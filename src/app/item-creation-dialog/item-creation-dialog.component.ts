@@ -31,17 +31,17 @@ export class ItemCreationDialogComponent implements OnInit {
   public groupId: number;
   public isHidden = false;
 
-  public addItemForm = new FormGroup({
+  public itemForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     description: new FormControl('', [Validators.required, Validators.maxLength(1000)]),
     category: new FormControl('', [Validators.required]),
     duration: new FormControl('', [Validators.required, Validators.max(180), Validators.min(1)])
   })
 
-  get name(){return this.addItemForm.get('name')}
-  get description(){return this.addItemForm.get('description')}
-  get category(){return this.addItemForm.get('category')}
-  get duration(){return this.addItemForm.get('duration')}
+  get name(){return this.itemForm.get('name')}
+  get description(){return this.itemForm.get('description')}
+  get category(){return this.itemForm.get('category')}
+  get duration(){return this.itemForm.get('duration')}
 
   ngOnInit(): void {
     this.getCategories();
@@ -50,13 +50,14 @@ export class ItemCreationDialogComponent implements OnInit {
       var div = document.getElementById('item-form-title');
       div.innerHTML = div.innerHTML.replace('Add','Update');
       div = document.getElementById('submit-button');
-      div.innerHTML = div.innerHTML.replace('Add','Update');
+      div.innerHTML = div.innerHTML.replace('Create','Update');
       this.isHidden = this.updatableItemData.isHidden;
 
-      this.addItemForm.patchValue({name: this.updatableItemData.name,
+      this.itemForm.patchValue({name: this.updatableItemData.name,
         description: this.updatableItemData.description,
         category: this.updatableItemData.category['id'],
-        duration: this.updatableItemData.duration});
+        duration: this.updatableItemData.duration,
+        owner_id: this.updatableItemData.owner_id});
     }
   }
 
@@ -66,47 +67,78 @@ export class ItemCreationDialogComponent implements OnInit {
 
   public onSubmitItem(): void {
     this.dialogRef.close();
-    if (this.addItemForm.valid){
+    if (this.itemForm.valid){
       this.item = {
         group: this.groupId,
-        category: this.addItemForm.get('category').value,
-        name: this.addItemForm.get('name').value,
-        description: this.addItemForm.get('description').value,
-        duration: this.addItemForm.get('duration').value,
+        category: this.itemForm.get('category').value,
+        name: this.itemForm.get('name').value,
+        description: this.itemForm.get('description').value,
+        duration: this.itemForm.get('duration').value,
         isHidden: this.isHidden,
       }
-      this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
-        () => {
-          this.updateService.sendUpdate();
-          this.snackBar.open("Item successfuly added","✓",{
-            duration: 400000000000000,
-            panelClass: ['green-snackbar']
-          })
-        },
-        (httpErrorResponse: HttpErrorResponse) => {
-          let errorString = ""
-          console.log(httpErrorResponse.error.errors[0].defaultMessage);
-          let errors = httpErrorResponse.error.errors;
-          if(errors.length > 0){
-          for(let i = 0; i < errors.length; i++){
-              errorString += errors[i].defaultMessage + "\n"
+      if(this.updatableItemData === null){
+        this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
+          () => {
+            this.updateService.sendUpdate();
+            this.snackBar.open("Item successfuly added","✓",{
+              duration: 400000000000000,
+              panelClass: ['green-snackbar']
+            })
+          },
+          (httpErrorResponse: HttpErrorResponse) => {
+            let errorString = ""
+            console.log(httpErrorResponse.error.errors[0].defaultMessage);
+            let errors = httpErrorResponse.error.errors;
+            if(errors.length > 0){
+            for(let i = 0; i < errors.length; i++){
+                errorString += errors[i].defaultMessage + "\n"
+              }
+              this.snackBar.open(errorString,"✓",{
+                duration: 400000000000000,
+                panelClass: ['red-snackbar']
+              })
+            }else{
+              this.snackBar.open("Couldn't add item. Please try again.","✓",{
+                duration: 400000000000000,
+                panelClass: ['red-snackbar']
+              })
             }
-            this.snackBar.open(errorString,"✓",{
-              duration: 400000000000000,
-              panelClass: ['red-snackbar']
-            })
-          }else{
-            this.snackBar.open("Couldn't add item. Please try again.","✓",{
-              duration: 400000000000000,
-              panelClass: ['red-snackbar']
-            })
           }
-
-        }
-      )
+        )
+      } else {
+        this.item.id = this.updatableItemData.id;
+        this.itemService.updateItem(this.item, localStorage.getItem('email')).subscribe(
+          () => {
+            this.updateService.sendUpdate();
+            this.snackBar.open("Item successfuly updated","✓",{
+              duration: 400000000000000,
+              panelClass: ['green-snackbar']
+            })
+          },
+          (httpErrorResponse: HttpErrorResponse) => {
+            let errorString = ""
+            console.log(httpErrorResponse.error.errors[0].defaultMessage);
+            let errors = httpErrorResponse.error.errors;
+            if(errors.length > 0){
+            for(let i = 0; i < errors.length; i++){
+                errorString += errors[i].defaultMessage + "\n"
+              }
+              this.snackBar.open(errorString,"✓",{
+                duration: 400000000000000,
+                panelClass: ['red-snackbar']
+              })
+            }else{
+              this.snackBar.open("Couldn't update item. Please try again.","✓",{
+                duration: 400000000000000,
+                panelClass: ['red-snackbar']
+              })
+            }
+          }
+        )
+      }
     }
   }
-
+  
   public getCategories(): void {
     this.categoryService.getCategories().subscribe(
       (response: Category[]) => {

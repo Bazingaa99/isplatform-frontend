@@ -1,7 +1,7 @@
 export interface Item {
     id?: number;
     group: number;
-    owner?: number;
+    owner_id?: number;
     category: number;
     name: string;
     description: string;

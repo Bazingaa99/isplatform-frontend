@@ -9,7 +9,7 @@ import { UsersGroup } from '../shared/users-group';
 @Injectable({providedIn: 'root'})
 export class UsersGroupService {
     private apiServerUrl = environment.apiBaseUrl;
-    public usersGroupsPageIndex: number;
+    public usersGroupsPageIndex = 0;
     public usersGroupsPageSlice: UsersGroup[];
 
     constructor(private http: HttpClient) { }

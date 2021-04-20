@@ -9,6 +9,7 @@ import { ItemService } from '../services/item.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
+import { ItemDeleteDialogComponent } from '../item-delete-dialog/item-delete-dialog.component';
 
 @Component({
   selector: 'item-dialog',
@@ -56,12 +57,17 @@ export class ItemDialogComponent implements OnInit {
     });
   }
 
+  openItemDeleteDialog(itemId: number): void {
+    this.updateDialog.open(ItemDeleteDialogComponent, {
+      data: itemId,
+    });
+  }
+
   closeItemDialog(): void {
     this.itemDialog.close(ItemDialogComponent);
   }
 
   public requestItem(itemId: number): void {
-
     this.request = {
       item: itemId
     }

@@ -22,23 +22,17 @@
             <p id="item-name">{{ data.item.name }}</p>
             <p>{{ data.item.description }}</p>
             <div class="spacer"></div>
-            <div class="action-div" *ngIf="!checkIfUserIsOwner() && !data.itemRequested">
-              <button type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request</button>
-            </div>
 
-            <div class="action-div" *ngIf="!checkIfUserIsOwner() && data.itemRequested && !data.responded">
-              <span class="important-info">Requested</span>
-            </div>
-
-            <div class="action-div" *ngIf="!checkIfUserIsOwner() && data.itemRequested && data.responded && !data.accepted">
-              <div class="col">
-                <label class="important-info m1" for="requestButton">Request was declined.</label>
-                <button class="m1" name="requestButton" type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request again</button>
-              </div>
-            </div>
-
-            <div class="action-div" *ngIf="checkIfUserIsOwner()" (click)="openItemUpdateDialog(item)">
-                <button type="submit" mat-stroked-button>Update item</button>
+            
+            <div class="action-div">
+                <div class="col" *ngIf="!checkIfUserIsOwner() && data.itemRequested && data.responded && !data.accepted">
+                  <label class="important-info m1" for="requestButton">Request was declined.</label>
+                  <button class="m1" name="requestButton" type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request again</button>
+                </div>
+                <button *ngIf="!checkIfUserIsOwner() && !data.isItemRequested" type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request</button>
+                <span *ngIf="!checkIfUserIsOwner() && data.itemRequested && !data.responded" class="important-info">Requested</span>
+                <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemUpdateDialog(data.item)" mat-stroked-button>Update item</button>
+                <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemDeleteDialog(data.item.id)" color="warn" mat-stroked-button>Delete item</button>
             </div>
         </div>
     </div>

@@ -1,0 +1,7 @@
+<mat-dialog-content>
+    Are you sure you want to permanently remove this item?
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-stroked-button color="warn" mat-dialog-close>No</button>
+    <button mat-stroked-button (click)="deleteItem(itemId)" >Yes</button>
+</mat-dialog-actions>
