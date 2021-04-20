@@ -7,6 +7,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Request } from '../shared/request';
 import { ItemService } from '../services/item.service';
 import { Router } from '@angular/router';
+import { ItemDeleteDialogComponent } from '../item-delete-dialog/item-delete-dialog.component';
 
 @Component({
   selector: 'item-dialog',
@@ -44,9 +45,14 @@ export class ItemDialogComponent implements OnInit {
   }
 
   openItemUpdateDialog(itemData): void {
-    console.log(itemData);
     this.updateDialog.open(ItemCreationDialogComponent, {
       data: itemData,
+    });
+  }
+
+  openItemDeleteDialog(itemId: number): void {
+    this.updateDialog.open(ItemDeleteDialogComponent, {
+      data: itemId,
     });
   }
 
@@ -55,7 +61,6 @@ export class ItemDialogComponent implements OnInit {
   }
 
   public requestItem(itemId: number): void {
-
     this.request = {
       item: itemId
     }

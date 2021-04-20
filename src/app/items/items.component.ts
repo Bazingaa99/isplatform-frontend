@@ -28,7 +28,6 @@ export class ItemsComponent implements OnInit {
   public request: Request;
 
   constructor(public dialog: MatDialog,
-              private activatedRoute: ActivatedRoute,
               private itemService: ItemService,
               private router: Router,
               private updateService: UpdateUsersGroupsService,

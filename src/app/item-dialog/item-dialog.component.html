@@ -22,16 +22,11 @@
             <p id="item-name">{{ data.item.name }}</p>
             <p>{{ data.item.description }}</p>
             <div class="spacer"></div>
-              <div class="action-div" *ngIf="!checkIfUserIsOwner() && !data.isItemRequested">
-                <button type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request item</button>
-            </div>
-
-            <div class="action-div" *ngIf="!checkIfUserIsOwner() && data.isItemRequested">
-              <span class="important-info">Requested</span>
-            </div>
-
-            <div class="action-div" *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemUpdateDialog(data.item)">
-                <button type="submit" mat-stroked-button>Update item</button>
+            <div class="action-div">
+                <button *ngIf="!checkIfUserIsOwner() && !data.isItemRequested" type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request item</button>
+                <span *ngIf="!checkIfUserIsOwner() && data.isItemRequested" class="important-info">Requested</span>
+                <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemUpdateDialog(data.item)" mat-stroked-button>Update item</button>
+                <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemDeleteDialog(data.item.id)" color="warn" mat-stroked-button>Delete item</button>
             </div>
         </div>
     </div>
