@@ -15,12 +15,12 @@ export class RequestService {
 
     constructor(private http: HttpClient) { }
 
-    public getRequestsByOwnerEmail(email: string, accepted?: boolean): Observable<Request[]>{
+    public getRequestsByOwnerEmail(email: string, responded: boolean, accepted?: boolean): Observable<Request[]>{
       if(accepted===undefined){
         return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/notRespondedByOwner/${email}`)
       }
       else{
-        return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/for/${email}&${accepted}`)
+        return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/for/${email}&${accepted}&${responded}`)
       }
     }
 
@@ -30,19 +30,14 @@ export class RequestService {
       }else{
         return this.http.get<Request[]>( `${this.apiServerUrl}/isp/request/by/${email}&${accepted}`)
       }
-      
   }
 
-  checkIfRequested(itemId: number, email: string): Observable<boolean>{
-    return this.http.get<boolean>(`${this.apiServerUrl}/isp/request/exists/${itemId}&${email}`);
+  getRequest(itemId: number, email: string): Observable<Request>{
+    return this.http.get<Request>(`${this.apiServerUrl}/isp/request/exists/${itemId}&${email}`);
   }
 
-  deleteRequest(requestId: number): void {
-    this.http.delete(`${this.apiServerUrl}/isp/request/delete/${requestId}`).subscribe(
-      data => {
-        console.log(data);
-      }
-    )
+  deleteRequest(requestId: number): Observable<object> {
+    return this.http.delete(`${this.apiServerUrl}/isp/request/delete/${requestId}`);
   }
 
   responseToRequest(requestId: number, isAccepted: boolean){

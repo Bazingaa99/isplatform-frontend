@@ -44,24 +44,24 @@ export class RequestedItemsComponent implements OnInit {
   public getRequests(): void {
     switch(this.router.url){
       case '/requesteditems':
-        this.getOtherRequests()
+        this.getOtherRequests(false, false)
         break
       case '/myrequesteditems':
-        this.getMyRequests()
+        this.getMyRequests(false)
         break
       case '/borroweditems':
         this.getMyRequests(true)
         break
       case '/lentitems':
-        this.getOtherRequests(true)
+        this.getOtherRequests(true, true)
         break
       default:
         break
     }
   }
 
-  public getOtherRequests(accepted?: boolean): void {
-    this.requestService.getRequestsByOwnerEmail(localStorage.getItem('email'), accepted).subscribe(
+  public getOtherRequests(responded: boolean, accepted?: boolean): void {
+    this.requestService.getRequestsByOwnerEmail(localStorage.getItem('email'), accepted, responded).subscribe(
       (response: Request[]) => {
         this.requests = response;
         this.requestsLength = this.requests.length;
@@ -88,7 +88,7 @@ export class RequestedItemsComponent implements OnInit {
     );
   }
 
-  
+
 
   checkIfOwner(itemData): any {
     return (itemData.owner['email'] === localStorage.getItem('email'))

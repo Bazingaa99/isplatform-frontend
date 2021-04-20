@@ -8,6 +8,7 @@ import { Request } from '../shared/request';
 import { ItemService } from '../services/item.service';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 
 @Component({
   selector: 'item-dialog',
@@ -23,10 +24,9 @@ export class RequestedItemDialogComponent implements OnInit {
                 public requestService: RequestService,
                 public itemService: ItemService,
                 public router: Router,
+                public updateService: UpdateUsersGroupsService,
                 public snackBar: MatSnackBar,
-                @Inject(MAT_DIALOG_DATA) public request: any ) {
-                  console.log(request);
-                }
+                @Inject(MAT_DIALOG_DATA) public request: any ) {}
 
   ngOnInit(): void {
     this.currentUserEmail = localStorage.getItem('email')
@@ -43,7 +43,21 @@ export class RequestedItemDialogComponent implements OnInit {
   }
 
   removeRequest(requestId: number){
-    this.requestService.deleteRequest(requestId);
+    this.requestService.deleteRequest(requestId).subscribe(
+      () => {
+        this.updateService.sendUpdate();
+        this.snackBar.open("Request removed","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      },
+      (error: HttpErrorResponse) => {
+        this.snackBar.open("Could not remove request, please try again.","✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
   }
 
   dueDate(date: string, days: number) {

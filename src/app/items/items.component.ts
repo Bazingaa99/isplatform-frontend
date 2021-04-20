@@ -10,6 +10,7 @@ import { UpdateUsersGroupsService } from '../services/update-users-group.service
 import { Subscription } from 'rxjs';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { RequestService } from '../services/request.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'items',
@@ -32,10 +33,9 @@ export class ItemsComponent implements OnInit {
               private itemService: ItemService,
               private router: Router,
               private updateService: UpdateUsersGroupsService,
-              private requestService: RequestService) {
-                this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
-                  this.getItems();
-                });
+              private requestService: RequestService,
+              private snackBar: MatSnackBar) {
+                
               }
 
   ngOnInit(): void {
@@ -43,7 +43,6 @@ export class ItemsComponent implements OnInit {
     this.itemsLength = 0;
     this.getItems();
     this.currentUserEmail = localStorage.getItem('email');
-
   }
 
   test(itemData): any {
@@ -61,11 +60,20 @@ export class ItemsComponent implements OnInit {
   }
 
   openItemDialog(itemData): void {
-    this.requestService.checkIfRequested(itemData.id, this.currentUserEmail).subscribe(
-      (response: boolean) => {
-        this.dialog.open(ItemDialogComponent, {
-          data: [itemData, response],
-        });
+    this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
+      (response: Request) => {
+        if(response){
+          console.log(response)
+          this.dialog.open(ItemDialogComponent, {
+            data: [itemData, true, response.responded, response.accepted]
+          });
+        }else{
+          console.log("ne blet vis del to cia")
+          this.dialog.open(ItemDialogComponent, {
+            data: [itemData, false]
+          });
+        }
+
       },
       (error: HttpErrorResponse) => {
         console.log(error);
@@ -98,18 +106,4 @@ export class ItemsComponent implements OnInit {
 
     this.pageSlice = this.items.slice(startIndex, endIndex);
   }
-
-  public requestItem(itemId: number): void {
-    this.request = {
-      item: itemId
-    }
-    this.itemService.requestItem(this.request, localStorage.getItem('email')).subscribe(
-      (response: Request) => {
-        console.log(response);
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.message);
-      }
-    )
-    }
 }

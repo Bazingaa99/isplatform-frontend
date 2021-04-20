@@ -35,11 +35,18 @@
             </div>
           </div>
           <div *ngIf="this.router.url === '/myrequesteditems'">
-            <span class="important-info"> Waiting for response from owner. </span>
-            <div class="spacer"></div>
-            <button type="button" mat-stroked-button>Chat</button>
-            <div class="spacer"></div>
-            <button type="button" mat-stroked-button (click)="removeRequest(request.id)">Remove request</button>
+            <div *ngIf="request.responded">
+              <span class="important-info"> Request was declined. </span>
+              <div class="spacer"></div>
+              <button type="button" mat-stroked-button (click)="removeRequest(request.id)">Remove request</button>
+            </div>
+            <div *ngIf="!request.responded">
+              <span class="important-info"> Waiting for response from owner. </span>
+              <div class="spacer"></div>
+              <button type="button" mat-stroked-button>Chat</button>
+              <div class="spacer"></div>
+              <button type="button" mat-stroked-button (click)="removeRequest(request.id)">Remove request</button>
+            </div>
           </div>
 
           <div *ngIf="this.router.url === '/borroweditems'">

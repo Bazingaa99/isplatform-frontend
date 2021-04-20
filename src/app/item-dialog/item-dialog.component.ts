@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Request } from '../shared/request';
 import { ItemService } from '../services/item.service';
 import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 
 @Component({
   selector: 'item-dialog',
@@ -15,7 +17,6 @@ import { Router } from '@angular/router';
 })
 export class ItemDialogComponent implements OnInit {
   currentUserEmail: string;
-  isItemRequested: boolean;
   request: Request;
 
   constructor( public updateDialog: MatDialog,
@@ -23,12 +24,18 @@ export class ItemDialogComponent implements OnInit {
                 public requestService: RequestService,
                 public itemService: ItemService,
                 public router: Router,
+                private updateService: UpdateUsersGroupsService,
+                private snackBar: MatSnackBar,
                 @Inject(MAT_DIALOG_DATA) public data: any ) {
+                  console.log(data);
                   data['item'] = data['0']
                   delete data['0']
-                  data['isItemRequested'] = data['1']
+                  data['itemRequested'] = data['1']
                   delete data['1']
-                  console.log(data['isItemRequested'])
+                  data['responded'] = data['2']
+                  delete data['2']
+                  data['accepted'] = data['3']
+                  delete data['3']
                 }
 
   ngOnInit(): void {
@@ -60,10 +67,17 @@ export class ItemDialogComponent implements OnInit {
     }
     this.itemService.requestItem(this.request, localStorage.getItem('email')).subscribe(
       (response: Request) => {
-        console.log(response);
+        this.updateService.sendUpdate();
+        this.snackBar.open("Item requested.","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
       },
       (error: HttpErrorResponse) => {
-        console.log(error.message);
+        this.snackBar.open("Could not request item, please try again.","✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
       }
     )
   }
