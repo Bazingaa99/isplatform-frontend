@@ -30,7 +30,7 @@
               <span class="important-info">Requested</span>
             </div>
 
-            <div class="action-div" *ngIf="checkIfUserIsOwner()" (click)="openItemUpdateDialog(item)">
+            <div class="action-div" *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemUpdateDialog(data.item)">
                 <button type="submit" mat-stroked-button>Update item</button>
             </div>
         </div>

@@ -44,6 +44,7 @@ export class ItemDialogComponent implements OnInit {
   }
 
   openItemUpdateDialog(itemData): void {
+    console.log(itemData);
     this.updateDialog.open(ItemCreationDialogComponent, {
       data: itemData,
     });

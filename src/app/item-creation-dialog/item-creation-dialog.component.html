@@ -3,7 +3,7 @@
 </h1>
 <mat-dialog-content>
   <div class="login-wrapper" fxLayout="row" fxLayoutAlign="center center">
-    <form [formGroup]="addItemForm" (ngSubmit)="onSubmitItem()">
+    <form [formGroup]="itemForm" (ngSubmit)="onSubmitItem()">
       <div class="form-control">
         <mat-form-field appearance="fill" class="fill-parent-width">
           <mat-label color="primary" for="name">Title</mat-label>
@@ -78,7 +78,7 @@
         </mat-checkbox>
         <div class="dialog-footer">
           <button type="button" class="footer-btn m-1" color="warn" (click)="onCancel()" mat-stroked-button>Cancel</button>
-          <button type="submit" class="footer-btn m-1" [disabled]="addItemForm.invalid" mat-stroked-button>Create</button>
+          <button type="submit" class="footer-btn m-1" id="submit-button" [disabled]="itemForm.invalid" mat-stroked-button>Create</button>
         </div>
       </div>
 </form>
