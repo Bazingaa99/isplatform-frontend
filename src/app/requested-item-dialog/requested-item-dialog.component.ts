@@ -71,6 +71,7 @@ export class RequestedItemDialogComponent implements OnInit {
     console.log(acceptance,requestId)
     this.requestService.responseToRequest(requestId, acceptance).subscribe(
       () => {
+        this.updateService.sendUpdate();
         this.snackBar.open("You have succesfully responded","✓",{
           duration: 400000000000000,
           panelClass: ['green-snackbar']
