@@ -1,0 +1,98 @@
+.close-button {
+  position: absolute;
+  right: 0;
+  margin-top: -25px;
+  z-index: 1;
+}
+
+::ng-deep .mat-dialog-container{
+  padding-top: 0;
+}
+
+#item-dialog-header {
+  padding-top: 24px;
+}
+
+.close-icon {
+  transition: 1s ease-in-out;
+}
+
+.close-icon:hover {
+  transform: rotate(180deg);
+}
+
+#item-dialog {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+#item-information {
+  display: flex;
+}
+
+#item-photos {
+  position: relative;
+  float: left;
+}
+
+#item-content {
+  position: relative;
+  float: right;
+  margin-left: 8px;
+  width: 250px;
+  background-color: #3F51B5;
+  color: white;
+  padding: 8px;
+  margin-bottom: 5px;
+}
+
+#id {
+  position: relative;
+  float: left;
+}
+
+#date {
+  position: relative;
+  float: right;
+}
+
+button {
+  color:#3F51B5;
+  background: white;
+}
+
+#item-name {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.action-div{
+  display: flex;
+  justify-content: center;
+}
+
+hr{
+  width: 100%;
+}
+
+.spacer{
+  height: 50px;
+}
+
+.important-info{
+font-size: 18px;
+font-weight: bold;
+color: #df6c00;
+}
+
+.row{
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+.m-1{
+  margin: 0.75rem;
+}

@@ -7,8 +7,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
 import { Router } from '@angular/router';
-import { UserService } from '../services/user.service';
-import { User } from '../shared/user'
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -54,8 +52,8 @@ export class ItemCreationDialogComponent implements OnInit {
       div = document.getElementById('submit-button');
       div.innerHTML = div.innerHTML.replace('Add','Update');
       this.isHidden = this.updatableItemData.isHidden;
-      
-      this.addItemForm.patchValue({name: this.updatableItemData.name, 
+
+      this.addItemForm.patchValue({name: this.updatableItemData.name,
         description: this.updatableItemData.description,
         category: this.updatableItemData.category['id'],
         duration: this.updatableItemData.duration});
@@ -63,7 +61,7 @@ export class ItemCreationDialogComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(ItemCreationDialogComponent);
   }
 
   public onSubmitItem(): void {
@@ -78,7 +76,7 @@ export class ItemCreationDialogComponent implements OnInit {
         isHidden: this.isHidden,
       }
       this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
-        (response: Item) => {
+        () => {
           this.updateService.sendUpdate();
           this.snackBar.open("Item successfuly added","✓",{
             duration: 400000000000000,

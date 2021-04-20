@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material/paginator';
+import { AddToGroupToken } from '../shared/add-to-group-token';
 
 @Component({
   selector: 'groups',
@@ -13,7 +14,7 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./groups.component.scss',]
 })
 export class GroupsComponent{
-
+  public groupId: string;
   public userId: number;
   public usersGroup: UsersGroup[];
   updateEventSubscription:Subscription;
@@ -35,7 +36,9 @@ export class GroupsComponent{
   ngOnInit(): void{
     this.getUserGroups();
     this.selectedId = Number(this.router.url.slice(12, this.router.url.length))
+
   }
+  
 
   getUserGroups(): void {
     this.usersGroupService.getUserGroups(localStorage.getItem('email')).subscribe(
@@ -62,7 +65,7 @@ export class GroupsComponent{
 
   onGroupsPageChange(event: PageEvent){
     this.usersGroupService.usersGroupsPageIndex = event.pageIndex;
-    
+
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
 
@@ -71,7 +74,7 @@ export class GroupsComponent{
     }
     this.usersGroupService.usersGroupsPageSlice = this.usersGroup.slice(startIndex, endIndex);
   }
-  
+
   public get usersGroupsPageIndex(): number{
     return this.usersGroupService.usersGroupsPageIndex;
   }

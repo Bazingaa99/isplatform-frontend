@@ -52,7 +52,7 @@
     position: relative;
     float: left;
 }
-  
+
 #date {
     position: relative;
     float: right;
@@ -68,7 +68,7 @@ button {
     font-size: 16px;
 }
 
-.action-div{  
+.action-div{
     display: flex;
     justify-content: center;
 }
@@ -79,4 +79,10 @@ hr{
 
 .spacer{
     height: 50px;
+}
+
+.important-info{
+  font-size: 18px;
+  font-weight: bold;
+  color: #df6c00;
 }

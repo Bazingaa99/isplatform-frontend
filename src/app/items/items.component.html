@@ -15,6 +15,14 @@
             {{ item.category.categoryName }},
             {{ item.duration + " days" }}
           </div>
+          <div *ngIf="checkIfOwner(item)">
+            <div  class="card-actions">
+              <span class="important-info">My item</span>
+            </div>
+          </div>
+          <div class="card-footer">
+            <span>views: {{ item.viewCount }}</span>
+          </div>
         </div>
       </div>
   </div>

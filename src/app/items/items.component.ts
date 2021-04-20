@@ -4,10 +4,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from '../services/item.service';
 import { Item } from '../shared/item';
+import { Request } from '../shared/request';
 import { PageEvent } from '@angular/material/paginator';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { Subscription } from 'rxjs';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
+import { RequestService } from '../services/request.service';
 
 @Component({
   selector: 'items',
@@ -22,12 +24,15 @@ export class ItemsComponent implements OnInit {
   public pageSlice;
   public groupId: string;
   public updateEventSubscription: Subscription;
+  public currentUserEmail: string;
+  public request: Request;
 
   constructor(public dialog: MatDialog,
               private activatedRoute: ActivatedRoute,
               private itemService: ItemService,
               private router: Router,
-              private updateService: UpdateUsersGroupsService) {
+              private updateService: UpdateUsersGroupsService,
+              private requestService: RequestService) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
                   this.getItems();
                 });
@@ -37,6 +42,8 @@ export class ItemsComponent implements OnInit {
     this.pageSize = 12;
     this.itemsLength = 0;
     this.getItems();
+    this.currentUserEmail = localStorage.getItem('email');
+
   }
 
   test(itemData): any {
@@ -54,9 +61,16 @@ export class ItemsComponent implements OnInit {
   }
 
   openItemDialog(itemData): void {
-    this.dialog.open(ItemDialogComponent, {
-      data: itemData,
-    });
+    this.requestService.checkIfRequested(itemData.id, this.currentUserEmail).subscribe(
+      (response: boolean) => {
+        this.dialog.open(ItemDialogComponent, {
+          data: [itemData, response],
+        });
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+      }
+    )
   }
 
   public getItems(): void {
@@ -66,6 +80,7 @@ export class ItemsComponent implements OnInit {
         this.items = response;
         this.itemsLength = this.items.length;
         this.pageSlice = this.items.slice(0, this.pageSize);
+        console.log(this.currentUserEmail, this.items);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -83,4 +98,18 @@ export class ItemsComponent implements OnInit {
 
     this.pageSlice = this.items.slice(startIndex, endIndex);
   }
+
+  public requestItem(itemId: number): void {
+    this.request = {
+      item: itemId
+    }
+    this.itemService.requestItem(this.request, localStorage.getItem('email')).subscribe(
+      (response: Request) => {
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.message);
+      }
+    )
+    }
 }

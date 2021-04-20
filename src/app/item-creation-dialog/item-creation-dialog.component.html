@@ -77,8 +77,8 @@
           Hide item
         </mat-checkbox>
         <div class="dialog-footer">
-          <button mat-stroked-button class="btn-footer" color="warn" (click)="onCancel()">Cancel</button>
-          <button mat-stroked-button class="btn-footer" id="submit-button" [disabled]="addItemForm.invalid" type="submit">Add item</button>
+          <button type="button" class="footer-btn m-1" color="warn" (click)="onCancel()" mat-stroked-button>Cancel</button>
+          <button type="submit" class="footer-btn m-1" [disabled]="addItemForm.invalid" mat-stroked-button>Create</button>
         </div>
       </div>
 </form>

@@ -8,6 +8,8 @@ import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { HomePageComponent } from './home-page/home-page.component';
 import { RoleGuardService } from './services/role-guard-service.service';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
+import { AddToGroupComponent } from './add-to-group/add-to-group.component';
+import { RequestsPageComponent } from './requests-page/requests-page.component';
 
 const routes: Routes = [
   {
@@ -17,6 +19,10 @@ const routes: Routes = [
   {
     path:"confirm",
     component:ConfirmEmailComponent
+  },
+  {
+    path:"inv",
+    component:AddToGroupComponent
   },
   {
     path:"usersgroup",
@@ -35,6 +41,22 @@ const routes: Routes = [
         component: ItemsComponent
       }
     ]
+  },
+  {
+    path:"requesteditems",
+    component:RequestsPageComponent,
+  },
+  {
+    path:"myrequesteditems",
+    component:RequestsPageComponent,
+  },
+  {
+    path:"borroweditems",
+    component:RequestsPageComponent,
+  },
+  {
+    path:"lentitems",
+    component:RequestsPageComponent,
   },
   {
     path: "**", component: PageNotFoundComponent
