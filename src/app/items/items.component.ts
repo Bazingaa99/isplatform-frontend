@@ -34,7 +34,9 @@ export class ItemsComponent implements OnInit {
               private updateService: UpdateUsersGroupsService,
               private requestService: RequestService,
               private snackBar: MatSnackBar) {
-                
+                this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
+                  this.getItems();
+                });
               }
 
   ngOnInit(): void {
