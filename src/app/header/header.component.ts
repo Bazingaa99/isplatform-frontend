@@ -30,11 +30,12 @@ export class HeaderComponent implements OnInit {
   }
 
   isGroupOpened():boolean{
+    var mainpageUrlSegment = this.router.url.slice(1, 11)
     this.groupId = this.router.url.slice(12, this.router.url.length)
-    if(this.groupId ===''){
-      return true
+    if(this.groupId ==='' || mainpageUrlSegment!=='usersgroup'){
+      return false
     }else{
-      false
+      return true
     }
     
     
