@@ -43,6 +43,7 @@ export class ItemsComponent implements OnInit {
     this.pageSize = 12;
     this.itemsLength = 0;
     this.getItems();
+
     this.currentUserEmail = localStorage.getItem('email');
   }
 
@@ -69,7 +70,6 @@ export class ItemsComponent implements OnInit {
             data: [itemData, true, response.responded, response.accepted]
           });
         }else{
-          console.log("ne blet vis del to cia")
           this.dialog.open(ItemDialogComponent, {
             data: [itemData, false]
           });
