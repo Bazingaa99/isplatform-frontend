@@ -74,6 +74,7 @@ export class RequestedItemDialogComponent implements OnInit {
   }
 
   responseToRequest(requestId: number, acceptance: boolean){
+    this.closeItemDialog();
     console.log(acceptance,requestId)
     this.requestService.responseToRequest(requestId, acceptance).subscribe(
       () => {

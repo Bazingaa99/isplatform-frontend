@@ -52,6 +52,8 @@
           <div *ngIf="this.router.url === '/borroweditems'">
             <span class="important-info"> You currently have this item. </span>
             <div class="spacer"></div>
+            <button mat-stroked-button (click)="openChat(request.id)">Chat</button>
+            <div class="spacer"></div>
             <label for="returnDate"> Item should be returned by </label>
             <br>
             <span class="important-info"> {{ dueDate(request.item.dateCreated, request.item.duration) }} </span>
