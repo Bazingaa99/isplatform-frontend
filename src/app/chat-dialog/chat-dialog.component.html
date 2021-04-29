@@ -1,0 +1,33 @@
+<mat-dialog-content override>
+  <div class="chat-dialog-container">
+    <div class="chat-dialog-header">
+      <div *ngIf="this.currentUser === chat.request.requester.email" class="title m1">
+        {{ chat.request.item.name + "(" + chat.request.item.owner.username + ")" }}
+      </div>
+      <div *ngIf="this.currentUser !== chat.request.requester.email" class="title m1">
+        {{ chat.request.item.name + "(" + chat.request.requester.username + ")" }}
+      </div>
+      <button mat-icon-button color="primary" class="close-button" [mat-dialog-close]="true">
+        <mat-icon class="close-icon">close</mat-icon>
+      </button>
+    </div>
+    <div class="message-box" >
+      <div *ngFor="let message of currentMessages.slice().reverse()" [ngClass]="{'my-message': message.sender.email === this.currentUser,
+                                                                              'other-message': message.sender.email !== this.currentUser}">
+      {{ message.text }}
+      </div>
+    </div>
+    <div class="input-row">
+      <mat-form-field appearance="outline" class="text-input m1">
+        <textarea
+        cdkTextareaAutosize
+        cdkAutosizeMinRows="1"
+        cdkAutosizeMaxRows="5" [(ngModel)]="messageText" matInput class="text-input" maxlength="250" placeholder="..." color="primary"></textarea>
+      </mat-form-field>
+      <div class="send-btn m1">
+        <button mat-stroked-button color="primary" (click)="sendMessage(chat.id, this.currentUser)">Send</button>
+      </div>
+    </div>
+  </div>
+</mat-dialog-content>
+

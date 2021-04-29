@@ -1,6 +1,6 @@
 export interface Request {
     id?: number;
-    item: number;
+    item?: number;
     requester?: number;
     responded?: boolean;
     accepted?: boolean;

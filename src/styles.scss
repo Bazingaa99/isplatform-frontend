@@ -85,3 +85,7 @@ mat-card.card-primary {
 .mat-paginator-icon {
   fill: white !important;
 }
+
+.no-padding-dialog .mat-dialog-container {
+  padding: 0;
+}

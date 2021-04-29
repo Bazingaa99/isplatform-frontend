@@ -107,8 +107,8 @@ export class RequestedItemsComponent implements OnInit {
 
   openItemDialog(requestData): void {
     this.dialog.open(RequestedItemDialogComponent, {
-      data: requestData
+      data: requestData,
+      disableClose: true
     });
   }
-
 }

@@ -28,7 +28,6 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatIconModule } from '@angular/material/icon';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
-
 import { LoginComponent } from './login/login.component';
 import { RegistrationComponent } from './registration/registration.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -46,7 +45,8 @@ import { AddToGroupComponent } from './add-to-group/add-to-group.component'
 import { RequestedItemsComponent } from './requested-items/requested-items.component';
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestedItemDialogComponent } from './requested-item-dialog/requested-item-dialog.component';
-import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dialog.component'
+import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dialog.component';
+import { ChatDialogComponent } from './chat-dialog/chat-dialog.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -70,7 +70,8 @@ import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dial
     RequestedItemsComponent,
     RequestsPageComponent,
     RequestedItemDialogComponent,
-    ItemDeleteDialogComponent
+    ItemDeleteDialogComponent,
+    ChatDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -101,6 +102,7 @@ import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dial
   exports: [  ],
   providers: [,
     MatSnackBarModule,
+    MatDialogModule,
     MatProgressSpinnerModule,
     JwtHelperService,
     RoleGuardService,
