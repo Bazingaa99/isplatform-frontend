@@ -45,8 +45,9 @@ import { AddToGroupComponent } from './add-to-group/add-to-group.component'
 import { RequestedItemsComponent } from './requested-items/requested-items.component';
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestedItemDialogComponent } from './requested-item-dialog/requested-item-dialog.component';
-import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dialog.component';
-import { ChatDialogComponent } from './chat-dialog/chat-dialog.component'
+import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dialog.component'
+import { MatFileUploadModule } from 'angular-material-fileupload';
+import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,

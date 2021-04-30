@@ -25,6 +25,23 @@ export class ItemService {
       data.email = email;
       return this.http.post<Item>(`${this.apiServerUrl}/isp/items/add/`, data);
     }
+    
+    public addAttachment( itemId, file ): Observable<any> {
+      const formData: FormData = new FormData();
+      formData.append('file', file, file.name);
+  
+      const headers = new HttpHeaders();
+      headers.append('Content-Type', 'multipart/form-data');
+      headers.append('Accept', 'application/json');
+      console.log(formData,headers)
+      return this.http.post( `${this.apiServerUrl}/isp/items/${itemId}/image` ,
+        formData, { headers });
+    }
+    public getAttachment( itemId, file ): Observable<Blob> {
+      return this.http
+        .get(`${this.apiServerUrl}/isp/items/${itemId}/image/${file}`,
+          { responseType: 'blob' });
+    }
 
     public updateItem(item: Item, email: string): Observable<void>{
       let data = {item, email}

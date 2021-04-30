@@ -5,7 +5,7 @@ export interface Item {
     category: number;
     name: string;
     description: string;
-    pictureId?: string;
+    imageName?: string;
     dateCreated?: Date;
     viewCount?: number;
     duration: number;
