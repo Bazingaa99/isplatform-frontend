@@ -1,3 +1,4 @@
+import { Chat } from './chat';
 export interface Request {
     id?: number;
     item?: number;
@@ -5,4 +6,5 @@ export interface Request {
     responded?: boolean;
     accepted?: boolean;
     returned?: boolean;
+    chat?: Chat;
 }

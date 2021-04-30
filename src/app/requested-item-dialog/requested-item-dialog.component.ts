@@ -49,6 +49,7 @@ export class RequestedItemDialogComponent implements OnInit {
   }
 
   removeRequest(requestId: number){
+    this.closeItemDialog();
     this.requestService.deleteRequest(requestId).subscribe(
       () => {
         this.updateService.sendUpdate();
@@ -89,7 +90,8 @@ export class RequestedItemDialogComponent implements OnInit {
   openChat(requestId: number){
     this.chatService.openChat(requestId).subscribe(
       (response: Chat) => {
-        if(response){
+        if(response !== null){
+          console.log("CHATAS JAU YRA ZMOGAU");
           console.log(response);
           this.openChatDialog(response);
         }else{
@@ -102,8 +104,9 @@ export class RequestedItemDialogComponent implements OnInit {
           }
           this.chatService.createChat(this.chat).subscribe(
             (response: Chat) => {
+              console.log("SUKURIA NAUJA CHATA ZMOGAU");
               console.log(response);
-              this.openChatDialog(response);
+              this.openChat(requestId);
             },
             (error: HttpErrorResponse) => {
               console.log(error);
