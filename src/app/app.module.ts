@@ -47,6 +47,7 @@ import { RequestedItemsComponent } from './requested-items/requested-items.compo
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestedItemDialogComponent } from './requested-item-dialog/requested-item-dialog.component';
 import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dialog.component'
+import { MatFileUploadModule } from 'angular-material-fileupload';
 @NgModule({
   declarations: [
     AppComponent,
@@ -89,6 +90,7 @@ import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dial
     MatCardModule,
     MatButtonModule,
     MatDialogModule,
+    MatFileUploadModule,
     MatGridListModule,
     MatMenuModule,
     MatSelectModule,

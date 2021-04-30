@@ -11,6 +11,8 @@ import { Subscription } from 'rxjs';
 import { ItemDialogComponent } from '../item-dialog/item-dialog.component';
 import { RequestService } from '../services/request.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { SafeUrl } from '@angular/platform-browser';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
   selector: 'items',
@@ -27,13 +29,14 @@ export class ItemsComponent implements OnInit {
   public updateEventSubscription: Subscription;
   public currentUserEmail: string;
   public request: Request;
-
+  public imageUrl:SafeUrl
   constructor(public dialog: MatDialog,
               private itemService: ItemService,
               private router: Router,
               private updateService: UpdateUsersGroupsService,
               private requestService: RequestService,
-              private snackBar: MatSnackBar) {
+              private snackBar: MatSnackBar,
+              private sanitizer:DomSanitizer) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
                   this.getItems();
                 });
@@ -44,6 +47,7 @@ export class ItemsComponent implements OnInit {
     this.itemsLength = 0;
     this.getItems();
     this.currentUserEmail = localStorage.getItem('email');
+    console.log("Asdasd")
   }
 
   test(itemData): any {
@@ -97,6 +101,9 @@ export class ItemsComponent implements OnInit {
     );
   }
 
+  public checkIfImageIsSet (item: Item):boolean{    
+    return item.imageName===null   
+  }
   public onPageChange(event: PageEvent){
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
@@ -104,7 +111,18 @@ export class ItemsComponent implements OnInit {
     if(endIndex > this.items.length){
       endIndex = this.items.length;
     }
-
     this.pageSlice = this.items.slice(startIndex, endIndex);
   }
+  // public getImage (item :Item):SafeUrl{
+  //   this.itemService.getAttachment(item.id, item.image_name).subscribe(
+  //     data => {
+  //       var unsafeImageUrl = URL.createObjectURL(data);
+  //       this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImageUrl);
+  //   }, error => {
+  //       console.log(error);
+  //   }
+  //   )
+  //   return this.imageUrl
+  // }
+  
 }

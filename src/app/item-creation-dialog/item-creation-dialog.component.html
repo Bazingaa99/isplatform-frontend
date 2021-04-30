@@ -53,6 +53,7 @@
           </div>
         </mat-form-field>
       </div>
+
       <div class="form-control">
         <mat-form-field appearance="fill" class="fill-parent-width">
           <mat-label color="primary" for="duration">Amount of days you can lend the item</mat-label>
@@ -73,7 +74,14 @@
               </div>
             </div>
         </mat-form-field>
-        <mat-checkbox class="mat-form-field-wrapper" [checked]="isHidden" (change)="isHidden=$event.checked">
+        <div class="form-control">
+          <div class="upload-file-wrapper" >
+            <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)"  accept=".png, .jpg, .jpeg, .img">
+            <br>
+            <mat-hint>Allowed formats - png, jpg, jpeg, img and minimal resolution - 250x200</mat-hint>
+          </div>
+        </div>
+      <mat-checkbox class="mat-form-field-wrapper" [checked]="isHidden" (change)="isHidden=$event.checked">
           Hide item
         </mat-checkbox>
         <div class="dialog-footer">
