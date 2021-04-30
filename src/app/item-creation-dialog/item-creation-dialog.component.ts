@@ -9,7 +9,6 @@ import { Item } from '../shared/item';
 import { Router } from '@angular/router';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatFileUploadModule } from 'angular-material-fileupload';
 
 @Component({
   selector: 'app-item-creation-dialog',
@@ -25,7 +24,6 @@ export class ItemCreationDialogComponent implements OnInit {
               private router: Router,
               private updateService: UpdateUsersGroupsService,
               private snackBar: MatSnackBar,
-              private MatFileUploadModule: MatFileUploadModule,
               @Inject(MAT_DIALOG_DATA) public updatableItemData: Item) { }
 
   public categories: Category[];
@@ -78,7 +76,7 @@ export class ItemCreationDialogComponent implements OnInit {
         name: this.itemForm.get('name').value,
         description: this.itemForm.get('description').value,
         duration: this.itemForm.get('duration').value,
-        isHidden: this.isHidden,  
+        isHidden: this.isHidden,
       }
       if(this.updatableItemData === null){
         this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
@@ -149,7 +147,7 @@ export class ItemCreationDialogComponent implements OnInit {
       }
     }
   }
-  
+
   public getCategories(): void {
     this.categoryService.getCategories().subscribe(
       (response: Category[]) => {
@@ -174,7 +172,7 @@ export class ItemCreationDialogComponent implements OnInit {
         setTimeout(() => {
           const width = img.naturalWidth;
           const height = img.naturalHeight;
-    
+
           window.URL.revokeObjectURL( img.src );
           console.log(width + '*' + height);
           if ( width < 250 || height < 200 ) {
@@ -186,7 +184,7 @@ export class ItemCreationDialogComponent implements OnInit {
     }
     //   this.itemForm.controls.image.updateValueAndValidity();
     //   this.itemForm.controls.image.clearValidators();
-    // } 
+    // }
     else {
       this.onFileNotSelected();
     }

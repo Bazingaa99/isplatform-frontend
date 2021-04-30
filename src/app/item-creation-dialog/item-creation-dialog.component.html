@@ -76,7 +76,7 @@
         </mat-form-field>
         <div class="form-control">
           <div class="upload-file-wrapper" >
-            <input type="file" id="image" formControlName="image" (change)="onFileSelected($event)"  accept=".png, .jpg, .jpeg, .img">
+            <input type="file" id="image" (change)="onFileSelected($event)"  accept=".png, .jpg, .jpeg, .img">
             <br>
             <mat-hint>Allowed formats - png, jpg, jpeg, img and minimal resolution - 250x200</mat-hint>
           </div>
