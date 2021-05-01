@@ -56,7 +56,9 @@ export class ItemDialogComponent implements OnInit {
       data: itemData,
     });
   }
-
+  public checkIfImageIsSet (item: Item):boolean{    
+    return item.imageName===null   
+  }
   openItemDeleteDialog(itemId: number): void {
     this.updateDialog.open(ItemDeleteDialogComponent, {
       data: itemId,

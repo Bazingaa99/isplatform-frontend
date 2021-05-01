@@ -26,7 +26,7 @@ export class ItemCreationDialogComponent implements OnInit {
               private updateService: UpdateUsersGroupsService,
               private snackBar: MatSnackBar,
               private MatFileUploadModule: MatFileUploadModule,
-              @Inject(MAT_DIALOG_DATA) public updatableItemData: Item) { }
+              @Inject(MAT_DIALOG_DATA) public updatableItemData: Item,) { }
 
   public categories: Category[];
   public item: Item;
@@ -59,7 +59,9 @@ export class ItemCreationDialogComponent implements OnInit {
         description: this.updatableItemData.description,
         category: this.updatableItemData.category['id'],
         duration: this.updatableItemData.duration,
-        owner_id: this.updatableItemData.owner_id});
+        owner_id: this.updatableItemData.owner_id
+      });
+      this.setOldImage(this.updatableItemData)
     }
   }
 
@@ -69,7 +71,6 @@ export class ItemCreationDialogComponent implements OnInit {
 
   public onSubmitItem(): void {
     this.itemForm.value.image = this.image;
-    console.log(this.itemForm.value.image )
     this.dialogRef.close();
     if (this.itemForm.valid){
       this.item = {
@@ -98,7 +99,6 @@ export class ItemCreationDialogComponent implements OnInit {
           },
           (httpErrorResponse: HttpErrorResponse) => {
             let errorString = ""
-            console.log(httpErrorResponse.error.errors[0].defaultMessage);
             let errors = httpErrorResponse.error.errors;
             if(errors.length > 0){
             for(let i = 0; i < errors.length; i++){
@@ -119,7 +119,16 @@ export class ItemCreationDialogComponent implements OnInit {
       } else {
         this.item.id = this.updatableItemData.id;
         this.itemService.updateItem(this.item, localStorage.getItem('email')).subscribe(
-          () => {
+          res => {
+            console.log(this.image)
+            if(this.image){
+              console.log(this.image)
+              this.itemService.addAttachment(this.item.id, this.image).subscribe( response=>
+                {
+                this.updateService.sendUpdate();
+                }
+              )
+            }
             this.updateService.sendUpdate();
             this.snackBar.open("Item successfuly updated","✓",{
               duration: 400000000000000,
@@ -128,7 +137,6 @@ export class ItemCreationDialogComponent implements OnInit {
           },
           (httpErrorResponse: HttpErrorResponse) => {
             let errorString = ""
-            console.log(httpErrorResponse.error.errors[0].defaultMessage);
             let errors = httpErrorResponse.error.errors;
             if(errors.length > 0){
             for(let i = 0; i < errors.length; i++){
@@ -154,7 +162,6 @@ export class ItemCreationDialogComponent implements OnInit {
     this.categoryService.getCategories().subscribe(
       (response: Category[]) => {
         this.categories = response;
-        console.log(this.categories);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
@@ -164,7 +171,9 @@ export class ItemCreationDialogComponent implements OnInit {
 
   onFileSelected(event): void {
     if (event.target.files[0]) {
+
       this.image = event.target.files[0];
+
       window.URL = window.URL || window.webkitURL;
       const img = new Image();
       let reader = new FileReader();
@@ -176,7 +185,6 @@ export class ItemCreationDialogComponent implements OnInit {
           const height = img.naturalHeight;
     
           window.URL.revokeObjectURL( img.src );
-          console.log(width + '*' + height);
           if ( width < 250 || height < 200 ) {
             alert('photo should be not smaller than 250x250 size');
             event.srcElement.value = null;
@@ -196,4 +204,14 @@ export class ItemCreationDialogComponent implements OnInit {
     this.image = null;
   }
 
+   setOldImage(item:Item)
+  {
+    let fileInputElement =  (<HTMLInputElement>document.getElementById('image'));
+    let data = item.image
+    let file = new File([data], item.imageName,{type:"image/jpeg", lastModified:new Date().getTime()});
+    this.image = file
+    let container = new DataTransfer();
+    container.items.add(file);
+    fileInputElement.files = container.files;
+  }
 }

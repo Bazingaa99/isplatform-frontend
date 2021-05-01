@@ -10,4 +10,5 @@ export interface Item {
     viewCount?: number;
     duration: number;
     isHidden: boolean;
+    image?:Blob
 }
