@@ -1,0 +1,33 @@
+<mat-dialog-content id="item-dialog">
+  <div id="item-dialog-header">
+      <button *ngIf="isBookmarked" mat-icon-button color="warn" class="bookmark-button" (click)="deleteBookmark(item.id)">
+        <mat-icon>bookmark</mat-icon>
+      </button>
+      <button *ngIf="!isBookmarked" mat-icon-button color="secondary" class="bookmark-button" (click)="bookmarkItem(item.id)">
+        <mat-icon>bookmark</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" class="close-button" [mat-dialog-close]="true">
+          <mat-icon class="close-icon">close</mat-icon>
+      </button>
+  </div>
+  <div id="item-information">
+      <div id="item-photos">
+          <img class="card-image" src="https://i.imgur.com/3m7URcq.png" alt="Item image">
+      </div>
+      <div id="item-content">
+          <hr>
+          <div>
+              <p id="id">ID: {{ item.id }}</p>
+              <p id="date">{{ item.dateCreated }}</p>
+          </div>
+          <hr>
+          <div class="spacer"></div>
+          <p>Category: {{ item.category['categoryName'] }}</p>
+          <p>Duration: {{ item.duration + " days" }}</p>
+          <div class="spacer"></div>
+          <p id="item-name">{{ item.name }}</p>
+          <p>{{ item.description }}</p>
+      </div>
+  </div>
+</mat-dialog-content>
+

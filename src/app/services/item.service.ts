@@ -25,11 +25,11 @@ export class ItemService {
       data.email = email;
       return this.http.post<Item>(`${this.apiServerUrl}/isp/items/add/`, data);
     }
-    
+
     public addAttachment( itemId, file ): Observable<any> {
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
-  
+
       const headers = new HttpHeaders();
       headers.append('Content-Type', 'multipart/form-data');
       headers.append('Accept', 'application/json');
@@ -49,7 +49,7 @@ export class ItemService {
       data.email = email;
       return this.http.put<void>(`${this.apiServerUrl}/isp/items/update/`, data);
     }
-    
+
     public deleteItem(itemId: number, email: string): Observable<object>{
       return this.http.delete(`${this.apiServerUrl}/isp/items/delete/${itemId}&${email}`);
     }
@@ -59,5 +59,24 @@ export class ItemService {
       data.request = request;
       data.email = email;
       return this.http.post<Request>(`${this.apiServerUrl}/isp/request/add/`, data);
+    }
+
+    public bookmarkItem(itemId: number, email: string): Observable<object>{
+      let data = {itemId, email}
+      data.itemId = itemId
+      data.email = email
+      return this.http.post<object>(`${this.apiServerUrl}/isp/items/bookmark`, data)
+    }
+
+    public getItemsBookmarkedByUser(email: string): Observable<Item[]>{
+      return this.http.get<Item[]>(`${this.apiServerUrl}/isp/items/find/bookmarks/user/${email}`)
+    }
+
+    public deleteBookmark(itemId: number, email: string): Observable<object>{
+      return this.http.delete(`${this.apiServerUrl}/isp/items/delete/bookmark/${email}/${itemId}`)
+    }
+
+    public isBookmarkedByCurrentUser(itemId: number, email: string){
+      return this.http.get(`${this.apiServerUrl}/isp/items/check/bookmark/${email}/${itemId}`)
     }
 }

@@ -23,6 +23,7 @@ export class RequestedItemsComponent implements OnInit {
   public groupId: string;
   public updateEventSubscription: Subscription;
   public currentUserEmail: string;
+  public loadPage: boolean;
 
   constructor(private dialog: MatDialog,
               private requestService: RequestService,
@@ -64,6 +65,7 @@ export class RequestedItemsComponent implements OnInit {
     this.requestService.getRequestsByOwnerEmail(localStorage.getItem('email'), accepted, responded).subscribe(
       (response: Request[]) => {
         this.requests = response;
+        this.loadPage = true;
         this.requestsLength = this.requests.length;
         this.pageSlice = this.requests.slice(0, this.pageSize);
       },
@@ -78,7 +80,7 @@ export class RequestedItemsComponent implements OnInit {
     this.requestService.getRequestsByRequesterEmail(localStorage.getItem('email'), accepted).subscribe(
       (response: Request[]) => {
         this.requests = response;
-
+        this.loadPage = true;
         this.requestsLength = this.requests.length;
         this.pageSlice = this.requests.slice(0, this.pageSize);
       },

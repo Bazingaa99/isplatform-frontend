@@ -1,40 +1,46 @@
-<div class="item-container">
-  <div class="grid-item" *ngFor="let request of pageSlice">
-    <div class="card" (click)="openItemDialog(request)">
-      <img
-        class="card-image"
-        src="https://i.imgur.com/3m7URcq.png"
-        alt="Item image"
-        width="250"
-        height="200"
-      />
-      <div class="card-container">
-        <div class="card-header">
-          <div class="item-title">
-            {{ request.item.name }}
+<div *ngIf="loadPage">
+  <div class="item-container" *ngIf="this.requestsLength > 0">
+    <div class="grid-item" *ngFor="let request of pageSlice">
+      <div class="card" (click)="openItemDialog(request)">
+        <img
+          class="card-image"
+          src="https://i.imgur.com/3m7URcq.png"
+          alt="Item image"
+          width="250"
+          height="200"
+        />
+        <div class="card-container">
+          <div class="card-header">
+            <div class="item-title">
+              {{ request.item.name }}
+            </div>
+          </div>
+          <div class="card-subtitle">
+            {{ request.item.category.categoryName }},
+            {{ request.item.duration + " days" }}
+          </div>
+          <div  class="card-actions">
+            <span class="important-info">{{ request.item.group.name }}</span>
           </div>
         </div>
-        <div class="card-subtitle">
-          {{ request.item.category.categoryName }},
-          {{ request.item.duration + " days" }}
+        <div class="card-footer">
+          <span>views: {{ request.item.viewCount }}</span>
         </div>
-        <div  class="card-actions">
-          <span class="important-info">{{ request.item.group.name }}</span>
-        </div>
-      </div>
-      <div class="card-footer">
-        <span>views: {{ request.item.viewCount }}</span>
       </div>
     </div>
   </div>
-</div>
 
-<mat-paginator
-  class="item-paginator"
-  style="margin-top: 0.5rem"
-  [length]="this.requestsLength"
-  [pageSize]="12"
-  [pageSizeOptions]="[12]"
-  (page)="onPageChange($event)"
->
-</mat-paginator>
+  <mat-paginator *ngIf="this.requestsLength > 0"
+    class="item-paginator"
+    style="margin-top: 0.5rem"
+    [length]="this.requestsLength"
+    [pageSize]="12"
+    [pageSizeOptions]="[12]"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+
+  <div *ngIf="this.requestsLength === 0">
+    <h1>There aren't any requests at the moment.</h1>
+  </div>
+</div>

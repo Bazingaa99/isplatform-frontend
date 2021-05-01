@@ -47,6 +47,9 @@ import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestedItemDialogComponent } from './requested-item-dialog/requested-item-dialog.component';
 import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dialog.component'
 import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
+import { BookmarkedItemsComponent } from './bookmarked-items/bookmarked-items.component';
+import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.component';
+import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmarked-item-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -71,7 +74,10 @@ import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
     RequestsPageComponent,
     RequestedItemDialogComponent,
     ItemDeleteDialogComponent,
-    ChatDialogComponent
+    ChatDialogComponent,
+    BookmarkedItemsComponent,
+    BookmarksPageComponent,
+    BookmarkedItemDialogComponent
   ],
   imports: [
     BrowserModule,
