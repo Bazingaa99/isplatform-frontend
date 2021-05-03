@@ -11,4 +11,5 @@ export interface Item {
     duration: number;
     isHidden: boolean;
     bookmarkCount?: number;
+    image?:Blob
 }

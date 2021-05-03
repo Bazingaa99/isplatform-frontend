@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute, Router } from '@angular/router';
+import { LoginComponent } from '../login/login.component';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { UserService } from '../services/user.service';
 import { UsersGroupService } from '../services/users-group.service';
@@ -19,7 +21,8 @@ export class AddToGroupComponent implements OnInit {
               private route: ActivatedRoute,
               private updateUsersGroupsService: UpdateUsersGroupsService,
               private usersGroupService: UsersGroupService,
-              private snackBar:MatSnackBar) { }
+              private snackBar:MatSnackBar,
+              private dialog: MatDialog) { }
 
   ngOnInit(): void {
   
@@ -52,7 +55,15 @@ export class AddToGroupComponent implements OnInit {
           })
         }
         this.updateUsersGroupsService.sendUpdate();
+      },
+      (error)=>{
+        this.dialog.open(LoginComponent);
+          this.snackBar.open("You need to login first","✓",{
+            duration: 400000000000000,
+            panelClass: ['red-snackbar']
+          })
       }
+      
     )
   }
 }

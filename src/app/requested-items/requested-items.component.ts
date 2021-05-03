@@ -8,6 +8,7 @@ import { UpdateUsersGroupsService } from '../services/update-users-group.service
 import { Subscription } from 'rxjs';
 import { RequestedItemDialogComponent } from '../requested-item-dialog/requested-item-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { Item } from '../shared/item';
 
 @Component({
   selector: 'requested-items',
@@ -89,6 +90,11 @@ export class RequestedItemsComponent implements OnInit {
       }
     );
   }
+
+  public checkIfImageIsSet (item: Item):boolean{
+    return item.imageName===null
+  }
+
   checkIfOwner(itemData): any {
     return (itemData.owner['email'] === localStorage.getItem('email'))
   }

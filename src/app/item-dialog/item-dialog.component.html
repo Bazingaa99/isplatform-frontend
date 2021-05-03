@@ -11,8 +11,15 @@
         </button>
     </div>
     <div id="item-information">
-        <div id="item-photos">
+        <!-- <div id="item-photos">
             <img class="card-image" src="https://i.imgur.com/3m7URcq.png" alt="Item image">
+        </div> -->
+
+        <div *ngIf="checkIfImageIsSet(data.item)" id = "item-photos">
+            <img class="card-image"  src="https://i.imgur.com/3m7URcq.png" alt="Item image" width="613" height="615">
+          </div>
+          <div *ngIf="!checkIfImageIsSet(data.item)" id = "item-photos">
+            <img  class="card-image"  src="data:image/png;base64,{{data.item.image}}"  alt="Item image" width="613" height="615" /> 
         </div>
         <div id="item-content">
             <hr>
