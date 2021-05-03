@@ -87,11 +87,7 @@ import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmark
     MatTooltipModule,
     BrowserAnimationsModule,
     HttpClientModule,
-<<<<<<< HEAD
     Ng2SearchPipeModule,
-=======
-    HttpClientXsrfModule,
->>>>>>> 03ac6c71b3f5f8859177e7c425a34868b67811ad
     FormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,
