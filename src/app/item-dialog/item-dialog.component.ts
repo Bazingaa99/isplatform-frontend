@@ -110,6 +110,7 @@ export class ItemDialogComponent implements OnInit {
     this.itemService.bookmarkItem(itemId, this.currentUserEmail).subscribe(
       (response: object) => {
         console.log(response);
+        this.updateService.sendUpdate();
         this.snackBar.open("Item bookmarked.","✓",{
           duration: 400000000000000,
           panelClass: ['green-snackbar']
@@ -129,6 +130,7 @@ export class ItemDialogComponent implements OnInit {
     this.itemService.deleteBookmark(itemId, this.currentUserEmail).subscribe(
       (response: object) => {
         console.log(response)
+        this.updateService.sendUpdate();
         this.snackBar.open("Item was removed from bookmarks.","✓",{
           duration: 400000000000000,
           panelClass: ['green-snackbar']

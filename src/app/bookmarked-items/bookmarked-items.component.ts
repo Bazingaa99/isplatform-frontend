@@ -8,6 +8,8 @@ import { UpdateUsersGroupsService } from '../services/update-users-group.service
 import { MatDialog } from '@angular/material/dialog';
 import { BookmarkedItemDialogComponent } from '../bookmarked-item-dialog/bookmarked-item-dialog.component';
 import { PageEvent } from '@angular/material/paginator';
+import { RequestService } from '../services/request.service';
+import { Request } from '../shared/request';
 
 @Component({
   selector: 'bookmarked-items',
@@ -23,6 +25,7 @@ export class BookmarkedItemsComponent implements OnInit {
   public updateEventSubscription: Subscription;
   public loadPage: boolean;
   constructor(public itemService: ItemService,
+              public requestService: RequestService,
               public snackBar: MatSnackBar,
               private updateService: UpdateUsersGroupsService,
               private dialog: MatDialog) {
@@ -68,9 +71,27 @@ export class BookmarkedItemsComponent implements OnInit {
   }
 
   openItemDialog(item): void {
-    this.dialog.open(BookmarkedItemDialogComponent, {
-      data: item,
-    });
+    this.requestService.getRequest(item.id, this.currentUserEmail).subscribe(
+      (response: Request) => {
+        if(response){
+          this.dialog.open(BookmarkedItemDialogComponent, {
+            data: [item, true, response.responded, response.accepted]
+          });
+        }else{
+          this.dialog.open(BookmarkedItemDialogComponent, {
+            data: [item, false]
+          });
+        }
+
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+        this.snackBar.open("Could not get item information. Please try again.","✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
   }
 
   public checkIfImageIsSet (item: Item):boolean{

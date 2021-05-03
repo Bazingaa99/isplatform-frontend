@@ -18,6 +18,7 @@
           <div class="spacer"></div>
           <p>Category: {{ request.item.category['categoryName'] }}</p>
           <p>Duration: {{ request.item.duration + " days" }}</p>
+          <p>Bookmarked by: {{ request.item.bookmarkCount + " user(s)" }}</p>
           <div class="spacer"></div>
           <p id="item-name">{{ request.item.name }}</p>
           <p>{{ request.item.description }}</p>

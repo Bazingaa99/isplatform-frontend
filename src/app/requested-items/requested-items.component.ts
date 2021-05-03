@@ -89,9 +89,6 @@ export class RequestedItemsComponent implements OnInit {
       }
     );
   }
-
-
-
   checkIfOwner(itemData): any {
     return (itemData.owner['email'] === localStorage.getItem('email'))
   }
