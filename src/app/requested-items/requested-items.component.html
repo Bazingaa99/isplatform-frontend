@@ -1,42 +1,17 @@
-<<<<<<< HEAD
 <div *ngIf="loadPage">
   <div class="item-container" *ngIf="this.requestsLength > 0">
-    <div class="grid-item" *ngFor="let request of pageSlice">
-      <div class="card" (click)="openItemDialog(request)">
-        <img
-          class="card-image"
-          src="https://i.imgur.com/3m7URcq.png"
-          alt="Item image"
-          width="250"
-          height="200"
-        />
-        <div class="card-container">
-          <div class="card-header">
-            <div class="item-title">
-              {{ request.item.name }}
-            </div>
-          </div>
-          <div class="card-subtitle">
-            {{ request.item.category.categoryName }},
-            {{ request.item.duration + " days" }}
-          </div>
-          <div  class="card-actions">
-            <span class="important-info">{{ request.item.group.name }}</span>
-=======
-<div class="item-container">
   <div class="grid-item" *ngFor="let request of pageSlice">
     <div class="card" (click)="openItemDialog(request)">
       <div *ngIf="checkIfImageIsSet(request.item)">
         <img class="card-image"  src="https://i.imgur.com/3m7URcq.png" alt="Item image" width="250" height="200">
       </div>
       <div *ngIf="!checkIfImageIsSet(request.item)">
-        <img  class="card-image"  src="data:image/png;base64,{{request.item.image}}"  alt="Item image" width="250" height="200" /> 
+        <img  class="card-image"  src="data:image/png;base64,{{request.item.image}}"  alt="Item image" width="250" height="200" />
       </div>
       <div class="card-container">
         <div class="card-header">
           <div class="item-title">
             {{ request.item.name }}
->>>>>>> 3a4f2319c79993c9133bfb09facc9f5e778886e2
           </div>
         </div>
         <div class="card-footer">
@@ -45,6 +20,7 @@
       </div>
     </div>
   </div>
+</div>
 
   <mat-paginator *ngIf="this.requestsLength > 0"
     class="item-paginator"
