@@ -21,7 +21,13 @@
   right: 0;
   bottom: 0;
 }
-
+.search {
+  flex:1;
+  padding: 6px;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
 .important-info{
   font-size: 18px;
   font-weight: bold;
@@ -106,4 +112,5 @@
 .item-container {
   display: grid;
   grid-template-columns: 16.5% 16.5% 16.5% 16.5% 16.5% 16.5%;
+  flex:2;
 }

@@ -30,6 +30,7 @@ export class ItemsComponent implements OnInit {
   public currentUserEmail: string;
   public request: Request;
   public imageUrl:SafeUrl
+  name: String
   constructor(public dialog: MatDialog,
               private itemService: ItemService,
               private router: Router,
@@ -47,9 +48,7 @@ export class ItemsComponent implements OnInit {
     this.itemsLength = 0;
     this.getItems();
     this.currentUserEmail = localStorage.getItem('email');
-    console.log("Asdasd")
   }
-
   test(itemData): any {
     if(!itemData.isHidden) {
       return true;
@@ -65,15 +64,14 @@ export class ItemsComponent implements OnInit {
   }
 
   openItemDialog(itemData): void {
+    
     this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
       (response: Request) => {
         if(response){
-          console.log(response)
           this.dialog.open(ItemDialogComponent, {
             data: [itemData, true, response.responded, response.accepted]
           });
         }else{
-          console.log("ne blet vis del to cia")
           this.dialog.open(ItemDialogComponent, {
             data: [itemData, false]
           });

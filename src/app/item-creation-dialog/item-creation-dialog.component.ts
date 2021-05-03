@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { MatFileUploadModule } from 'angular-material-fileupload';
+import { isEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-item-creation-dialog',
@@ -120,9 +121,7 @@ export class ItemCreationDialogComponent implements OnInit {
         this.item.id = this.updatableItemData.id;
         this.itemService.updateItem(this.item, localStorage.getItem('email')).subscribe(
           res => {
-            console.log(this.image)
             if(this.image){
-              console.log(this.image)
               this.itemService.addAttachment(this.item.id, this.image).subscribe( response=>
                 {
                 this.updateService.sendUpdate();
@@ -206,12 +205,14 @@ export class ItemCreationDialogComponent implements OnInit {
 
    setOldImage(item:Item)
   {
-    let fileInputElement =  (<HTMLInputElement>document.getElementById('image'));
-    let data = item.image
-    let file = new File([data], item.imageName,{type:"image/jpeg", lastModified:new Date().getTime()});
-    this.image = file
-    let container = new DataTransfer();
-    container.items.add(file);
-    fileInputElement.files = container.files;
+    if(item.image!=null){
+      let fileInputElement =  (<HTMLInputElement>document.getElementById('image'));
+      let data = item.image
+      let file = new File([data], item.imageName,{type:"image/jpeg", lastModified:new Date().getTime()});
+      this.image = file
+      let container = new DataTransfer();
+      container.items.add(file);
+      fileInputElement.files = container.files;
+    }
   }
 }

@@ -59,7 +59,9 @@ export class RequestedItemDialogComponent implements OnInit {
       }
     )
   }
-
+  public checkIfImageIsSet (item: Item):boolean{    
+    return item.imageName===null   
+  }
   dueDate(date: string, days: number) {
     var dueDate = new Date(date);
     dueDate.setDate(dueDate.getDate() + days);

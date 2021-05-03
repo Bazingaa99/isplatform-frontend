@@ -12,6 +12,7 @@ import { UpdateUsersGroupsService } from './update-users-group.service';
 export class ItemService {
     private apiServerUrl = environment.apiBaseUrl;
     public groupId;
+    public name;
     constructor(private http: HttpClient,
       private updateService: UpdateUsersGroupsService) { }
 
@@ -28,9 +29,7 @@ export class ItemService {
     
     public addAttachment( itemId, file ): Observable<any> {
       const formData: FormData = new FormData();
-      console.log(file)
       formData.append('file', file, file.name);
-  
       const headers = new HttpHeaders();
       headers.append('Content-Type', 'multipart/form-data');
       headers.append('Accept', 'application/json');
