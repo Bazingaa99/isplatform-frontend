@@ -11,6 +11,7 @@ import { Chat } from '../shared/chat';
 import { ChatService } from '../services/chat.service';
 import { Request } from '../shared/request';
 import { ChatDialogComponent } from '../chat-dialog/chat-dialog.component';
+import { Item } from '../shared/item';
 
 @Component({
   selector: 'requested-item-dialog',
@@ -66,7 +67,9 @@ export class RequestedItemDialogComponent implements OnInit {
       }
     )
   }
-
+  public checkIfImageIsSet (item: Item):boolean{    
+    return item.imageName===null   
+  }
   dueDate(date: string, days: number) {
     var dueDate = new Date(date);
     dueDate.setDate(dueDate.getDate() + days);

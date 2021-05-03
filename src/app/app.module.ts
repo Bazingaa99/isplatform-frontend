@@ -20,6 +20,7 @@ import { AuthGuardService } from './services/auth-guard.service';
 import { AuthServiceService } from './services/auth-service.service';
 import { RoleGuardService } from './services/role-guard-service.service';
 import { MainPageComponent } from './main-page/main-page.component';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -81,6 +82,7 @@ import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
     MatTooltipModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    Ng2SearchPipeModule,
     FormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,

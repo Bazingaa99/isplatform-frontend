@@ -12,6 +12,7 @@ import { UpdateUsersGroupsService } from './update-users-group.service';
 export class ItemService {
     private apiServerUrl = environment.apiBaseUrl;
     public groupId;
+    public name;
     constructor(private http: HttpClient,
       private updateService: UpdateUsersGroupsService) { }
 
@@ -29,11 +30,9 @@ export class ItemService {
     public addAttachment( itemId, file ): Observable<any> {
       const formData: FormData = new FormData();
       formData.append('file', file, file.name);
-  
       const headers = new HttpHeaders();
       headers.append('Content-Type', 'multipart/form-data');
       headers.append('Accept', 'application/json');
-      console.log(formData,headers)
       return this.http.post( `${this.apiServerUrl}/isp/items/${itemId}/image` ,
         formData, { headers });
     }
@@ -43,11 +42,11 @@ export class ItemService {
           { responseType: 'blob' });
     }
 
-    public updateItem(item: Item, email: string): Observable<void>{
+    public updateItem(item: Item, email: string): Observable<Item>{
       let data = {item, email}
       data.item = item;
       data.email = email;
-      return this.http.put<void>(`${this.apiServerUrl}/isp/items/update/`, data);
+      return this.http.put<Item>(`${this.apiServerUrl}/isp/items/update/`, data);
     }
     
     public deleteItem(itemId: number, email: string): Observable<object>{
