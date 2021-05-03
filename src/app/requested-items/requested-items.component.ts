@@ -91,8 +91,8 @@ export class RequestedItemsComponent implements OnInit {
     );
   }
 
-  public checkIfImageIsSet (item: Item):boolean{    
-    return item.imageName===null   
+  public checkIfImageIsSet (item: Item):boolean{
+    return item.imageName===null
   }
 
   checkIfOwner(itemData): any {

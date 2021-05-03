@@ -67,7 +67,7 @@ export class ItemsComponent implements OnInit {
   }
 
   openItemDialog(itemData): void {
-    
+
     this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
       (response: Request) => {
         if(response){

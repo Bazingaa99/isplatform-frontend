@@ -9,8 +9,6 @@ import { Item } from '../shared/item';
 import { Router } from '@angular/router';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MatFileUploadModule } from 'angular-material-fileupload';
-import { isEmpty } from 'rxjs/operators';
 
 @Component({
   selector: 'app-item-creation-dialog',
@@ -26,8 +24,7 @@ export class ItemCreationDialogComponent implements OnInit {
               private router: Router,
               private updateService: UpdateUsersGroupsService,
               private snackBar: MatSnackBar,
-              private MatFileUploadModule: MatFileUploadModule,
-              @Inject(MAT_DIALOG_DATA) public updatableItemData: Item,) { }
+              @Inject(MAT_DIALOG_DATA) public updatableItemData: Item) { }
 
   public categories: Category[];
   public item: Item;
