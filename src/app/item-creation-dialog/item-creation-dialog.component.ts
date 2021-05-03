@@ -80,7 +80,7 @@ export class ItemCreationDialogComponent implements OnInit {
         name: this.itemForm.get('name').value,
         description: this.itemForm.get('description').value,
         duration: this.itemForm.get('duration').value,
-        isHidden: this.isHidden,  
+        isHidden: this.isHidden,
       }
       if(this.updatableItemData === null){
         this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
@@ -156,7 +156,7 @@ export class ItemCreationDialogComponent implements OnInit {
       }
     }
   }
-  
+
   public getCategories(): void {
     this.categoryService.getCategories().subscribe(
       (response: Category[]) => {
@@ -182,7 +182,7 @@ export class ItemCreationDialogComponent implements OnInit {
         setTimeout(() => {
           const width = img.naturalWidth;
           const height = img.naturalHeight;
-    
+
           window.URL.revokeObjectURL( img.src );
           if ( width < 250 || height < 200 ) {
             alert('photo should be not smaller than 250x250 size');
@@ -193,7 +193,7 @@ export class ItemCreationDialogComponent implements OnInit {
     }
     //   this.itemForm.controls.image.updateValueAndValidity();
     //   this.itemForm.controls.image.clearValidators();
-    // } 
+    // }
     else {
       this.onFileNotSelected();
     }

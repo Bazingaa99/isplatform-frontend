@@ -5,6 +5,13 @@
     z-index: 1;
 }
 
+.bookmark-button {
+  position: absolute;
+  right: 50px;
+  margin-top: -25px;
+  z-index: 1;
+}
+
 ::ng-deep .mat-dialog-container{
     padding-top: 0;
 }

@@ -1,0 +1,36 @@
+<div *ngIf="loadPage">
+  <div *ngIf="this.itemsLength === 0">
+    <h1 class="page-message-big">You don't have any bookmarks at the moment.</h1>
+  </div>
+  <div class="item-container" *ngIf="this.itemsLength > 0">
+    <div class="grid-item" *ngFor="let item of pageSlice">
+        <div class="card" (click)="openItemDialog(item)" *ngIf="!item.isHidden">
+          <div *ngIf="checkIfImageIsSet(item)">
+            <img class="card-image"  src="https://i.imgur.com/3m7URcq.png" alt="Item image" width="250" height="200">
+          </div>
+          <div *ngIf="!checkIfImageIsSet(item)">
+            <img  class="card-image"  src="data:image/png;base64,{{item.image}}"  alt="Item image" width="250" height="200" />
+          </div>
+          <div class="card-container">
+            <div class="card-header">
+              <div class="item-title">
+                  {{ item.name }}
+              </div>
+            </div>
+            <div class="card-subtitle">
+              {{ item.category.categoryName }},
+              {{ item.duration + " days" }}
+            </div>
+            <div class="card-footer">
+              <span>views: {{ item.viewCount }}</span>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  <mat-paginator *ngIf="this.itemsLength > 0" class="item-paginator" style="margin-top: 0.5rem;" [length]="this.itemsLength"
+    [pageSizeOptions]="[12]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+</div>

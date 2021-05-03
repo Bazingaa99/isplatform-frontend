@@ -1,5 +1,6 @@
+<div *ngIf="loadPage">
 <input matInput class="form-control search" type="text" name="search" [(ngModel)]="name" autocomplete="off" placeholder="Search">
-<div class="item-container">
+<div class="item-container" *ngIf="this.itemsLength > 0">
   <div class="grid-item" *ngFor="let item of pageSlice | filter:name">
       <div class="card" (click)="openItemDialog(item)" [*ngIf]="test(item)">
         <div *ngIf="checkIfImageIsSet(item)">
@@ -17,26 +18,42 @@
                 {{ item.name }} [HIDDEN]
             </div>
           </div>
-          <div class="card-subtitle">
-            {{ item.category.categoryName }},
-            {{ item.duration + " days" }}
+          <div *ngIf="!checkIfImageIsSet(item)">
+            <img  class="card-image"  src="data:image/png;base64,{{item.image}}"  alt="Item image" width="250" height="200" />
           </div>
-          <div *ngIf="checkIfOwner(item)">
-            <div  class="card-actions">
-              <span class="important-info">My item</span>
+          <div class="card-container">
+            <div class="card-header">
+              <div class="item-title" *ngIf="!checkIfOwner(item) || (checkIfOwner(item) && !item.isHidden)">
+                  {{ item.name }}
+              </div>
+              <div class="item-title" *ngIf="checkIfOwner(item) && item.isHidden">
+                  {{ item.name }} [HIDDEN]
+              </div>
+            </div>
+            <div class="card-subtitle">
+              {{ item.category.categoryName }},
+              {{ item.duration + " days" }}
+            </div>
+            <div *ngIf="checkIfOwner(item)">
+              <div  class="card-actions">
+                <span class="important-info">My item</span>
+              </div>
+            </div>
+            <div class="card-footer">
+              <span>views: {{ item.viewCount }}</span>
             </div>
           </div>
-          <div class="card-footer">
-            <span>views: {{ item.viewCount }}</span>
-          </div>
         </div>
-      </div>
+    </div>
+  </div>
+
+  <mat-paginator class="item-paginator" *ngIf="this.itemsLength > 0" style="margin-top: 0.5rem;" [length]="this.itemsLength"
+    [pageSizeOptions]="[12]"
+    (page)="onPageChange($event)">
+  </mat-paginator>
+
+  <div *ngIf="this.itemsLength === 0">
+    <h1>There aren't any available items at the moment.</h1>
   </div>
 </div>
-
-<mat-paginator class="item-paginator" style="margin-top: 0.5rem;" [length]="this.itemsLength"
-  [pageSizeOptions]="[12]"
-  (page)="onPageChange($event)">
-</mat-paginator>
-
 

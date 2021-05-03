@@ -31,6 +31,7 @@ export class ItemsComponent implements OnInit {
   public request: Request;
   public imageUrl:SafeUrl
   name: String
+  public loadPage: boolean;
   constructor(public dialog: MatDialog,
               private itemService: ItemService,
               private router: Router,
@@ -44,6 +45,7 @@ export class ItemsComponent implements OnInit {
               }
 
   ngOnInit(): void {
+    this.loadPage = false;
     this.pageSize = 12;
     this.itemsLength = 0;
     this.getItems();
@@ -91,6 +93,7 @@ export class ItemsComponent implements OnInit {
       (response: Item[]) => {
         this.items = response;
         this.itemsLength = this.items.length;
+        this.loadPage = true;
         this.pageSlice = this.items.slice(0, this.pageSize);
         console.log(this.currentUserEmail, this.items);
       },
@@ -100,8 +103,8 @@ export class ItemsComponent implements OnInit {
     );
   }
 
-  public checkIfImageIsSet (item: Item):boolean{    
-    return item.imageName===null   
+  public checkIfImageIsSet (item: Item):boolean{
+    return item.imageName===null
   }
   public onPageChange(event: PageEvent){
     const startIndex = event.pageIndex * event.pageSize;
@@ -123,5 +126,5 @@ export class ItemsComponent implements OnInit {
   //   )
   //   return this.imageUrl
   // }
-  
+
 }

@@ -19,6 +19,7 @@ import { ItemDeleteDialogComponent } from '../item-delete-dialog/item-delete-dia
 export class ItemDialogComponent implements OnInit {
   currentUserEmail: string;
   request: Request;
+  isBookmarked: boolean;
 
   constructor( public updateDialog: MatDialog,
                 public itemDialog: MatDialogRef<ItemDialogComponent>,
@@ -37,10 +38,12 @@ export class ItemDialogComponent implements OnInit {
                   delete data['2']
                   data['accepted'] = data['3']
                   delete data['3']
+                  this.currentUserEmail = localStorage.getItem('email')
+                  this.isItemBookmarkedByCurrentUser();
                 }
 
   ngOnInit(): void {
-    this.currentUserEmail = localStorage.getItem('email')
+
   }
 
   checkIfUserIsOwner(): boolean {
@@ -83,6 +86,61 @@ export class ItemDialogComponent implements OnInit {
       },
       (error: HttpErrorResponse) => {
         this.snackBar.open("Could not request item, please try again.","✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
+  }
+
+  public isItemBookmarkedByCurrentUser(): void {
+    this.itemService.isBookmarkedByCurrentUser(this.data.item.id, this.currentUserEmail).subscribe(
+      (response: boolean) => {
+        this.isBookmarked = response;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error)
+        this.snackBar.open("Could not check if item is bookmarked.","✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
+  }
+
+  public bookmarkItem(itemId: number): void {
+    this.itemService.bookmarkItem(itemId, this.currentUserEmail).subscribe(
+      (response: object) => {
+        console.log(response);
+        this.updateService.sendUpdate();
+        this.snackBar.open("Item bookmarked.","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+        this.snackBar.open("Could not bookmark item. Please try again.","✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
+  }
+
+  public deleteBookmark(itemId: number): void {
+    this.itemService.deleteBookmark(itemId, this.currentUserEmail).subscribe(
+      (response: object) => {
+        console.log(response)
+        this.updateService.sendUpdate();
+        this.snackBar.open("Item was removed from bookmarks.","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error)
+        this.snackBar.open("Could not remove item from bookmarks. Please try again.","✓",{
           duration: 400000000000000,
           panelClass: ['red-snackbar']
         })

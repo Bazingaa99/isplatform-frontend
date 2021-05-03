@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -47,8 +47,10 @@ import { RequestedItemsComponent } from './requested-items/requested-items.compo
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { RequestedItemDialogComponent } from './requested-item-dialog/requested-item-dialog.component';
 import { ItemDeleteDialogComponent } from './item-delete-dialog/item-delete-dialog.component'
-import { MatFileUploadModule } from 'angular-material-fileupload';
 import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
+import { BookmarkedItemsComponent } from './bookmarked-items/bookmarked-items.component';
+import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.component';
+import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmarked-item-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -73,7 +75,10 @@ import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
     RequestsPageComponent,
     RequestedItemDialogComponent,
     ItemDeleteDialogComponent,
-    ChatDialogComponent
+    ChatDialogComponent,
+    BookmarkedItemsComponent,
+    BookmarksPageComponent,
+    BookmarkedItemDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -82,7 +87,11 @@ import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
     MatTooltipModule,
     BrowserAnimationsModule,
     HttpClientModule,
+<<<<<<< HEAD
     Ng2SearchPipeModule,
+=======
+    HttpClientXsrfModule,
+>>>>>>> 03ac6c71b3f5f8859177e7c425a34868b67811ad
     FormsModule,
     MatSnackBarModule,
     ReactiveFormsModule,

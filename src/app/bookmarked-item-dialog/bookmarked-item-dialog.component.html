@@ -1,0 +1,42 @@
+<mat-dialog-content id="item-dialog">
+  <div id="item-dialog-header">
+      <button *ngIf="isBookmarked" mat-icon-button color="warn" class="bookmark-button" (click)="deleteBookmark(data.item.id)">
+        <mat-icon>bookmark</mat-icon>
+      </button>
+      <button *ngIf="!isBookmarked" mat-icon-button color="secondary" class="bookmark-button" (click)="bookmarkItem(data.item.id)">
+        <mat-icon>bookmark</mat-icon>
+      </button>
+      <button mat-icon-button color="primary" class="close-button" [mat-dialog-close]="true">
+          <mat-icon class="close-icon">close</mat-icon>
+      </button>
+  </div>
+  <div id="item-information">
+      <div id="item-photos">
+          <img class="card-image" src="https://i.imgur.com/3m7URcq.png" alt="Item image">
+      </div>
+      <div id="item-content">
+          <hr>
+          <div>
+              <p id="id">ID: {{ data.item.id }}</p>
+              <p id="date">{{ data.item.dateCreated }}</p>
+          </div>
+          <hr>
+          <div class="spacer"></div>
+          <p>Category: {{ data.item.category['categoryName'] }}</p>
+          <p>Duration: {{ data.item.duration + " days" }}</p>
+          <p>Bookmarked by: {{ bookmarkCount + " user(s)" }}</p>
+          <div class="spacer"></div>
+          <p id="item-name">{{ data.item.name }}</p>
+          <p>{{ data.item.description }}</p>
+          <div class="action-div">
+            <div class="col" *ngIf="!checkIfUserIsOwner() && data.itemRequested && data.responded && !data.accepted">
+              <label class="important-info m1" for="requestButton">Request was declined.</label>
+              <button class="m1" name="requestButton" type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request again</button>
+            </div>
+            <button *ngIf="!checkIfUserIsOwner() && !data.itemRequested" type="submit" (click)="requestItem(data.item.id)" mat-stroked-button>Request</button>
+            <span *ngIf="!checkIfUserIsOwner() && data.itemRequested && !data.responded" class="important-info">Requested</span>
+          </div>
+      </div>
+  </div>
+</mat-dialog-content>
+
