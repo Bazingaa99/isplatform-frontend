@@ -35,6 +35,10 @@
     </div>
   </div>
 
+  <mat-card *ngIf="userIsGroupOwner" (click)="openGroupUpdateDialog()">
+    Update Group
+  </mat-card>
+
   <mat-paginator class="item-paginator" *ngIf="this.itemsLength > 0" style="margin-top: 0.5rem;" [length]="this.itemsLength"
     [pageSizeOptions]="[12]"
     (page)="onPageChange($event)">

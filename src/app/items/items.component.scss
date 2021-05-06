@@ -21,6 +21,26 @@
   right: 0;
   bottom: 0;
 }
+
+mat-card {
+  margin-left: 268px;
+  margin-top: 0.5rem;
+  background-color: #3F51B5;
+  color: white;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  border-radius: 5px;
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  cursor: pointer;
+
+}
+
+mat-card:hover{
+  transform: translateY(-3px);
+  box-shadow: 0 4px 17px  #3F51B5;
+}
+
 .search {
   flex:1;
   padding: 6px;

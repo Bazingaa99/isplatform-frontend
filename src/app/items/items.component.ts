@@ -13,6 +13,8 @@ import { RequestService } from '../services/request.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SafeUrl } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UsersGroupService } from '../services/users-group.service';
+import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component';
 
 @Component({
   selector: 'items',
@@ -32,10 +34,12 @@ export class ItemsComponent implements OnInit {
   public imageUrl:SafeUrl
   name: String
   public loadPage: boolean;
+  public userIsGroupOwner = false;
   constructor(public dialog: MatDialog,
               private itemService: ItemService,
               private router: Router,
               private updateService: UpdateUsersGroupsService,
+              private usersGroupService: UsersGroupService,
               private requestService: RequestService,
               private snackBar: MatSnackBar,
               private sanitizer:DomSanitizer) {
@@ -46,6 +50,7 @@ export class ItemsComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadPage = false;
+    this.checkIfGroupOwner();
     this.pageSize = 12;
     this.itemsLength = 0;
     this.getItems();
@@ -65,7 +70,6 @@ export class ItemsComponent implements OnInit {
   checkIfOwner(itemData): any {
     return (itemData.owner['email'] === localStorage.getItem('email'))
   }
-
   openItemDialog(itemData): void {
 
     this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
@@ -85,6 +89,24 @@ export class ItemsComponent implements OnInit {
         console.log(error);
       }
     )
+  }
+
+  openGroupUpdateDialog(): void {
+    this.dialog.open(GroupCreationDialogComponent, {
+      data: this.groupId,
+    });
+  }
+
+  public checkIfGroupOwner(): any {
+    this.groupId = this.router.url.slice(12, this.router.url.length);
+    this.usersGroupService.checkIfGroupOwner(this.groupId, localStorage.getItem('email')).subscribe(
+      (response: boolean) => {
+        this.userIsGroupOwner = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   public getItems(): void {
