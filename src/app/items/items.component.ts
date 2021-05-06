@@ -35,6 +35,7 @@ export class ItemsComponent implements OnInit {
   name: String
   public loadPage: boolean;
   public userIsGroupOwner = false;
+  currentPage: String;
   constructor(public dialog: MatDialog,
               private itemService: ItemService,
               private router: Router,
@@ -44,19 +45,36 @@ export class ItemsComponent implements OnInit {
               private snackBar: MatSnackBar,
               private sanitizer:DomSanitizer) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
-                  this.getItems();
+                  if(this.currentPage === "profile")
+                  { 
+                    console.log("profile");
+                    this.getUserItems(); 
+                  } else {
+                    console.log("notprofile");
+                    this.checkIfGroupOwner();
+                    this.getItems();
+                  }
                 });
               }
 
   ngOnInit(): void {
+    console.log("initing items");
+    this.currentPage = (this.router.url.slice(1, this.router.url.length));
     this.loadPage = false;
-    this.checkIfGroupOwner();
     this.pageSize = 12;
     this.itemsLength = 0;
-    this.getItems();
-
     this.currentUserEmail = localStorage.getItem('email');
+    if(this.currentPage === "profile")
+    { 
+      console.log("profile");
+      this.getUserItems(); 
+    } else {
+      console.log("notprofile");
+      this.checkIfGroupOwner();
+      this.getItems();
+    }
   }
+
   test(itemData): any {
     if(!itemData.isHidden) {
       return true;
@@ -70,8 +88,8 @@ export class ItemsComponent implements OnInit {
   checkIfOwner(itemData): any {
     return (itemData.owner['email'] === localStorage.getItem('email'))
   }
-  openItemDialog(itemData): void {
 
+  openItemDialog(itemData): void {
     this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
       (response: Request) => {
         if(response){
@@ -99,7 +117,7 @@ export class ItemsComponent implements OnInit {
 
   public checkIfGroupOwner(): any {
     this.groupId = this.router.url.slice(12, this.router.url.length);
-    this.usersGroupService.checkIfGroupOwner(this.groupId, localStorage.getItem('email')).subscribe(
+    this.usersGroupService.checkIfGroupOwner(this.groupId, this.currentUserEmail).subscribe(
       (response: boolean) => {
         this.userIsGroupOwner = response;
       },
@@ -118,6 +136,20 @@ export class ItemsComponent implements OnInit {
         this.loadPage = true;
         this.pageSlice = this.items.slice(0, this.pageSize);
         console.log(this.currentUserEmail, this.items);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public getUserItems(): void {
+    this.itemService.getUserItems(this.currentUserEmail).subscribe(
+      (response: Item[]) => {
+        this.items = response;
+        this.itemsLength = this.items.length;
+        this.loadPage = true;
+        this.pageSlice = this.items.slice(0, this.pageSize);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

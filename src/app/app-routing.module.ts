@@ -11,6 +11,7 @@ import { WelcomeContentComponent } from './welcome-content/welcome-content.compo
 import { AddToGroupComponent } from './add-to-group/add-to-group.component';
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
         component: ItemsComponent
       }
     ]
+  },
+  {
+    path:"profile",
+    component:ProfilePageComponent,
   },
   {
     path:"requesteditems",
