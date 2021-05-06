@@ -1,22 +1,3 @@
-mat-card {
-    border: 1px solid #eee;
-    height: 40px;
-    width: 200px;
-    margin-bottom: 8px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    color: #1976d2;
-}
-
-.card.selected{
-    background-color: #ff9900;
-    color: black;
-    font-weight: bold;
-}
-  
 .item-paginator{
     background-color: #3F51B5;
     color: white;
@@ -43,17 +24,7 @@ mat-card {
     flex-direction: column;
     height: 100%;
     position: relative;
-    align-items:center;
-}
-
-::-webkit-scrollbar {
-    width: 0;  /* Remove scrollbar space */
-    background: transparent;  /* make scrollbar invisible */
-}
-
-/* show position indicator in red */
-::-webkit-scrollbar-thumb {
-    background: #FF0000;
+    align-items: center;
 }
 
 #content {
@@ -67,14 +38,12 @@ mat-card {
 }
 
 mat-card{
-    cursor: pointer;
     border-radius: 4px;
     height: 40px;
     width: 200px;
     margin-bottom: 8px;
     padding: 16px;
     display: flex;
-    flex-direction: row;
     justify-content: center;
     align-items: center;
     color: white;
@@ -196,6 +165,7 @@ svg.material-icons{
 }
 
 #image {
+    border-radius: 4px;
     background-color: #3F51B5;
     height: 200px;
     width: 200px;

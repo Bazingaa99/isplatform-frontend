@@ -9,6 +9,9 @@ import {RoleGuardService} from '../services/role-guard-service.service';
 import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.component';
 import { ItemsComponent } from '../items/items.component';
 import { ItemService } from '../services/item.service';
+import { User } from '../shared/user';
+import { UserService } from '../services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'header',
@@ -20,13 +23,17 @@ export class HeaderComponent implements OnInit {
   groupId: string;
   bodyText: string;
   showProfileSidebar:boolean;
+  username: string;
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
               private  router: Router,
+              private userService: UserService,
               private roleGuardService: RoleGuardService
               ) {}
 
   ngOnInit(): void {
+    if(this.logInCheck()) this.getUser();
+    this.username = localStorage.getItem('username');
   }
 
   isGroupOpened():boolean{
@@ -94,6 +101,18 @@ export class HeaderComponent implements OnInit {
   }
   openInviteDialog() {
     this.dialog.open(InviteToGroupComponent);
+  }
+
+  public getUser(){
+    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
+      (response: User) => {
+        console.log(response);
+        localStorage.setItem('username', response.username);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error);
+      }
+    );
   }
 }
 

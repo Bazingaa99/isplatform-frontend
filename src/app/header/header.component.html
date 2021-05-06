@@ -21,7 +21,9 @@
     <div *ngIf="logInCheck()&&isGroupOpened()">
       <div (click)="openInviteDialog()" class="loginbutton">Invite</div>
     </div>
-
+    <div *ngIf="logInCheck()">
+      <div id="username">Signed as, {{username}}</div>
+    </div>
     <!-- Profile button -->
     <img mat-button [matMenuTriggerFor]="menu" *ngIf="logInCheck()" id="profile-image"
       width="40"
