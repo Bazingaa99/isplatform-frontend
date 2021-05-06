@@ -44,7 +44,7 @@
     (page)="onPageChange($event)">
   </mat-paginator>
 
-  <div *ngIf="this.itemsLength === 0">
+  <div id="noItemsMsg" *ngIf="this.itemsLength === 0">
     <h1>There aren't any available items at the moment.</h1>
   </div>
 </div>

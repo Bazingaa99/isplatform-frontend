@@ -6,6 +6,7 @@ import {MatDialog, MatDialogRef} from '@angular/material/dialog';
 import {Router} from '@angular/router';
 import {RoleGuardService} from '../services/role-guard-service.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { User } from '../shared/user';
 
 @Component({
   selector: 'app-login',
@@ -54,6 +55,7 @@ export class LoginComponent implements OnInit {
         this.serverErrorMessage = '';
         this.closeDialog('login');
         if (localStorage.getItem('roles').includes('USER')) {
+          this.setNewUsername();
           this.router.navigate(['usersgroup']);
         }
       },
@@ -91,5 +93,17 @@ export class LoginComponent implements OnInit {
       ]],
 
     });
+  }
+
+  public setNewUsername(){
+    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
+      (response: User) => {
+        if(localStorage.getItem('username') != null) localStorage.removeItem('username');
+        localStorage.setItem('username', response.username);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error);
+      }
+    );
   }
 }

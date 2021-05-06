@@ -23,7 +23,6 @@ export class HeaderComponent implements OnInit {
   groupId: string;
   bodyText: string;
   showProfileSidebar:boolean;
-  username: string;
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
               private  router: Router,
@@ -32,8 +31,6 @@ export class HeaderComponent implements OnInit {
               ) {}
 
   ngOnInit(): void {
-    if(this.logInCheck()) this.getUser();
-    this.username = localStorage.getItem('username');
   }
 
   isGroupOpened():boolean{
@@ -83,6 +80,7 @@ export class HeaderComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.setItem('roles', '');
     localStorage.setItem('email', '');
+    localStorage.removeItem('username');
   }
 
   onClick(){
@@ -101,18 +99,6 @@ export class HeaderComponent implements OnInit {
   }
   openInviteDialog() {
     this.dialog.open(InviteToGroupComponent);
-  }
-
-  public getUser(){
-    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
-      (response: User) => {
-        console.log(response);
-        localStorage.setItem('username', response.username);
-      },
-      (error: HttpErrorResponse) => {
-        alert(error);
-      }
-    );
   }
 }
 
