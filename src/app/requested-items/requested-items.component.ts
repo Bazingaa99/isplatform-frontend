@@ -25,6 +25,7 @@ export class RequestedItemsComponent implements OnInit {
   public updateEventSubscription: Subscription;
   public currentUserEmail: string;
   public loadPage: boolean;
+  public returned: boolean;
 
   constructor(private dialog: MatDialog,
               private requestService: RequestService,
@@ -117,8 +118,18 @@ export class RequestedItemsComponent implements OnInit {
 
   openItemDialog(requestData): void {
     this.dialog.open(RequestedItemDialogComponent, {
-      data: requestData,
+      data: [requestData, null],
       disableClose: true
     });
+  }
+
+  openItemHistoryDialog(requestData): void {
+    this.requestService.checkIfItemReturned(requestData.item).subscribe(
+      (response:boolean)=>{
+        this.dialog.open(RequestedItemDialogComponent, {
+          data: [requestData, response],
+        });
+      }
+    );
   }
 }

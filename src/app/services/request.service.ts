@@ -12,6 +12,7 @@ import { ResponseToRequest } from '../shared/response-to-request';
 export class RequestService {
 
 
+
     private apiServerUrl = environment.apiBaseUrl;
 
     constructor(private http: HttpClient) { }
@@ -62,5 +63,9 @@ export class RequestService {
     data.requestId=requestId;
     
     return this.http.put(`${this.apiServerUrl}/isp/request/item-relist`, data);
+  }
+
+  checkIfItemReturned(item: Item) {
+    return this.http.get(`${this.apiServerUrl}/isp/request/checkIfItemIsReturned/${item.id}`);
   }
 }

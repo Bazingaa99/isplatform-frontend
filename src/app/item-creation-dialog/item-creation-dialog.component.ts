@@ -116,6 +116,7 @@ export class ItemCreationDialogComponent implements OnInit {
         )
       } else {
         this.item.id = this.updatableItemData.id;
+        this.item.dateCreated = this.updatableItemData.dateCreated;
         this.itemService.updateItem(this.item, localStorage.getItem('email')).subscribe(
           res => {
             if(this.image){
@@ -183,6 +184,10 @@ export class ItemCreationDialogComponent implements OnInit {
           window.URL.revokeObjectURL( img.src );
           if ( width < 250 || height < 200 ) {
             alert('photo should be not smaller than 250x250 size');
+            event.srcElement.value = null;
+          }
+          else if(this.image.size >1048576){
+            alert('photo should be smaller than 1mb');
             event.srcElement.value = null;
           }
         }, 500);

@@ -95,7 +95,8 @@ export class ItemDialogComponent implements OnInit {
 
   public isItemBookmarkedByCurrentUser(): void {
     this.itemService.isBookmarkedByCurrentUser(this.data.item.id, this.currentUserEmail).subscribe(
-      (response: boolean) => {
+      (response: any) => {
+        console.log(response)
         this.isBookmarked = response;
       },
       (error: HttpErrorResponse) => {

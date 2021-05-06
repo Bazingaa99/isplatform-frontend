@@ -5,86 +5,86 @@
       </button>
   </div>
   <div id="item-information">
-    <div *ngIf="checkIfImageIsSet(request.item)" id = "item-photos">
+    <div *ngIf="checkIfImageIsSet(data.request.item)" id = "item-photos">
       <img class="card-image"  src="https://i.imgur.com/3m7URcq.png" alt="Item image" width="613" height="615">
     </div>
-    <div *ngIf="!checkIfImageIsSet(request.item)" id = "item-photos">
-      <img  class="card-image"  src="data:image/png;base64,{{request.item.image}}"  alt="Item image" width="613" height="615" /> 
+    <div *ngIf="!checkIfImageIsSet(data.request.item)" id = "item-photos">
+      <img  class="card-image"  src="data:image/png;base64,{{data.request.item.image}}"  alt="Item image" width="613" height="615" /> 
   </div>
       <div id="item-content">
           <hr>
           <div>
-              <p id="id">ID: {{ request.item.id }}</p>
-              <p id="date">{{ request.item.dateCreated }}</p>
+              <p id="id">ID: {{ data.request.item.id }}</p>
+              <p id="date">{{ data.request.item.dateCreated }}</p>
           </div>
           <hr>
           <div class="spacer"></div>
-          <p>Category: {{ request.item.category['categoryName'] }}</p>
-          <p>Duration: {{ request.item.duration + " days" }}</p>
-          <p>Bookmarked by: {{ request.item.bookmarkCount + " user(s)" }}</p>
+          <p>Category: {{ data.request.item.category['categoryName'] }}</p>
+          <p>Duration: {{ data.request.item.duration + " days" }}</p>
+          <p>Bookmarked by: {{ data.request.item.bookmarkCount + " user(s)" }}</p>
           <div class="spacer"></div>
-          <p id="item-name">{{ request.item.name }}</p>
-          <p>{{ request.item.description }}</p>
+          <p id="item-name">{{ data.request.item.name }}</p>
+          <p>{{ data.request.item.description }}</p>
           <div *ngIf="this.router.url === '/requesteditems'">
             <label for="requesterName">Item requested by:</label>
-            <span class="important-info" name="requesterName"> {{ request.requester.username }}</span>
+            <span class="important-info" name="requesterName"> {{ data.request.requester.username }}</span>
             <div class="spacer"></div>
             <div class="row">
-              <button mat-stroked-button (click)="openChat(request.id)">Chat</button>
+              <button mat-stroked-button (click)="openChat(data.request.id)">Chat</button>
             </div>
             <div class="spacer"></div>
             <div class="row">
-              <button class="m-1" type="button" mat-stroked-button (click)="responseToRequest(request.id,true)" >Accept</button>
-              <button class="m-1" type="button" mat-stroked-button (click)="responseToRequest(request.id,false)" >Decline</button>
+              <button class="m-1" type="button" mat-stroked-button (click)="responseToRequest(data.request.id,true)" >Accept</button>
+              <button class="m-1" type="button" mat-stroked-button (click)="responseToRequest(data.request.id,false)" >Decline</button>
             </div>
           </div>
           <div *ngIf="this.router.url === '/myrequesteditems'">
-            <div *ngIf="request.responded">
+            <div *ngIf="data.request.responded">
               <span class="important-info"> Request was declined. </span>
               <div class="spacer"></div>
-              <button type="button" mat-stroked-button (click)="removeRequest(request.id)">Remove request</button>
+              <button type="button" mat-stroked-button (click)="removeRequest(data.request.id)">Remove request</button>
             </div>
-            <div *ngIf="!request.responded">
+            <div *ngIf="!data.request.responded">
               <span class="important-info"> Waiting for response from owner. </span>
               <div class="spacer"></div>
-              <button mat-stroked-button (click)="openChat(request.id)">Chat</button>
+              <button mat-stroked-button (click)="openChat(data.request.id)">Chat</button>
               <div class="spacer"></div>
-              <button type="button" mat-stroked-button (click)="removeRequest(request.id)">Remove request</button>
+              <button type="button" mat-stroked-button (click)="removeRequest(data.request.id)">Remove request</button>
             </div>
           </div>
 
           <div *ngIf="this.router.url === '/borroweditems'">
             <span class="important-info"> You currently have this item. </span>
             <div class="spacer"></div>
-            <button mat-stroked-button (click)="openChat(request.id)">Chat</button>
+            <button mat-stroked-button (click)="openChat(data.request.id)">Chat</button>
             <div class="spacer"></div>
             <label for="returnDate"> Item should be returned by </label>
             <br>
-            <span class="important-info"> {{ dueDate(request.item.dateCreated, request.item.duration) }} </span>
+            <span class="important-info"> {{ dueDate(data.request.item.dateCreated, data.request.item.duration) }} </span>
           </div>
           <div *ngIf="this.router.url === '/lentitems'">
-            <span class="important-info"> {{ request.requester.username + " currently has your item" }} </span>
+            <span class="important-info"> {{ data.request.requester.username + " currently has your item" }} </span>
             <div class="spacer"></div>
-            <button mat-stroked-button (click)="openChat(request.id)">Chat</button>
+            <button mat-stroked-button (click)="openChat(data.request.id)">Chat</button>
             <div class="spacer"></div>
             <label for="returnDate"> Item should be returned by: </label>
             <br>
-            <span class="important-info"> {{ dueDate(request.item.dateCreated, request.item.duration) }} </span>
-            <div *ngIf="!request.returned" class="spacer"></div>
-              <button type="button" (click)="itemReturned(request.id)"mat-stroked-button>Item returned</button>
+            <span class="important-info"> {{ dueDate(data.request.item.dateCreated, data.request.item.duration) }} </span>
+            <div *ngIf="!data.request.returned" class="spacer"></div>
+              <button type="button" (click)="itemReturned(data.request.id)"mat-stroked-button>Item returned</button>
           </div>
           <div *ngIf="this.router.url === '/historyitems'">
-            <span class="important-info"> {{ request.requester.username + " was the requester" }} </span>
+            <span class="important-info"> {{ data.request.requester.username + " was the requester" }} </span>
             <div class="spacer"></div>
             <label for="returnDate"> Item shared: </label>
             <br>
-            <span class="important-info"> {{ request.shareDate.substr(0,10)+ " " + request.shareDate.substr(11,16)}} </span>
+            <span class="important-info"> {{ data.request.shareDate.substr(0,10)+ " " + data.request.shareDate.substr(11,16)}} </span>
             <br>
             <label for="returnDate"> Item returned: </label>
             <br>
-            <span class="important-info"> {{ request.returnDate.substr(0,10)+ " " + request.returnDate.substr(11,16)}} </span>
-            <div *ngIf="request.returned" class="spacer">
-              <button type="button"(click)="relistItem(request.id)" mat-stroked-button>Relist item</button>
+            <span class="important-info"> {{ data.request.returnDate.substr(0,10)+ " " + data.request.returnDate.substr(11,16)}} </span>
+            <div *ngIf="!data.returned && !data.request.item.available" class="spacer">
+              <button type="button"(click)="relistItem(data.request.id)" mat-stroked-button>Relist item</button>
             </div>
           </div>
       </div>

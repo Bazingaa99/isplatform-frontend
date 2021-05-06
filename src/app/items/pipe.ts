@@ -51,6 +51,7 @@ export class Ng2DeepSearchPipe implements PipeTransform {
 
     return items.filter(function (item) {
       return checkInside(item, term);
-    });
+    }
+    );
   }
 }

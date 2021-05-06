@@ -12,6 +12,7 @@ import { ChatService } from '../services/chat.service';
 import { Request } from '../shared/request';
 import { ChatDialogComponent } from '../chat-dialog/chat-dialog.component';
 import { Item } from '../shared/item';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'requested-item-dialog',
@@ -33,7 +34,13 @@ export class RequestedItemDialogComponent implements OnInit {
                 public router: Router,
                 public updateService: UpdateUsersGroupsService,
                 public snackBar: MatSnackBar,
-                @Inject(MAT_DIALOG_DATA) public request: any ) {}
+                @Inject(MAT_DIALOG_DATA) public data: any ) {
+                  console.log(data);
+                  data['request'] = data['0']
+                  delete data['0']
+                  data['returned'] = data['1']
+                  delete data['1']
+                }
 
   ngOnInit(): void {
     this.currentUserEmail = localStorage.getItem('email')
@@ -165,6 +172,7 @@ export class RequestedItemDialogComponent implements OnInit {
       () => {
         console.log(this.currentUserEmail)
         this.updateService.sendUpdate();
+        this.closeItemDialog();
         this.snackBar.open("You have successfully relisted the item","✓",{
           duration: 400000000000000,
           panelClass: ['green-snackbar']
@@ -174,6 +182,7 @@ export class RequestedItemDialogComponent implements OnInit {
         
         console.log(this.currentUserEmail) 
         this.updateService.sendUpdate();
+        this.closeItemDialog();
         this.snackBar.open(error,"✓",{
           duration: 400000000000000,
           panelClass: ['red-snackbar']
