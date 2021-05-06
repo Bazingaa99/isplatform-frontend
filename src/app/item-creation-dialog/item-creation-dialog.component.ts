@@ -45,14 +45,12 @@ export class ItemCreationDialogComponent implements OnInit {
   get duration(){return this.itemForm.get('duration')}
   ngOnInit(): void {
     this.getCategories();
-    this.groupId = Number(this.router.url.slice(12, this.router.url.length));
     if(this.updatableItemData != null){
       var div = document.getElementById('item-form-title');
       div.innerHTML = div.innerHTML.replace('Add','Update');
       div = document.getElementById('submit-button');
       div.innerHTML = div.innerHTML.replace('Create','Update');
       this.isHidden = this.updatableItemData.isHidden;
-
       this.itemForm.patchValue({name: this.updatableItemData.name,
         description: this.updatableItemData.description,
         category: this.updatableItemData.category['id'],
@@ -60,6 +58,9 @@ export class ItemCreationDialogComponent implements OnInit {
         owner_id: this.updatableItemData.owner_id
       });
       this.setOldImage(this.updatableItemData)
+      
+    } else {
+      this.groupId = Number(this.router.url.slice(12, this.router.url.length));
     }
   }
 
@@ -115,6 +116,7 @@ export class ItemCreationDialogComponent implements OnInit {
           }
         )
       } else {
+        this.item.group = this.updatableItemData.group;
         this.item.id = this.updatableItemData.id;
         this.itemService.updateItem(this.item, localStorage.getItem('email')).subscribe(
           res => {

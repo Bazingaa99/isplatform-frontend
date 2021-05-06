@@ -150,6 +150,7 @@ export class ItemsComponent implements OnInit {
         this.itemsLength = this.items.length;
         this.loadPage = true;
         this.pageSlice = this.items.slice(0, this.pageSize);
+        console.log(this.items);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
