@@ -51,6 +51,7 @@ import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
 import { BookmarkedItemsComponent } from './bookmarked-items/bookmarked-items.component';
 import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.component';
 import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmarked-item-dialog.component';
+import { Ng2DeepSearchPipe } from './items/pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -75,6 +76,7 @@ import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmark
     RequestsPageComponent,
     RequestedItemDialogComponent,
     ItemDeleteDialogComponent,
+    Ng2DeepSearchPipe,
     ChatDialogComponent,
     BookmarkedItemsComponent,
     BookmarksPageComponent,

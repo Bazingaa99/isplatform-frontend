@@ -71,9 +71,20 @@
             <br>
             <span class="important-info"> {{ dueDate(request.item.dateCreated, request.item.duration) }} </span>
             <div *ngIf="!request.returned" class="spacer"></div>
-              <button type="button" mat-stroked-button>Item returned</button>
+              <button type="button" (click)="itemReturned(request.id)"mat-stroked-button>Item returned</button>
+          </div>
+          <div *ngIf="this.router.url === '/historyitems'">
+            <span class="important-info"> {{ request.requester.username + " was the requester" }} </span>
+            <div class="spacer"></div>
+            <label for="returnDate"> Item shared: </label>
+            <br>
+            <span class="important-info"> {{ request.shareDate.substr(0,10)+ " " + request.shareDate.substr(11,16)}} </span>
+            <br>
+            <label for="returnDate"> Item returned: </label>
+            <br>
+            <span class="important-info"> {{ request.returnDate.substr(0,10)+ " " + request.returnDate.substr(11,16)}} </span>
             <div *ngIf="request.returned" class="spacer">
-              <button type="button" mat-stroked-button>Relist item</button>
+              <button type="button"(click)="relistItem(request.id)" mat-stroked-button>Relist item</button>
             </div>
           </div>
       </div>

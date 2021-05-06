@@ -77,6 +77,28 @@ export class RequestedItemDialogComponent implements OnInit {
     return result;
   }
 
+  itemReturned(requestId:number){
+    this.requestService.itemReturned(requestId,this.currentUserEmail).subscribe(
+      () => {
+        console.log(this.currentUserEmail)
+        this.updateService.sendUpdate();
+        this.snackBar.open("You have successfully updated status of the request","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      },
+      (error)=>{
+        
+        console.log(this.currentUserEmail) 
+        this.updateService.sendUpdate();
+        this.snackBar.open(error,"✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
+
+  }
   responseToRequest(requestId: number, acceptance: boolean){
     this.closeItemDialog();
     console.log(acceptance,requestId)
@@ -94,8 +116,6 @@ export class RequestedItemDialogComponent implements OnInit {
     this.chatService.openChat(requestId).subscribe(
       (response: Chat) => {
         if(response !== null){
-          console.log("CHATAS JAU YRA ZMOGAU");
-          console.log(response);
           this.openChatDialog(response);
         }else{
           this.req = {
@@ -107,8 +127,6 @@ export class RequestedItemDialogComponent implements OnInit {
           }
           this.chatService.createChat(this.chat).subscribe(
             (response: Chat) => {
-              console.log("SUKURIA NAUJA CHATA ZMOGAU");
-              console.log(response);
               this.openChat(requestId);
             },
             (error: HttpErrorResponse) => {
@@ -140,5 +158,27 @@ export class RequestedItemDialogComponent implements OnInit {
       disableClose: true,
       position: {right: '12.5em', bottom: '2em'}
     });
+  }
+
+  relistItem(requestId : number){
+    this.requestService.relistItem(requestId,this.currentUserEmail).subscribe(
+      () => {
+        console.log(this.currentUserEmail)
+        this.updateService.sendUpdate();
+        this.snackBar.open("You have successfully relisted the item","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      },
+      (error)=>{
+        
+        console.log(this.currentUserEmail) 
+        this.updateService.sendUpdate();
+        this.snackBar.open(error,"✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
   }
 }

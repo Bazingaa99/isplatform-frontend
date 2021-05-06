@@ -1,7 +1,7 @@
 <div *ngIf="loadPage">
-<input matInput *ngIf="this.itemsLength > 0" class="form-control search" type="text" name="search" [(ngModel)]="name" autocomplete="off" placeholder="Search">
+<input *ngIf="this.itemsLength > 0" class="form-control search" type="text" [(ngModel)]="name" placeholder="Search">
 <div class="item-container" *ngIf="this.itemsLength > 0">
-  <div class="grid-item" *ngFor="let item of pageSlice | filter:name">
+  <div class="grid-item" *ngFor="let item of pageSlice | deepFilter:name:['owner','group']">
       <div class="card" (click)="openItemDialog(item)" [*ngIf]="test(item)">
         <div *ngIf="checkIfImageIsSet(item)">
           <img class="card-image"  src="https://i.imgur.com/3m7URcq.png" alt="Item image" width="250" height="200">

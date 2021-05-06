@@ -92,6 +92,7 @@ export class ItemsComponent implements OnInit {
     this.itemService.getItems(this.groupId).subscribe(
       (response: Item[]) => {
         this.items = response;
+        console.log(this.items)
         this.itemsLength = this.items.length;
         this.loadPage = true;
         this.pageSlice = this.items.slice(0, this.pageSize);
@@ -126,5 +127,34 @@ export class ItemsComponent implements OnInit {
   //   )
   //   return this.imageUrl
   // }
+  static filter(items: Array<{ [key: string]: any }>, term: string, columnsToExclude?: Array<string>): Array<{ [key: string]: any }> {
 
+    const toCompare = term.toLowerCase();
+
+    function checkInside(item: any, term: string) {
+      for (let property in item) {
+         if (columnsToExclude.some(x=> x === property)) {
+          continue;
+        }
+        else {
+          if (item[property] === null || item[property] == undefined) {
+            continue;
+          }
+          if (typeof item[property] === 'object') {
+            if (checkInside(item[property], term)) {
+              return true;
+            }
+          }
+          if (item[property].toString().toLowerCase().includes(toCompare)) {
+            return true;
+          }
+        }
+      }
+      return false;
+    }
+
+    return items.filter(function (item) {
+      return checkInside(item, term);
+    });
+  }
 }
