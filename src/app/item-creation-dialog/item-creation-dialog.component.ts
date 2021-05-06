@@ -30,7 +30,7 @@ export class ItemCreationDialogComponent implements OnInit {
   public item: Item;
   public userId: number;
   public groupId: number;
-  public isHidden = false;
+  public hidden = false;
   public image: File;
   public itemForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -51,7 +51,7 @@ export class ItemCreationDialogComponent implements OnInit {
       div.innerHTML = div.innerHTML.replace('Add','Update');
       div = document.getElementById('submit-button');
       div.innerHTML = div.innerHTML.replace('Create','Update');
-      this.isHidden = this.updatableItemData.isHidden;
+      this.hidden = this.updatableItemData.hidden;
 
       this.itemForm.patchValue({name: this.updatableItemData.name,
         description: this.updatableItemData.description,
@@ -77,7 +77,7 @@ export class ItemCreationDialogComponent implements OnInit {
         name: this.itemForm.get('name').value,
         description: this.itemForm.get('description').value,
         duration: this.itemForm.get('duration').value,
-        isHidden: this.isHidden,
+        hidden: this.hidden,
       }
       if(this.updatableItemData === null){
         this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(

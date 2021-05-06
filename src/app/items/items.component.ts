@@ -53,7 +53,8 @@ export class ItemsComponent implements OnInit {
     this.currentUserEmail = localStorage.getItem('email');
   }
   test(itemData): any {
-    if(!itemData.isHidden) {
+    console.log(itemData)
+    if(!itemData.hidden) {
       return true;
     } else if (this.checkIfOwner(itemData)) {
       return true;
