@@ -25,6 +25,7 @@ export class RequestedItemsComponent implements OnInit {
   public updateEventSubscription: Subscription;
   public currentUserEmail: string;
   public loadPage: boolean;
+  public returned: boolean;
 
   constructor(private dialog: MatDialog,
               private requestService: RequestService,
@@ -46,7 +47,7 @@ export class RequestedItemsComponent implements OnInit {
   public getRequests(): void {
     switch(this.router.url){
       case '/requesteditems':
-        this.getOtherRequests(false, false)
+        this.getOtherRequests(false, false, false)
         break
       case '/myrequesteditems':
         this.getMyRequests(false)
@@ -55,16 +56,21 @@ export class RequestedItemsComponent implements OnInit {
         this.getMyRequests(true)
         break
       case '/lentitems':
-        this.getOtherRequests(true, true)
+        this.getOtherRequests(true, true,false)
+        break
+      case '/historyitems':
+        this.getOtherRequests(true,true,true)
         break
       default:
         break
     }
   }
 
-  public getOtherRequests(responded: boolean, accepted?: boolean): void {
-    this.requestService.getRequestsByOwnerEmail(localStorage.getItem('email'), accepted, responded).subscribe(
+  public getOtherRequests(responded: boolean, accepted?: boolean, returned?: boolean): void {
+    this.requestService.getRequestsByOwnerEmail(localStorage.getItem('email'), accepted, responded,returned).subscribe(
       (response: Request[]) => {
+        
+        console.log(response)
         this.requests = response;
         this.loadPage = true;
         this.requestsLength = this.requests.length;
@@ -78,7 +84,7 @@ export class RequestedItemsComponent implements OnInit {
 
   public getMyRequests(accepted?: boolean): void {
     this.requests = [];
-    this.requestService.getRequestsByRequesterEmail(localStorage.getItem('email'), accepted).subscribe(
+    this.requestService.getRequestsByRequesterEmail(localStorage.getItem('email'), accepted, false).subscribe(
       (response: Request[]) => {
         this.requests = response;
         this.loadPage = true;
@@ -112,8 +118,18 @@ export class RequestedItemsComponent implements OnInit {
 
   openItemDialog(requestData): void {
     this.dialog.open(RequestedItemDialogComponent, {
-      data: requestData,
+      data: [requestData, null],
       disableClose: true
     });
+  }
+
+  openItemHistoryDialog(requestData): void {
+    this.requestService.checkIfItemReturned(requestData.item).subscribe(
+      (response:boolean)=>{
+        this.dialog.open(RequestedItemDialogComponent, {
+          data: [requestData, response],
+        });
+      }
+    );
   }
 }

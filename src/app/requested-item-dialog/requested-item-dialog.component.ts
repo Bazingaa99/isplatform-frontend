@@ -12,6 +12,7 @@ import { ChatService } from '../services/chat.service';
 import { Request } from '../shared/request';
 import { ChatDialogComponent } from '../chat-dialog/chat-dialog.component';
 import { Item } from '../shared/item';
+import { ValueConverter } from '@angular/compiler/src/render3/view/template';
 
 @Component({
   selector: 'requested-item-dialog',
@@ -33,7 +34,13 @@ export class RequestedItemDialogComponent implements OnInit {
                 public router: Router,
                 public updateService: UpdateUsersGroupsService,
                 public snackBar: MatSnackBar,
-                @Inject(MAT_DIALOG_DATA) public request: any ) {}
+                @Inject(MAT_DIALOG_DATA) public data: any ) {
+                  console.log(data);
+                  data['request'] = data['0']
+                  delete data['0']
+                  data['returned'] = data['1']
+                  delete data['1']
+                }
 
   ngOnInit(): void {
     this.currentUserEmail = localStorage.getItem('email')
@@ -77,6 +84,28 @@ export class RequestedItemDialogComponent implements OnInit {
     return result;
   }
 
+  itemReturned(requestId:number){
+    this.requestService.itemReturned(requestId,this.currentUserEmail).subscribe(
+      () => {
+        console.log(this.currentUserEmail)
+        this.updateService.sendUpdate();
+        this.snackBar.open("You have successfully updated status of the request","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      },
+      (error)=>{
+        
+        console.log(this.currentUserEmail) 
+        this.updateService.sendUpdate();
+        this.snackBar.open(error,"✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
+
+  }
   responseToRequest(requestId: number, acceptance: boolean){
     this.closeItemDialog();
     console.log(acceptance,requestId)
@@ -94,8 +123,6 @@ export class RequestedItemDialogComponent implements OnInit {
     this.chatService.openChat(requestId).subscribe(
       (response: Chat) => {
         if(response !== null){
-          console.log("CHATAS JAU YRA ZMOGAU");
-          console.log(response);
           this.openChatDialog(response);
         }else{
           this.req = {
@@ -107,8 +134,6 @@ export class RequestedItemDialogComponent implements OnInit {
           }
           this.chatService.createChat(this.chat).subscribe(
             (response: Chat) => {
-              console.log("SUKURIA NAUJA CHATA ZMOGAU");
-              console.log(response);
               this.openChat(requestId);
             },
             (error: HttpErrorResponse) => {
@@ -140,5 +165,29 @@ export class RequestedItemDialogComponent implements OnInit {
       disableClose: true,
       position: {right: '12.5em', bottom: '2em'}
     });
+  }
+
+  relistItem(requestId : number){
+    this.requestService.relistItem(requestId,this.currentUserEmail).subscribe(
+      () => {
+        console.log(this.currentUserEmail)
+        this.updateService.sendUpdate();
+        this.closeItemDialog();
+        this.snackBar.open("You have successfully relisted the item","✓",{
+          duration: 400000000000000,
+          panelClass: ['green-snackbar']
+        })
+      },
+      (error)=>{
+        
+        console.log(this.currentUserEmail) 
+        this.updateService.sendUpdate();
+        this.closeItemDialog();
+        this.snackBar.open(error,"✓",{
+          duration: 400000000000000,
+          panelClass: ['red-snackbar']
+        })
+      }
+    )
   }
 }

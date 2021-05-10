@@ -30,7 +30,7 @@ export class ItemCreationDialogComponent implements OnInit {
   public item: Item;
   public userId: number;
   public groupId: number;
-  public isHidden = false;
+  public hidden = false;
   public image: File;
   public itemForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.maxLength(50)]),
@@ -50,7 +50,8 @@ export class ItemCreationDialogComponent implements OnInit {
       div.innerHTML = div.innerHTML.replace('Add','Update');
       div = document.getElementById('submit-button');
       div.innerHTML = div.innerHTML.replace('Create','Update');
-      this.isHidden = this.updatableItemData.isHidden;
+      this.hidden = this.updatableItemData.hidden;
+
       this.itemForm.patchValue({name: this.updatableItemData.name,
         description: this.updatableItemData.description,
         category: this.updatableItemData.category['id'],
@@ -78,7 +79,7 @@ export class ItemCreationDialogComponent implements OnInit {
         name: this.itemForm.get('name').value,
         description: this.itemForm.get('description').value,
         duration: this.itemForm.get('duration').value,
-        isHidden: this.isHidden,
+        hidden: this.hidden,
       }
       if(this.updatableItemData === null){
         this.itemService.addItem(this.item, localStorage.getItem('email')).subscribe(
@@ -118,6 +119,7 @@ export class ItemCreationDialogComponent implements OnInit {
       } else {
         this.item.group = this.updatableItemData.group;
         this.item.id = this.updatableItemData.id;
+        this.item.dateCreated = this.updatableItemData.dateCreated;
         this.itemService.updateItem(this.item, localStorage.getItem('email')).subscribe(
           res => {
             if(this.image){
@@ -185,6 +187,10 @@ export class ItemCreationDialogComponent implements OnInit {
           window.URL.revokeObjectURL( img.src );
           if ( width < 250 || height < 200 ) {
             alert('photo should be not smaller than 250x250 size');
+            event.srcElement.value = null;
+          }
+          else if(this.image.size >1048576){
+            alert('photo should be smaller than 1mb');
             event.srcElement.value = null;
           }
         }, 500);

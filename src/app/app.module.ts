@@ -52,6 +52,7 @@ import { BookmarkedItemsComponent } from './bookmarked-items/bookmarked-items.co
 import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.component';
 import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmarked-item-dialog.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { Ng2DeepSearchPipe } from './items/pipe';
 @NgModule({
   declarations: [
     AppComponent,
@@ -76,6 +77,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
     RequestsPageComponent,
     RequestedItemDialogComponent,
     ItemDeleteDialogComponent,
+    Ng2DeepSearchPipe,
     ChatDialogComponent,
     BookmarkedItemsComponent,
     BookmarksPageComponent,

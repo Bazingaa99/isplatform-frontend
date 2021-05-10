@@ -45,6 +45,7 @@ export class ItemsComponent implements OnInit {
               private snackBar: MatSnackBar,
               private sanitizer:DomSanitizer) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
+                  this.currentPage = this.router.url.substring(1,8);
                   if(this.currentPage === "profile")
                   { 
                     this.getUserItems(); 
@@ -73,9 +74,7 @@ export class ItemsComponent implements OnInit {
   }
 
   test(itemData): any {
-    if(!itemData.isHidden) {
-      return true;
-    } else if (this.checkIfOwner(itemData)) {
+    if(!itemData.hidden || this.checkIfOwner(itemData)) {
       return true;
     } else {
       return false;
@@ -129,6 +128,7 @@ export class ItemsComponent implements OnInit {
     this.itemService.getItems(this.groupId).subscribe(
       (response: Item[]) => {
         this.items = response;
+        console.log(this.items)
         this.itemsLength = this.items.length;
         this.loadPage = true;
         this.pageSlice = this.items.slice(0, this.pageSize);
@@ -178,5 +178,4 @@ export class ItemsComponent implements OnInit {
   //   )
   //   return this.imageUrl
   // }
-
 }

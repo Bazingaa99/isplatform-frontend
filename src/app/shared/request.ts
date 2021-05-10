@@ -7,4 +7,6 @@ export interface Request {
     accepted?: boolean;
     returned?: boolean;
     chat?: Chat;
+    shareDate?: Date;
+    returnDate?: Date;
 }

@@ -12,6 +12,7 @@ export class RequestsPageComponent implements OnInit {
   borrowedId: string;
   lentId: string;
   selectedId: string;
+  historyId: string;
 
   constructor(private router: Router) { }
 
@@ -21,6 +22,7 @@ export class RequestsPageComponent implements OnInit {
     this.myRequestsId = "myrequesteditems";
     this.borrowedId = "borroweditems";
     this.lentId = "lentitems";
+    this.historyId = "historyitems"
   }
 
   onSelect(url: string){

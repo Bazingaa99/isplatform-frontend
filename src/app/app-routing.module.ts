@@ -69,6 +69,10 @@ const routes: Routes = [
     component:BookmarksPageComponent,
   },
   {
+    path:"historyitems",
+    component:RequestsPageComponent,
+  },
+  {
     path: "**", component: PageNotFoundComponent
   }
 ];
