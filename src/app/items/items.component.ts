@@ -47,10 +47,8 @@ export class ItemsComponent implements OnInit {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
                   if(this.currentPage === "profile")
                   { 
-                    console.log("profile");
                     this.getUserItems(); 
                   } else {
-                    console.log("notprofile");
                     this.checkIfGroupOwner();
                     this.getItems();
                   }
@@ -58,8 +56,7 @@ export class ItemsComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    console.log("initing items");
-    this.currentPage = (this.router.url.slice(1, this.router.url.length));
+    this.currentPage = this.router.url.substring(1,8);
     this.loadPage = false;
     this.pageSize = 12;
     this.itemsLength = 0;
@@ -144,7 +141,7 @@ export class ItemsComponent implements OnInit {
   }
 
   public getUserItems(): void {
-    this.itemService.getUserItems(this.currentUserEmail).subscribe(
+    this.itemService.getUserItems(this.currentUserEmail, this.router.url.substring(9, this.router.url.length)).subscribe(
       (response: Item[]) => {
         this.items = response;
         this.itemsLength = this.items.length;

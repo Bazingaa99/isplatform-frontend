@@ -20,8 +20,8 @@ export class ItemService {
         return this.http.get<Item[]>( `${this.apiServerUrl}/isp/items/find/group/${id}`)
     }
 
-    public getUserItems(email: string): Observable<Item[]>{
-        return this.http.get<Item[]>( `${this.apiServerUrl}/isp/items/find/user/items/${email}`)
+    public getUserItems(email: string, userId: string): Observable<Item[]>{
+        return this.http.get<Item[]>( `${this.apiServerUrl}/isp/items/find/user/items/${email}&${userId}`)
     }
 
     public addItem(item: Item, email: string): Observable<Item>{

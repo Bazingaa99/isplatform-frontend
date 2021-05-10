@@ -23,6 +23,7 @@ export class HeaderComponent implements OnInit {
   groupId: string;
   bodyText: string;
   showProfileSidebar:boolean;
+  userId: number;
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
               private  router: Router,
@@ -75,6 +76,11 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([path]).catch();
   }
 
+  goToUserProfile(){
+    let url = "/profile/" + localStorage.getItem('userId');
+    this.router.navigateByUrl(url);
+  }
+
   onLogOut() {
     this.router.navigate(['']);
     localStorage.removeItem('token');
@@ -88,7 +94,6 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/usersgroup']);
     });
   }
-
 
   openDialog() {
     this.dialog.open(RegistrationComponent);

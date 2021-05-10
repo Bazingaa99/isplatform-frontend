@@ -51,6 +51,7 @@ export class LoginComponent implements OnInit {
       response => {
         localStorage.setItem('token', response.token);
         localStorage.setItem('email', response.email);
+        this.getUserIdByEmail();
         this.roleGuardService.setRole(response.token);
         this.serverErrorMessage = '';
         this.closeDialog('login');
@@ -71,6 +72,17 @@ export class LoginComponent implements OnInit {
             this.serverErrorMessage += errors[i].defaultMessage + "\n"
           }  
         }
+      }
+    );
+  }
+
+  public getUserIdByEmail(): any {
+    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
+      (response: User) => {
+        localStorage.setItem('userId', response.id.toString());
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
       }
     );
   }
