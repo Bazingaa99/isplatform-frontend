@@ -39,7 +39,7 @@
 
 mat-card{
     border-radius: 4px;
-    height: 40px;
+    height: 20px;
     width: 200px;
     margin-bottom: 8px;
     padding: 16px;
@@ -177,4 +177,17 @@ svg.material-icons{
 
 #profile-image {
     filter: brightness(600%) contrast(600%);
+}
+
+#profile-data {
+    height: 40px;
+}
+
+p span{
+    display: block;
+    text-align: center;
+}
+
+#feedbackCreationButton{
+    cursor: pointer;
 }

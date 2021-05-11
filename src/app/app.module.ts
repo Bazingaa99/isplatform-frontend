@@ -53,6 +53,7 @@ import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.componen
 import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmarked-item-dialog.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { Ng2DeepSearchPipe } from './items/pipe';
+import { FeedbackCreationDialogComponent } from './feedback-creation-dialog/feedback-creation-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -82,7 +83,8 @@ import { Ng2DeepSearchPipe } from './items/pipe';
     BookmarkedItemsComponent,
     BookmarksPageComponent,
     BookmarkedItemDialogComponent,
-    ProfilePageComponent
+    ProfilePageComponent,
+    FeedbackCreationDialogComponent
   ],
   imports: [
     BrowserModule,
