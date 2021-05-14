@@ -18,6 +18,14 @@ export class FeedbackService {
         return this.http.post<Feedback>(`${this.apiServerUrl}/feedback/create`, data);
     }
 
+    public updateFeedback(feedback: Feedback, email: string, receiverId: number): Observable<Feedback> {
+        let data = {feedback, email, receiverId}
+        data.feedback = feedback;
+        data.email = email;
+        data.receiverId = receiverId;
+        return this.http.put<Feedback>(`${this.apiServerUrl}/feedback/update`, data);
+    }
+
     public getFeedbacksCount(userId: number): Observable<number> {
         return this.http.get<number>( `${this.apiServerUrl}/feedback/get/feedbacks/count/${userId}`)
     }
@@ -28,5 +36,5 @@ export class FeedbackService {
 
     public deleteFeedback(feedbackId: number, email: string): Observable<object>{
         return this.http.delete(`${this.apiServerUrl}/feedback/delete/${feedbackId}&${email}`);
-      }
+    }
 }

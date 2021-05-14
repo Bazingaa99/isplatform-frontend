@@ -23,7 +23,7 @@
         </span>
       </div>
       <div class="actions" *ngIf="userIsFeedbackOwner(feedback.writer.id)">
-        <button color="primary" mat-stroked-button>
+        <button color="primary" (click)="openFeedbackUpdateDialog(feedback)" mat-stroked-button>
           Update
         </button>
         <button color="warn" (click)="openFeedbackDeleteDialog(feedback.id)" mat-stroked-button>

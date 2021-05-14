@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { MatDialogRef } from '@angular/material/dialog';
+import { Component, Inject, OnInit } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Feedback } from '../shared/feedback';
 import { FeedbackService } from '../services/feedback.service';
@@ -23,11 +23,17 @@ export class FeedbackCreationDialogComponent implements OnInit {
               private feedbackService: FeedbackService,
               private router: Router,
               private snackBar: MatSnackBar,
-              private updateService: UpdateUsersGroupsService) {
+              private updateService: UpdateUsersGroupsService,
+              @Inject(MAT_DIALOG_DATA) public updatableFeedbackData: Feedback) {
     this.feedbackCreationForm = this.setForm();
    }
 
   ngOnInit(): void {
+    if(this.updatableFeedbackData != null){
+      this.feedbackCreationForm.patchValue({feedbackText: this.updatableFeedbackData.feedbackMessage});
+      var stars = document.getElementsByTagName('input');
+      stars[5-this.updatableFeedbackData.starsCount].checked = true;
+    }
   }
 
   setForm() {
@@ -53,28 +59,50 @@ export class FeedbackCreationDialogComponent implements OnInit {
     }
     if(this.userRated){
       this.closeDialog();
-      console.log(this.feedbackCreationForm.get('feedbackText').value);
       let receiverId = Number(this.router.url.slice(9, this.router.url.length));
-      this.feedback = {
-        feedbackMessage: this.feedbackCreationForm.get('feedbackText').value,
-        starsCount: starsCount,
-      }
-      console.log(this.feedback);
-      this.feedbackService.createFeedback(this.feedback, localStorage.getItem('email'), receiverId).subscribe(
-        (response: Feedback) => {
-          this.updateService.sendUpdate();
-          this.snackBar.open("You successfuly left a feedback","✓",{
-            duration: 400000000000000,
-            panelClass: ['green-snackbar']
-          })
-        },
-        (error: HttpErrorResponse) => {
-          this.snackBar.open("Couldn't leave a feedback. Please try again.","✓",{
-            duration: 400000000000000,
-            panelClass: ['red-snackbar']
-          })
+      if(this.updatableFeedbackData == null){
+        this.feedback = {
+          feedbackMessage: this.feedbackCreationForm.get('feedbackText').value,
+          starsCount: starsCount,
         }
-      );
+        this.feedbackService.createFeedback(this.feedback, localStorage.getItem('email'), receiverId).subscribe(
+          (response: Feedback) => {
+            this.updateService.sendUpdate();
+            this.snackBar.open("You successfuly left a feedback","✓",{
+              duration: 400000000000000,
+              panelClass: ['green-snackbar']
+            })
+          },
+          (error: HttpErrorResponse) => {
+            this.snackBar.open("Couldn't leave a feedback. Please try again.","✓",{
+              duration: 400000000000000,
+              panelClass: ['red-snackbar']
+            })
+          }
+        );
+      } else {
+        this.feedback = {
+          id: this.updatableFeedbackData.id,
+          feedbackMessage: this.feedbackCreationForm.get('feedbackText').value,
+          starsCount: starsCount,
+        }
+        this.feedbackService.updateFeedback(this.feedback, localStorage.getItem('email'), receiverId).subscribe(
+          (response: Feedback) => {
+            this.updateService.sendUpdate();
+            this.snackBar.open("You successfuly updated a feedback","✓",{
+              duration: 400000000000000,
+              panelClass: ['green-snackbar']
+            })
+          },
+          (error: HttpErrorResponse) => {
+            this.snackBar.open("Couldn't update a feedback. Please try again.","✓",{
+              duration: 400000000000000,
+              panelClass: ['red-snackbar']
+            })
+          }
+        );
+      }
+      
     }
   }
 

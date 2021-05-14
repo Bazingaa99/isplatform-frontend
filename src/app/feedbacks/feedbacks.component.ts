@@ -8,6 +8,7 @@ import { Subscription } from 'rxjs';
 import { Feedback } from '../shared/feedback';
 import { FeedbackService } from '../services/feedback.service';
 import { FeedbackDeleteDialogComponent } from '../feedback-delete-dialog/feedback-delete-dialog.component';
+import { FeedbackCreationDialogComponent } from '../feedback-creation-dialog/feedback-creation-dialog.component';
 
 @Component({
   selector: 'feedbacks',
@@ -35,6 +36,12 @@ export class FeedbacksComponent implements OnInit {
     this.pageSize = 8;
     this.feedbacksLength = 0;
     this.getUserFeedbacks(); 
+  }
+
+  openFeedbackUpdateDialog(feedbackData: number): void {
+    this.feedbackActionDialog.open(FeedbackCreationDialogComponent, {
+      data: feedbackData,
+    });
   }
 
   openFeedbackDeleteDialog(feedbackId: number): void {
