@@ -51,7 +51,6 @@ export class GroupCreationDialogComponent {
         name: this.userCreationForm.get('name').value,
         description: this.userCreationForm.get('description').value,
       }
-      console.log(this.usersGroup);
       this.usersGroupService.updateUsersGroups(this.usersGroup, localStorage.getItem('email')).subscribe(
         (response: UsersGroup) => {
           this.updateUsersGroupsService.sendUpdate();

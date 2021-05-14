@@ -39,6 +39,7 @@ export class UsersGroupService {
     public getUserGroups(email: string): Observable<UsersGroup[]> {
         return this.http.get<UsersGroup[]>(`${this.apiServerUrl}/usersgroup/find/user/groups/${email}`);
     }
+    
     public getAddToGroupToken(usersgroupId: string, email:string){
         const token =this.http.get<AddToGroupToken>(environment.apiBaseUrl + '/usersgroup/generate-token/'+usersgroupId +"&"+email)
         return token

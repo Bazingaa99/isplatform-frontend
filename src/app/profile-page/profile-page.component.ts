@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { FeedbackCreationDialogComponent } from '../feedback-creation-dialog/feedback-creation-dialog.component';
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user';
+import { FeedbackService } from '../services/feedback.service';
 
 @Component({
   selector: 'profile-page',
@@ -14,11 +15,14 @@ import { User } from '../shared/user';
 })
 export class ProfilePageComponent implements OnInit {
   username: string;
+  feedbacksCount: number;
+  showItems = true;
 
   constructor(public dialog: MatDialog,
               public snackBar: MatSnackBar,
               public router: Router,
-              private userService: UserService) { 
+              private userService: UserService,
+              private feedbackService: FeedbackService) { 
                 this.router.routeReuseStrategy.shouldReuseRoute = function() {
                   return false;
               };
@@ -26,6 +30,7 @@ export class ProfilePageComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUsername();
+    this.getFeedbacksCount();
   }
 
   getUsername(): void {
@@ -39,11 +44,31 @@ export class ProfilePageComponent implements OnInit {
     );
   }
 
+  getFeedbacksCount(): void {
+    this.feedbackService.getFeedbacksCount(Number(this.router.url.slice(9, this.router.url.length))).subscribe(
+      (response: number) => {
+        this.feedbacksCount = response;
+        console.log(response);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   openFeedbackDialog(): void {
     this.dialog.open(FeedbackCreationDialogComponent);
   }
 
   checkIfUserIsProfileOwner(): any {
     return (this.router.url.slice(9, this.router.url.length) === localStorage.getItem('userId'));
+  }
+
+  switchToFeedbacks(){
+    this.showItems = false;
+  }
+
+  switchToItems(){
+    this.showItems = true;
   }
 }

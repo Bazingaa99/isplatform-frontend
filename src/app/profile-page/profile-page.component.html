@@ -10,7 +10,7 @@
         <mat-card id="profile-data">
             <p>
                 <span>{{username}}</span>
-                <span>0 feedbacks</span>
+                <a (click)="switchToFeedbacks()">{{feedbacksCount}} feedbacks</a>
             </p>
         </mat-card>
         <mat-card id="feedbackCreationButton" (click)="openFeedbackDialog()" *ngIf="!checkIfUserIsProfileOwner()">
@@ -20,6 +20,10 @@
     </div>
 
     <div id="content">
-        <items></items>
+        <mat-card id="switchToItemsButton" (click)="switchToItems()" *ngIf="!showItems">
+            &#8249; Back to user items
+        </mat-card>
+        <items *ngIf="showItems"></items>
+        <feedbacks *ngIf="!showItems"></feedbacks>
     </div>
 </div>

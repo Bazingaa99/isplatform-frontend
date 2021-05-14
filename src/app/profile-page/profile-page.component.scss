@@ -67,18 +67,6 @@ svg.material-icons{
     flex-direction: column;
 }
 
-.item-paginator{
-    margin-right: 8px;
-    margin-top: 0.5rem;
-    background-color: #b0b2c2;
-    color: white;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-    border-radius: 5px;
-    position: absolute;
-    right: 0;
-    bottom: 0;
-}
-
 .important-info{
     font-size: 18px;
     font-weight: bold;
@@ -183,11 +171,21 @@ svg.material-icons{
     height: 40px;
 }
 
-p span{
+p span, a{
     display: block;
     text-align: center;
 }
 
+p a {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
 #feedbackCreationButton{
     cursor: pointer;
+}
+
+#switchToItemsButton{
+    position: absolute;
+    bottom: 0;
 }
