@@ -7,6 +7,7 @@ import { UpdateUsersGroupsService } from '../services/update-users-group.service
 import { Subscription } from 'rxjs';
 import { Feedback } from '../shared/feedback';
 import { FeedbackService } from '../services/feedback.service';
+import { FeedbackDeleteDialogComponent } from '../feedback-delete-dialog/feedback-delete-dialog.component';
 
 @Component({
   selector: 'feedbacks',
@@ -21,7 +22,7 @@ export class FeedbacksComponent implements OnInit {
   public pageSlice;
   updateEventSubscription:Subscription;
 
-  constructor(public dialog: MatDialog,
+  constructor(public feedbackActionDialog: MatDialog,
               private feedbackService: FeedbackService,
               private router: Router,
               private updateService: UpdateUsersGroupsService) {
@@ -31,26 +32,36 @@ export class FeedbacksComponent implements OnInit {
               }
 
   ngOnInit(): void {
-    this.pageSize = 10;
+    this.pageSize = 8;
     this.feedbacksLength = 0;
     this.getUserFeedbacks(); 
+  }
+
+  openFeedbackDeleteDialog(feedbackId: number): void {
+    this.feedbackActionDialog.open(FeedbackDeleteDialogComponent, {
+      data: feedbackId,
+    });
   }
 
   counter(i: number) {
       return new Array(i);
   }
+
   public getUserFeedbacks(): void {
     this.feedbackService.getUserFeedbacks(Number(this.router.url.substring(9, this.router.url.length))).subscribe(
       (response: Feedback[]) => {
         this.feedbacks = response;
         this.feedbacksLength = this.feedbacks.length;
-        this.pageSlice = this.feedbacks.slice(0, this.pageSize);
-        console.log(this.feedbacks);
+        this.pageSlice = this.feedbacks.slice(0, this.pageSize)
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
       }
     );
+  }
+
+  userIsFeedbackOwner(ownerId: number){
+    return (Number(localStorage.getItem('userId'))===ownerId)
   }
 
   public onPageChange(event: PageEvent){

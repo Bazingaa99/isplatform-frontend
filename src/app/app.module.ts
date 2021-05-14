@@ -55,6 +55,7 @@ import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { Ng2DeepSearchPipe } from './items/pipe';
 import { FeedbackCreationDialogComponent } from './feedback-creation-dialog/feedback-creation-dialog.component';
 import { FeedbacksComponent } from './feedbacks/feedbacks.component';
+import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback-delete-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -86,7 +87,8 @@ import { FeedbacksComponent } from './feedbacks/feedbacks.component';
     BookmarkedItemDialogComponent,
     ProfilePageComponent,
     FeedbackCreationDialogComponent,
-    FeedbacksComponent
+    FeedbacksComponent,
+    FeedbackDeleteDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -9,21 +9,33 @@
 <div class="feedbacks-container" *ngIf="this.feedbacksLength > 0">
   <ng-container *ngFor="let feedback of pageSlice | deepFilter:name:['owner','group','image','imageName']" >
     <div class="feedback">
-      <span>
-        {{feedback.user.username}}
-      </span>
-      <span>
-        <svg *ngFor="let star of counter(feedback.starsCount)" class="star">
-          <use xlink:href="#star"/>
-        </svg>
-      </span>
-      <span>{{feedback.feedbackMessage}}</span>
+      <div class="feedbackData">
+        <span>
+          {{feedback.writer.username}}
+        </span>
+        <span>
+          <svg *ngFor="let star of counter(feedback.starsCount)" class="star">
+            <use xlink:href="#star"/>
+          </svg>
+        </span>
+        <span>
+          {{feedback.feedbackMessage}}
+        </span>
+      </div>
+      <div class="actions" *ngIf="userIsFeedbackOwner(feedback.writer.id)">
+        <button color="primary" mat-stroked-button>
+          Update
+        </button>
+        <button color="warn" (click)="openFeedbackDeleteDialog(feedback.id)" mat-stroked-button>
+          Delete
+        </button>
+      </div>
     </div>
   </ng-container>
 </div>
 
-<mat-paginator class="feedback-paginator" *ngIf="this.feedbacksLength > 0" style="margin-top: 0.5rem;" [length]="this.feedbacksLength"
-  [pageSizeOptions]="[10]"
+<mat-paginator class="feedback-paginator" *ngIf="this.feedbacksLength > 8" style="margin-top: 0.5rem;" [length]="this.feedbacksLength"
+  [pageSizeOptions]="[8]"
   (page)="onPageChange($event)">
 </mat-paginator>
 

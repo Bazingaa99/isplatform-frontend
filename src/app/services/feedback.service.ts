@@ -25,4 +25,8 @@ export class FeedbackService {
     public getUserFeedbacks(userId: number): Observable<Feedback[]> {
         return this.http.get<Feedback[]>(`${this.apiServerUrl}/feedback/get/user/feedbacks/${userId}`);
     }
+
+    public deleteFeedback(feedbackId: number, email: string): Observable<object>{
+        return this.http.delete(`${this.apiServerUrl}/feedback/delete/${feedbackId}&${email}`);
+      }
 }

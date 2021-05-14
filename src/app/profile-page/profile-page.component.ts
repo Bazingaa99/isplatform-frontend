@@ -7,6 +7,7 @@ import { FeedbackCreationDialogComponent } from '../feedback-creation-dialog/fee
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user';
 import { FeedbackService } from '../services/feedback.service';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 
 @Component({
   selector: 'profile-page',
@@ -17,12 +18,17 @@ export class ProfilePageComponent implements OnInit {
   username: string;
   feedbacksCount: number;
   showItems = true;
+  updateEventSubscription: any;
 
   constructor(public dialog: MatDialog,
               public snackBar: MatSnackBar,
               public router: Router,
               private userService: UserService,
-              private feedbackService: FeedbackService) { 
+              private feedbackService: FeedbackService,
+              private updateService: UpdateUsersGroupsService) {
+                this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
+                  this.getFeedbacksCount();
+                });
                 this.router.routeReuseStrategy.shouldReuseRoute = function() {
                   return false;
               };
