@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { Router } from '@angular/router';
 import { FeedbackCreationDialogComponent } from '../feedback-creation-dialog/feedback-creation-dialog.component';
 
 @Component({
@@ -12,7 +13,8 @@ export class ProfilePageComponent implements OnInit {
   username: string;
 
   constructor(public dialog: MatDialog,
-              public snackBar: MatSnackBar) { }
+              public snackBar: MatSnackBar,
+              public router: Router) { }
 
   ngOnInit(): void {
     this.username = localStorage.getItem('username');
@@ -20,5 +22,9 @@ export class ProfilePageComponent implements OnInit {
 
   openFeedbackDialog(): void {
     this.dialog.open(FeedbackCreationDialogComponent);
+  }
+
+  checkIfUserIsProfileOwner(): any {
+    return (this.router.url.slice(9, this.router.url.length) === localStorage.getItem('userId'));
   }
 }

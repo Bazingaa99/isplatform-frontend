@@ -35,7 +35,6 @@ export class FeedbackCreationDialogComponent implements OnInit {
     for (var i=0; i<stars.length; i++) {
       if(stars[i].type == 'radio' && stars[i].checked){
         this.userRated = true;
-        console.log("ivyko");
         starsCount = 6-i;
         break;
       }
@@ -46,8 +45,10 @@ export class FeedbackCreationDialogComponent implements OnInit {
     if(this.userRated){
       this.closeDialog();
       this.feedback = {
-       feedbackMessage: this.feedbackCreationForm.get('feedbackText').value,
-       starsCount: starsCount,
+        userId: parseInt(localStorage.getItem('username')),
+        writerId: parseInt(localStorage.getItem('username')),
+        feedbackMessage: this.feedbackCreationForm.get('feedbackText').value,
+        starsCount: starsCount,
       }
     }
   }
