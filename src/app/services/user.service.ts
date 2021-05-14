@@ -37,6 +37,10 @@ export class UserService {
     return this.httpClient.get<User>( `${this.apiServerUrl}/isp/user/${email}`)
   }
 
+  getUserById(id: Number): Observable<User>{
+    return this.httpClient.get<User>( `${this.apiServerUrl}/isp/user/id/${id}`)
+  }
+
   private errorHandlerForTxt(error: HttpErrorResponse) {
     return throwError(error.status);
   }
