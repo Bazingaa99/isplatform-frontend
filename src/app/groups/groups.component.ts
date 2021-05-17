@@ -36,7 +36,6 @@ export class GroupsComponent{
   ngOnInit(): void{
     this.getUserGroups();
     this.selectedId = Number(this.router.url.slice(12, this.router.url.length))
-
   }
   
 

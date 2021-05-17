@@ -13,6 +13,8 @@ import { RequestService } from '../services/request.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { SafeUrl } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
+import { UsersGroupService } from '../services/users-group.service';
+import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component';
 
 @Component({
   selector: 'items',
@@ -32,30 +34,47 @@ export class ItemsComponent implements OnInit {
   public imageUrl:SafeUrl
   name: String
   public loadPage: boolean;
+  public userIsGroupOwner = false;
+  currentPage: String;
   constructor(public dialog: MatDialog,
               private itemService: ItemService,
               private router: Router,
               private updateService: UpdateUsersGroupsService,
+              private usersGroupService: UsersGroupService,
               private requestService: RequestService,
               private snackBar: MatSnackBar,
               private sanitizer:DomSanitizer) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
-                  this.getItems();
+                  this.currentPage = this.router.url.substring(1,8);
+                  if(this.currentPage === "profile")
+                  { 
+                    this.getUserItems(); 
+                  } else {
+                    this.checkIfGroupOwner();
+                    this.getItems();
+                  }
                 });
               }
 
   ngOnInit(): void {
+    this.currentPage = this.router.url.substring(1,8);
     this.loadPage = false;
     this.pageSize = 12;
     this.itemsLength = 0;
-    this.getItems();
-
     this.currentUserEmail = localStorage.getItem('email');
+    if(this.currentPage === "profile")
+    { 
+      console.log("profile");
+      this.getUserItems(); 
+    } else {
+      console.log("notprofile");
+      this.checkIfGroupOwner();
+      this.getItems();
+    }
   }
+
   test(itemData): any {
-    if(!itemData.hidden) {
-      return true;
-    } else if (this.checkIfOwner(itemData)) {
+    if(!itemData.hidden || this.checkIfOwner(itemData)) {
       return true;
     } else {
       return false;
@@ -67,7 +86,6 @@ export class ItemsComponent implements OnInit {
   }
 
   openItemDialog(itemData): void {
-
     this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
       (response: Request) => {
         if(response){
@@ -87,6 +105,24 @@ export class ItemsComponent implements OnInit {
     )
   }
 
+  openGroupUpdateDialog(): void {
+    this.dialog.open(GroupCreationDialogComponent, {
+      data: this.groupId,
+    });
+  }
+
+  public checkIfGroupOwner(): any {
+    this.groupId = this.router.url.slice(12, this.router.url.length);
+    this.usersGroupService.checkIfGroupOwner(this.groupId, this.currentUserEmail).subscribe(
+      (response: boolean) => {
+        this.userIsGroupOwner = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
   public getItems(): void {
     this.groupId = this.router.url.slice(12, this.router.url.length);
     this.itemService.getItems(this.groupId).subscribe(
@@ -97,6 +133,21 @@ export class ItemsComponent implements OnInit {
         this.loadPage = true;
         this.pageSlice = this.items.slice(0, this.pageSize);
         console.log(this.currentUserEmail, this.items);
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
+  }
+
+  public getUserItems(): void {
+    this.itemService.getUserItems(this.currentUserEmail, this.router.url.substring(9, this.router.url.length)).subscribe(
+      (response: Item[]) => {
+        this.items = response;
+        this.itemsLength = this.items.length;
+        this.loadPage = true;
+        this.pageSlice = this.items.slice(0, this.pageSize);
+        console.log(this.items);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

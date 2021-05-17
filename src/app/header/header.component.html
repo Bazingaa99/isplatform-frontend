@@ -21,7 +21,7 @@
     <div *ngIf="logInCheck()&&isGroupOpened()">
       <div (click)="openInviteDialog()" class="loginbutton">Invite</div>
     </div>
-
+    
     <!-- Profile button -->
     <img mat-button [matMenuTriggerFor]="menu" *ngIf="logInCheck()" id="profile-image"
       width="40"
@@ -30,7 +30,7 @@
 
     <!-- Profile navigation -->
     <mat-menu #menu="matMenu">
-      <button mat-menu-item>Profile</button>
+      <a mat-menu-item (click)="goToUserProfile()">Profile</a>
       <a mat-menu-item href="/requesteditems">Requests</a>
       <a mat-menu-item href="/bookmarks">Bookmarks</a>
       <button mat-menu-item>Settings</button>

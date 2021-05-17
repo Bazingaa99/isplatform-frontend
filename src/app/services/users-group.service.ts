@@ -25,10 +25,13 @@ export class UsersGroupService {
         return this.http.post<UsersGroup>(`${this.apiServerUrl}/usersgroup/create`, data);
     }
 
-    public updateUsersGroups(usersgroup: UsersGroup): Observable<UsersGroup> {
-        return this.http.put<UsersGroup>(`${this.apiServerUrl}/usersgroup/update`, usersgroup);
+    public updateUsersGroups(usersGroup: UsersGroup, email: string): Observable<UsersGroup> {
+        let data = {usersGroup, email}
+        data.usersGroup = usersGroup;
+        data.email = email;
+        return this.http.put<UsersGroup>(`${this.apiServerUrl}/usersgroup/update/`, data);
     }
-
+    
     public deleteUsersGroups(usersgroupId: number): Observable<UsersGroup> {
         return this.http.delete<UsersGroup>(`${this.apiServerUrl}/usersgroup/delete/${usersgroupId}`);
     }
@@ -36,6 +39,7 @@ export class UsersGroupService {
     public getUserGroups(email: string): Observable<UsersGroup[]> {
         return this.http.get<UsersGroup[]>(`${this.apiServerUrl}/usersgroup/find/user/groups/${email}`);
     }
+    
     public getAddToGroupToken(usersgroupId: string, email:string){
         const token =this.http.get<AddToGroupToken>(environment.apiBaseUrl + '/usersgroup/generate-token/'+usersgroupId +"&"+email)
         return token
@@ -48,4 +52,12 @@ export class UsersGroupService {
         const link =this.http.post<AddToGroupResponse>(environment.apiBaseUrl + '/usersgroup/add-to-group/',data )
         return link
       }
+
+    public checkIfGroupOwner(groupId: string, email: string){
+        return this.http.get<Boolean>(environment.apiBaseUrl + '/usersgroup/check/if/group/owner/' + groupId + '&' + email)
+    }
+    
+    public getGroupData(groupId: Number){
+        return this.http.get<UsersGroup>(environment.apiBaseUrl + '/usersgroup/get/group/data/' + groupId)
+    }
 }

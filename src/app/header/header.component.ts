@@ -9,6 +9,9 @@ import {RoleGuardService} from '../services/role-guard-service.service';
 import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.component';
 import { ItemsComponent } from '../items/items.component';
 import { ItemService } from '../services/item.service';
+import { User } from '../shared/user';
+import { UserService } from '../services/user.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'header',
@@ -20,9 +23,11 @@ export class HeaderComponent implements OnInit {
   groupId: string;
   bodyText: string;
   showProfileSidebar:boolean;
+  userId: number;
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
               private  router: Router,
+              private userService: UserService,
               private roleGuardService: RoleGuardService
               ) {}
 
@@ -71,11 +76,17 @@ export class HeaderComponent implements OnInit {
     this.router.navigate([path]).catch();
   }
 
+  goToUserProfile(){
+    let url = "/profile/" + localStorage.getItem('userId');
+    this.router.navigateByUrl(url);
+  }
+
   onLogOut() {
     this.router.navigate(['']);
     localStorage.removeItem('token');
     localStorage.setItem('roles', '');
     localStorage.setItem('email', '');
+    localStorage.removeItem('username');
   }
 
   onClick(){
@@ -83,7 +94,6 @@ export class HeaderComponent implements OnInit {
       this.router.navigate(['/usersgroup']);
     });
   }
-
 
   openDialog() {
     this.dialog.open(RegistrationComponent);

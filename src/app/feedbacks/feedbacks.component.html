@@ -1,0 +1,45 @@
+<div class="star-source">
+  <svg>
+      <symbol id="star" viewBox="153 89 106 108">   
+          <polygon id="star-shape" stroke="#3F51B5" stroke-width="5" fill="currentColor" points="206 162.5 176.610737 185.45085 189.356511 150.407797 158.447174 129.54915 195.713758 130.842203 206 95 216.286242 130.842203 253.552826 129.54915 222.643489 150.407797 235.389263 185.45085"></polygon>
+      </symbol>
+  </svg>
+</div>
+
+<div class="feedbacks-container" *ngIf="this.feedbacksLength > 0">
+  <ng-container *ngFor="let feedback of pageSlice | deepFilter:name:['owner','group','image','imageName']" >
+    <div class="feedback">
+      <div class="feedbackData">
+        <span>
+          {{feedback.writer.username}}
+        </span>
+        <span>
+          <svg *ngFor="let star of counter(feedback.starsCount)" class="star">
+            <use xlink:href="#star"/>
+          </svg>
+        </span>
+        <span>
+          {{feedback.feedbackMessage}}
+        </span>
+      </div>
+      <div class="actions" *ngIf="userIsFeedbackOwner(feedback.writer.id)">
+        <button color="primary" (click)="openFeedbackUpdateDialog(feedback)" mat-stroked-button>
+          Update
+        </button>
+        <button color="warn" (click)="openFeedbackDeleteDialog(feedback.id)" mat-stroked-button>
+          Delete
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+
+<mat-paginator class="feedback-paginator" *ngIf="this.feedbacksLength > 8" style="margin-top: 0.5rem;" [length]="this.feedbacksLength"
+  [pageSizeOptions]="[8]"
+  (page)="onPageChange($event)">
+</mat-paginator>
+
+<div id="noFeedbacksMsg" *ngIf="this.feedbacksLength === 0">
+  <h1>User do not have any feedbacks yet.</h1>
+</div>
+

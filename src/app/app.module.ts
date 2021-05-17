@@ -51,7 +51,11 @@ import { ChatDialogComponent } from './chat-dialog/chat-dialog.component';
 import { BookmarkedItemsComponent } from './bookmarked-items/bookmarked-items.component';
 import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.component';
 import { BookmarkedItemDialogComponent } from './bookmarked-item-dialog/bookmarked-item-dialog.component';
+import { ProfilePageComponent } from './profile-page/profile-page.component';
 import { Ng2DeepSearchPipe } from './items/pipe';
+import { FeedbackCreationDialogComponent } from './feedback-creation-dialog/feedback-creation-dialog.component';
+import { FeedbacksComponent } from './feedbacks/feedbacks.component';
+import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback-delete-dialog.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -80,7 +84,11 @@ import { Ng2DeepSearchPipe } from './items/pipe';
     ChatDialogComponent,
     BookmarkedItemsComponent,
     BookmarksPageComponent,
-    BookmarkedItemDialogComponent
+    BookmarkedItemDialogComponent,
+    ProfilePageComponent,
+    FeedbackCreationDialogComponent,
+    FeedbacksComponent,
+    FeedbackDeleteDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,70 @@
+#dialog-content {
+    display: flex;
+    flex-direction: column;
+}
+
+#group-creation-dialog-footer { 
+    justify-content: center;
+}
+
+svg {
+    width: 3rem;
+    height: 3rem;
+    padding: 0.15rem;
+}
+
+input[name="star"] {
+    display: inline-block;
+    width: 0;
+    opacity: 0;
+    margin-left: -2px;
+}
+
+.star-source {
+    width: 0;
+    height: 0;
+    visibility: hidden;
+}
+
+.star {
+    color: transparent;
+    transition: color 0.2s ease-in-out;
+}
+
+.star-container {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+  }
+  
+  label:hover ~ label .star,
+  svg.star:hover,
+  input[name="star"]:checked ~ label .star {
+    color: #F9D43F;
+  }
+  
+  input[name="star"]:checked + label .star {
+    animation: starred 0.5s;
+  }
+  
+  input[name="star"]:checked + label {
+    animation: scaleup 1s;
+  }
+  
+  @keyframes scaleup {
+    from {
+      transform: scale(1.2);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes starred {
+    from {
+      color: #3F51B5;
+    }
+    to {
+      color: #F9D43F;
+    }
+  }

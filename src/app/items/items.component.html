@@ -1,10 +1,9 @@
 <div *ngIf="loadPage">
 <input *ngIf="this.itemsLength > 0" class="form-control search" type="text" [(ngModel)]="name" placeholder="Search">
-<!-- <ng-container *ngIf="(pageSlice | deepFilter:name:['owner','group','image','imageName']) as result"> -->
-<div class="item-container" *ngIf=" (pageSlice | deepFilter:name:['owner','group','image','imageName']) as result">
-  
-  <div class="grid-item" *ngFor="let item of result">
-      <div class="card" (click)="openItemDialog(item)" *ngIf="test(item)">
+<div class="item-container" *ngIf="this.itemsLength > 0">
+  <ng-container *ngFor="let item of pageSlice | deepFilter:name:['owner','group','image','imageName']" >
+    <div class="grid-item" *ngIf="test(item)">
+      <div class="card" (click)="openItemDialog(item)">
         <div *ngIf="checkIfImageIsSet(item)">
           <img class="card-image"  src="https://i.imgur.com/3m7URcq.png" alt="Item image" width="250" height="200">
         </div>
@@ -24,26 +23,36 @@
               {{ item.category.categoryName }},
               {{ item.duration + " days" }}
             </div>
-            <div *ngIf="checkIfOwner(item)">
+            
+            <!-- <div *ngIf="checkIfOwner(item)">
               <div  class="card-actions">
                 <span class="important-info">My item</span>
               </div>
-            </div>
+            </div> -->
+          
+            <a class="item-title profile" href="/profile/{{item.owner.id}}">
+              {{ item.owner.username }}
+            </a>
             <div class="card-footer">
               <span>views: {{ item.viewCount }}</span>
             </div>
           </div>
         </div>
     </div>
-    <div *ngIf="result.length === 0">
-      <h1>There aren't any available items at the moment.</h1>
-    </div>
+  </ng-container>
   </div>
-  <!-- </ng-container> -->
+
+  <mat-card *ngIf="userIsGroupOwner" (click)="openGroupUpdateDialog()">
+    Update Group
+  </mat-card>
+
   <mat-paginator class="item-paginator" *ngIf="this.itemsLength > 0" style="margin-top: 0.5rem;" [length]="this.itemsLength"
     [pageSizeOptions]="[12]"
     (page)="onPageChange($event)">
   </mat-paginator>
-  
+
+  <div id="noItemsMsg" *ngIf="this.itemsLength === 0">
+    <h1>There aren't any available items at the moment.</h1>
+  </div>
 </div>
 

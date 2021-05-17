@@ -1,4 +1,4 @@
-<h1 mat-dialog-title>New group creation</h1>
+<h1 id="title" mat-dialog-title>New group creation</h1>
 <form [formGroup]="userCreationForm" (ngSubmit)="onCreateGroup()" >
   <div id="dialog-content" mat-dialog-content>
     <mat-form-field appearance="fill">
@@ -21,6 +21,6 @@
   </div>
   <div id="group-creation-dialog-footer" mat-dialog-actions>
     <button type="button" color="warn" (click)="closeDialog()" mat-stroked-button>Cancel</button>
-    <button type="submit" [disabled]="userCreationForm.invalid" mat-stroked-button>Create</button>
+    <button id="creation-button" type="submit" [disabled]="userCreationForm.invalid" mat-stroked-button>Create</button>
   </div>
 </form>
