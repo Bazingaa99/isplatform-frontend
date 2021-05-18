@@ -37,6 +37,11 @@ export class NotificationsComponent implements OnInit {
         this.notifications = response;
         this.notificationsLength = this.notifications.length;
         this.pageSlice = this.notifications.slice(0, this.pageSize);
+        this.notifications.forEach(notification => {
+          if(!notification.seen) {
+            this.notificationService.setNotificationsSeen(notification.id).subscribe(()=>{});
+          }
+        });
       },
       (error: HttpErrorResponse) => {
         alert(error.message);

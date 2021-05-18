@@ -25,6 +25,10 @@ export class NotificationService {
         data.userNotificationMessage = userNotificationMessage;
         data.writerId = writerId;
         data.receiverId = receiverId;
-        this.http.post<UserNotification>( `${this.apiServerUrl}/notifications/create/`, data)
+        this.http.post( `${this.apiServerUrl}/notifications/create/`, data)
+    }
+
+    public setNotificationsSeen(notificationId: Number): any{
+        return this.http.put( `${this.apiServerUrl}/notifications/set/seen/`, notificationId)
     }
 }
