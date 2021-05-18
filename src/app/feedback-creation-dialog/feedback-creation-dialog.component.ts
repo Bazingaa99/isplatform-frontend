@@ -7,6 +7,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
+import { NotificationService } from '../services/notification';
+import { UserNotification } from '../shared/user-notification';
 
 @Component({
   selector: 'feedback-creation-dialog',
@@ -17,6 +19,7 @@ export class FeedbackCreationDialogComponent implements OnInit {
   feedbackCreationForm: FormGroup;
   userRated = true;
   feedback: Feedback;
+  notification: UserNotification;
 
   constructor(public dialog: MatDialogRef<FeedbackCreationDialogComponent>,
               private fb: FormBuilder,
@@ -24,6 +27,7 @@ export class FeedbackCreationDialogComponent implements OnInit {
               private router: Router,
               private snackBar: MatSnackBar,
               private updateService: UpdateUsersGroupsService,
+              private notificationService: NotificationService,
               @Inject(MAT_DIALOG_DATA) public updatableFeedbackData: Feedback) {
     this.feedbackCreationForm = this.setForm();
    }
@@ -50,7 +54,7 @@ export class FeedbackCreationDialogComponent implements OnInit {
     for (var i=0; i<stars.length; i++) {
       if(stars[i].type == 'radio' && stars[i].checked){
         this.userRated = true;
-        starsCount = 5-i;
+        starsCount = 6-i;
         break;
       }
       if (i==(stars.length-1) && stars[i].type == 'radio' && !stars[i].checked) {
@@ -72,6 +76,7 @@ export class FeedbackCreationDialogComponent implements OnInit {
               duration: 400000000000000,
               panelClass: ['green-snackbar']
             })
+            this.notificationService.createUserNotification(" left you a feedback.", Number(localStorage.getItem('userId')), receiverId);
           },
           (error: HttpErrorResponse) => {
             this.snackBar.open("Couldn't leave a feedback. Please try again.","✓",{

@@ -1,0 +1,18 @@
+<div class="notifications-container" *ngIf="this.notificationsLength > 0">
+    <ng-container *ngFor="let notification of pageSlice" >
+      <div class="notification" [class.highlighted]="!notification.seen">
+        <span>
+          <a href="/profile/{{notification.writer.id}}">{{notification.writer.username}}</a> {{notification.notificationMessage}}
+        </span>
+      </div>
+    </ng-container>
+</div>
+  
+<mat-paginator class="notification-paginator" *ngIf="this.notificationsLength > 8" style="margin-top: 0.5rem;" [length]="this.notificationsLength"
+[pageSizeOptions]="[8]"
+(page)="onPageChange($event)">
+</mat-paginator>
+
+<div id="noNotificationsMsg" *ngIf="this.notificationsLength === 0">
+    <h1>You do not have any notifications yet.</h1>
+</div>

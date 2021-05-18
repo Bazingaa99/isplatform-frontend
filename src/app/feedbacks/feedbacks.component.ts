@@ -72,7 +72,6 @@ export class FeedbacksComponent implements OnInit {
   }
 
   public onPageChange(event: PageEvent){
-    console.log("click");
     const startIndex = event.pageIndex * event.pageSize;
     let endIndex = startIndex + event.pageSize;
 

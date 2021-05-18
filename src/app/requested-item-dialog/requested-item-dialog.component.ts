@@ -13,6 +13,7 @@ import { Request } from '../shared/request';
 import { ChatDialogComponent } from '../chat-dialog/chat-dialog.component';
 import { Item } from '../shared/item';
 import { ValueConverter } from '@angular/compiler/src/render3/view/template';
+import { NotificationService } from '../services/notification';
 
 @Component({
   selector: 'requested-item-dialog',
@@ -34,6 +35,7 @@ export class RequestedItemDialogComponent implements OnInit {
                 public router: Router,
                 public updateService: UpdateUsersGroupsService,
                 public snackBar: MatSnackBar,
+                private notificationService: NotificationService,
                 @Inject(MAT_DIALOG_DATA) public data: any ) {
                   console.log(data);
                   data['request'] = data['0']
@@ -116,6 +118,9 @@ export class RequestedItemDialogComponent implements OnInit {
           duration: 400000000000000,
           panelClass: ['green-snackbar']
         })
+        let userRespponse = acceptance? " accepted" : " declined";
+        
+        //this.notificationService.createUserNotification( userRespponse + " your item response.", Number(localStorage.getItem('userId')), receiverId);
       })
   }
 

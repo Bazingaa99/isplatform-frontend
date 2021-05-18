@@ -21,7 +21,17 @@
     <div *ngIf="logInCheck()&&isGroupOpened()">
       <div (click)="openInviteDialog()" class="loginbutton">Invite</div>
     </div>
-    
+
+    <div id="notification-button" *ngIf="logInCheck()">
+      <a id="notification-link" href="/notifications">
+        <mat-icon *ngIf="this.notificationsCount > 0" matBadge="{{this.notificationsCount}}" matBadgeColor="warn">notifications</mat-icon>
+        <mat-icon *ngIf="this.notificationsCount === 0">notifications</mat-icon>
+        <span class="cdk-visually-hidden">
+          Notifications icon
+        </span>
+      </a>
+    </div>
+      
     <!-- Profile button -->
     <img mat-button [matMenuTriggerFor]="menu" *ngIf="logInCheck()" id="profile-image"
       width="40"

@@ -56,6 +56,8 @@ import { Ng2DeepSearchPipe } from './items/pipe';
 import { FeedbackCreationDialogComponent } from './feedback-creation-dialog/feedback-creation-dialog.component';
 import { FeedbacksComponent } from './feedbacks/feedbacks.component';
 import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback-delete-dialog.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NotificationsComponent } from './notifications/notifications.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +90,8 @@ import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback
     ProfilePageComponent,
     FeedbackCreationDialogComponent,
     FeedbacksComponent,
-    FeedbackDeleteDialogComponent
+    FeedbackDeleteDialogComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +118,8 @@ import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback
     MatProgressSpinnerModule,
     MatDividerModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatBadgeModule
   ],
   exports: [  ],
   providers: [,

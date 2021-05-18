@@ -7,7 +7,7 @@
 </div>
 
 <div class="feedbacks-container" *ngIf="this.feedbacksLength > 0">
-  <ng-container *ngFor="let feedback of pageSlice | deepFilter:name:['owner','group','image','imageName']" >
+  <ng-container *ngFor="let feedback of pageSlice" >
     <div class="feedback">
       <div class="feedbackData">
         <span>

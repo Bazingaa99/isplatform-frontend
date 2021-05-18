@@ -83,6 +83,7 @@ export class ItemDialogComponent implements OnInit {
           duration: 400000000000000,
           panelClass: ['green-snackbar']
         })
+        //this.notificationService.createUserNotification( userRespponse + " your item response.", Number(localStorage.getItem('userId')), receiverId);
       },
       (error: HttpErrorResponse) => {
         this.snackBar.open("Could not request item, please try again.","✓",{

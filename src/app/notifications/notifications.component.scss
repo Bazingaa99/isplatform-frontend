@@ -1,0 +1,34 @@
+.notification-paginator{
+    margin-right: 8px;
+    margin-top: 0.5rem;
+    background-color: #3F51B5;
+    color: white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+  
+.notification{
+    width: 300px;
+    margin: auto;
+    margin-top: 10px;
+    padding: 30px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+}
+  
+.notifications-container {
+    justify-content: center;
+    align-items: center;
+}
+  
+#noNotificationsMsg {
+    margin-top: 50px;
+    text-align: center;
+}
+
+.highlighted {
+    background-color: lawngreen;
+}

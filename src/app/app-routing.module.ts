@@ -12,6 +12,7 @@ import { AddToGroupComponent } from './add-to-group/add-to-group.component';
 import { RequestsPageComponent } from './requests-page/requests-page.component';
 import { BookmarksPageComponent } from './bookmarks-page/bookmarks-page.component';
 import { ProfilePageComponent } from './profile-page/profile-page.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 const routes: Routes = [
   {
@@ -47,6 +48,10 @@ const routes: Routes = [
   {
     path:"profile/:id",
     component:ProfilePageComponent,
+  },
+  {
+    path:"notifications",
+    component:NotificationsComponent,
   },
   {
     path:"requesteditems",
