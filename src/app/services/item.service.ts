@@ -10,6 +10,7 @@ import { UpdateUsersGroupsService } from './update-users-group.service';
     providedIn: 'root'
 })
 export class ItemService {
+
     private apiServerUrl = environment.apiBaseUrl;
     public groupId;
     public name;
@@ -77,5 +78,9 @@ export class ItemService {
 
     public isBookmarkedByCurrentUser(itemId: number, email: string){
       return this.http.get(`${this.apiServerUrl}/isp/items/check/bookmark/${email}/${itemId}`)
+    }
+
+    public itemViewed(id: number) {
+      return this.http.get(`${this.apiServerUrl}/isp/items/viewed/${id}`)
     }
 }

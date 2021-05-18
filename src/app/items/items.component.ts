@@ -68,23 +68,31 @@ export class ItemsComponent implements OnInit {
 
   openItemDialog(itemData): void {
 
-    this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
-      (response: Request) => {
-        if(response){
-          this.dialog.open(ItemDialogComponent, {
-            data: [itemData, true, response.responded, response.accepted]
-          });
-        }else{
-          this.dialog.open(ItemDialogComponent, {
-            data: [itemData, false]
-          });
+  this.itemService.itemViewed(itemData.id).subscribe(
+    (response:Response)=>{
+      this.requestService.getRequest(itemData.id, this.currentUserEmail).subscribe(
+        (response: Request) => {
+          if(response){
+            this.dialog.open(ItemDialogComponent, {
+              data: [itemData, true, response.responded, response.accepted]
+            });
+          }else{
+            this.dialog.open(ItemDialogComponent, {
+              data: [itemData, false]
+            });
+          }
+  
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error);
         }
-
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error);
-      }
-    )
+      )
+    },
+    (error:HttpErrorResponse) => {
+      alert(error)
+    }
+  )
+    
   }
 
   public getItems(): void {
