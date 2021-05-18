@@ -1,0 +1,24 @@
+<mat-dialog-content>
+  <div class="members-dialog-container">
+    <h2 class="title">
+      Group members
+    </h2>
+    <mat-list>
+      <mat-selection-list #shoes [multiple]="false">
+        <mat-list-option a *ngFor="let user of users" (click)="goToUserProfile('/profile/' + user.id);">
+            <div *ngIf="this.currentUser === user.email">
+              {{ user.username + '(you)' }}
+            </div>
+            <div *ngIf="this.currentUser !== user.email">
+              {{ user.username }}
+            </div>
+        </mat-list-option>
+      </mat-selection-list>
+      <!-- <mat-list-item role="listitem" class="item" *ngFor="let user of users">
+        <a class="item-link" href="/profile/{{user.id}}">
+          <span class="link-text">{{ user.username }}</span>
+        </a>
+      </mat-list-item> -->
+    </mat-list>
+  </div>
+</mat-dialog-content>

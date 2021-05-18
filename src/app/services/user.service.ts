@@ -41,6 +41,10 @@ export class UserService {
     return this.httpClient.get<User>( `${this.apiServerUrl}/isp/user/id/${id}`)
   }
 
+  getUsersByGroupId(groupId: string): Observable<User[]>{
+    return this.httpClient.get<User[]>(`${this.apiServerUrl}/isp/user/group/${groupId}`)
+  }
+
   private errorHandlerForTxt(error: HttpErrorResponse) {
     return throwError(error.status);
   }

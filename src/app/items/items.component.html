@@ -1,5 +1,6 @@
 <div *ngIf="loadPage">
 <input *ngIf="this.itemsLength > 0" class="form-control search" type="text" [(ngModel)]="name" placeholder="Search">
+<button *ngIf="this.currentPage !== 'profile'" mat-raised-button (click)="showGroupMembers()" color="primary" style="margin: 0.3em 0.3em 0 0; float: right;">Show group members</button>
 <div class="item-container" *ngIf="this.itemsLength > 0">
   <ng-container *ngFor="let item of pageSlice | deepFilter:name:['owner','group','image','imageName']" >
     <div class="grid-item" *ngIf="test(item)">
@@ -23,13 +24,13 @@
               {{ item.category.categoryName }},
               {{ item.duration + " days" }}
             </div>
-            
+
             <!-- <div *ngIf="checkIfOwner(item)">
               <div  class="card-actions">
                 <span class="important-info">My item</span>
               </div>
             </div> -->
-          
+
             <a class="item-title profile" href="/profile/{{item.owner.id}}">
               {{ item.owner.username }}
             </a>

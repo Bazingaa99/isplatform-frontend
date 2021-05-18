@@ -15,6 +15,9 @@ import { SafeUrl } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { UsersGroupService } from '../services/users-group.service';
 import { GroupCreationDialogComponent } from '../group-creation-dialog/group-creation-dialog.component';
+import { UserService } from '../services/user.service';
+import { User } from '../shared/user';
+import { GroupMembersModalComponent } from '../group-members-modal/group-members-modal.component';
 
 @Component({
   selector: 'items',
@@ -42,13 +45,14 @@ export class ItemsComponent implements OnInit {
               private updateService: UpdateUsersGroupsService,
               private usersGroupService: UsersGroupService,
               private requestService: RequestService,
+              private userService: UserService,
               private snackBar: MatSnackBar,
               private sanitizer:DomSanitizer) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
                   this.currentPage = this.router.url.substring(1,8);
                   if(this.currentPage === "profile")
-                  { 
-                    this.getUserItems(); 
+                  {
+                    this.getUserItems();
                   } else {
                     this.checkIfGroupOwner();
                     this.getItems();
@@ -63,9 +67,9 @@ export class ItemsComponent implements OnInit {
     this.itemsLength = 0;
     this.currentUserEmail = localStorage.getItem('email');
     if(this.currentPage === "profile")
-    { 
+    {
       console.log("profile");
-      this.getUserItems(); 
+      this.getUserItems();
     } else {
       console.log("notprofile");
       this.checkIfGroupOwner();
@@ -167,15 +171,21 @@ export class ItemsComponent implements OnInit {
     }
     this.pageSlice = this.items.slice(startIndex, endIndex);
   }
-  // public getImage (item :Item):SafeUrl{
-  //   this.itemService.getAttachment(item.id, item.image_name).subscribe(
-  //     data => {
-  //       var unsafeImageUrl = URL.createObjectURL(data);
-  //       this.imageUrl = this.sanitizer.bypassSecurityTrustUrl(unsafeImageUrl);
-  //   }, error => {
-  //       console.log(error);
-  //   }
-  //   )
-  //   return this.imageUrl
-  // }
+
+  public showGroupMembers(){
+    this.userService.getUsersByGroupId(this.groupId).subscribe(
+      (response: User[]) => {
+        this.dialog.open(GroupMembersModalComponent, {
+          data: response
+        })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error);
+        this.snackBar.open("Could not get group members. Please try again.","✓",{
+          duration: 400000000000000,
+          panelClass: ['orange-snackbar']
+        })
+      }
+    )
+  }
 }

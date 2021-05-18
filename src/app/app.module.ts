@@ -38,6 +38,7 @@ import {  JwtHelperService } from '@auth0/angular-jwt';
 import { SuccessfulRegistrationComponent } from './successful-registration/successful-registration.component';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner'
 import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component'
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -56,6 +57,7 @@ import { Ng2DeepSearchPipe } from './items/pipe';
 import { FeedbackCreationDialogComponent } from './feedback-creation-dialog/feedback-creation-dialog.component';
 import { FeedbacksComponent } from './feedbacks/feedbacks.component';
 import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback-delete-dialog.component';
+import { GroupMembersModalComponent } from './group-members-modal/group-members-modal.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -88,7 +90,8 @@ import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback
     ProfilePageComponent,
     FeedbackCreationDialogComponent,
     FeedbacksComponent,
-    FeedbackDeleteDialogComponent
+    FeedbackDeleteDialogComponent,
+    GroupMembersModalComponent
   ],
   imports: [
     BrowserModule,
@@ -115,7 +118,8 @@ import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback
     MatProgressSpinnerModule,
     MatDividerModule,
     MatIconModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatListModule
   ],
   exports: [  ],
   providers: [,
