@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ItemService } from '../services/item.service';
@@ -18,6 +18,11 @@ import { GroupCreationDialogComponent } from '../group-creation-dialog/group-cre
 import { UserService } from '../services/user.service';
 import { User } from '../shared/user';
 import { GroupMembersModalComponent } from '../group-members-modal/group-members-modal.component';
+import { Category } from '../shared/category';
+import { CategoryService } from '../services/category.service';
+import { FormControl, FormGroup } from '@angular/forms';
+import { MatSelect } from '@angular/material/select';
+import { MatOption } from '@angular/material/core';
 
 @Component({
   selector: 'items',
@@ -39,6 +44,13 @@ export class ItemsComponent implements OnInit {
   public loadPage: boolean;
   public userIsGroupOwner = false;
   currentPage: String;
+  public categoryList: Category[];
+  public categories = new FormControl();
+  public duration: number;
+  public globalStartIndex: number;
+  public globalEndIndex: number;
+  @ViewChild('categorySelect') categorySelect: MatSelect;
+  allCategoriesSelected: boolean;
   constructor(public dialog: MatDialog,
               private itemService: ItemService,
               private router: Router,
@@ -46,6 +58,7 @@ export class ItemsComponent implements OnInit {
               private usersGroupService: UsersGroupService,
               private requestService: RequestService,
               private userService: UserService,
+              private categoryService: CategoryService,
               private snackBar: MatSnackBar,
               private sanitizer:DomSanitizer) {
                 this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
@@ -61,6 +74,11 @@ export class ItemsComponent implements OnInit {
               }
 
   ngOnInit(): void {
+    this.duration = 1;
+    this.globalStartIndex = 0;
+    this.globalEndIndex = this.pageSize;
+    this.allCategoriesSelected = true;
+    this.getCategories();
     this.currentPage = this.router.url.substring(1,8);
     this.loadPage = false;
     this.pageSize = 12;
@@ -77,12 +95,62 @@ export class ItemsComponent implements OnInit {
     }
   }
 
+  ngAfterViewInit(){
+    setTimeout(() => {
+        this.categorySelect.options.forEach( (item : MatOption) => item.select());
+    }, 250);
+
+  }
+
   test(itemData): any {
     if(!itemData.hidden || this.checkIfOwner(itemData)) {
       return true;
     } else {
       return false;
     }
+  }
+
+  filterItems(categoryFilter, durationFilter){
+    console.log(categoryFilter, durationFilter);
+    if(categoryFilter !== null && categoryFilter.length > 0){
+      this.pageSlice = this.items.filter(item => categoryFilter.includes(item.category['categoryName']) && item.duration >= durationFilter).slice(this.globalStartIndex, this.globalEndIndex);
+    }else if(categoryFilter !== null && categoryFilter.length === 0 || categoryFilter === null){
+      this.pageSlice = [];
+    }
+
+    if(this.pageSlice.length === 0){
+      this.itemsLength = 0;
+    }else{
+      this.itemsLength = this.items.length;
+    }
+  }
+
+  selectAll(selectAll: boolean){
+    if(selectAll){
+      this.categorySelect.options.forEach( (item : MatOption) => item.select());
+      this.allCategoriesSelected = true;
+    }else{
+      this.categorySelect.options.forEach( (item : MatOption) => item.deselect());
+      this.allCategoriesSelected = false;
+    }
+
+    this.filterItems(this.categories.value, this.duration);
+
+  }
+
+  formatLabel(value: number) {
+    return value;
+  }
+
+  getCategories(): void {
+    this.categoryService.getCategories().subscribe(
+      (response: Category[]) => {
+        this.categoryList = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 
   checkIfOwner(itemData): any {
@@ -169,6 +237,10 @@ export class ItemsComponent implements OnInit {
     if(endIndex > this.items.length){
       endIndex = this.items.length;
     }
+
+    this.globalStartIndex = startIndex;
+    this.globalEndIndex = endIndex;
+
     this.pageSlice = this.items.slice(startIndex, endIndex);
   }
 

@@ -1,6 +1,30 @@
 <div *ngIf="loadPage">
-<input *ngIf="this.itemsLength > 0" class="form-control search" type="text" [(ngModel)]="name" placeholder="Search">
-<button *ngIf="this.currentPage !== 'profile'" mat-raised-button (click)="showGroupMembers()" color="primary" style="margin: 0.3em 0.3em 0 0; float: right;">Show group members</button>
+  <div class="top-panel">
+    <input class="form-control search" type="text" [(ngModel)]="name" placeholder="Search">
+    <div class="filters" >
+      <mat-form-field appearance="outline">
+        <mat-label>Filter categories</mat-label>
+        <mat-select #categorySelect [formControl]="categories" multiple>
+          <mat-option (click)="filterItems(categories.value, duration)" *ngFor="let category of categoryList" [value]="category.categoryName">{{category.categoryName}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+      <div class="slider">
+        <label class="duration-label">{{"Filter by duration (" + duration + " days)"}}</label>
+        <mat-slider
+        class="slider"
+        thumbLabel
+        [(ngModel)]="duration"
+        (change)="filterItems(categories.value, duration)"
+        tickInterval="180"
+        step="1"
+        min="1"
+        max="180"
+        aria-labelledby="duration-slider"></mat-slider>
+      </div>
+    </div>
+    <button *ngIf="this.currentPage !== 'profile'" mat-raised-button (click)="showGroupMembers()" color="primary" style="margin: 0.3em 0.3em 0 0; float: right;">Show group members</button>
+  </div>
+
 <div class="item-container" *ngIf="this.itemsLength > 0">
   <ng-container *ngFor="let item of pageSlice | deepFilter:name:['owner','group','image','imageName']" >
     <div class="grid-item" *ngIf="test(item)">
@@ -24,13 +48,6 @@
               {{ item.category.categoryName }},
               {{ item.duration + " days" }}
             </div>
-
-            <!-- <div *ngIf="checkIfOwner(item)">
-              <div  class="card-actions">
-                <span class="important-info">My item</span>
-              </div>
-            </div> -->
-
             <a class="item-title profile" href="/profile/{{item.owner.id}}">
               {{ item.owner.username }}
             </a>

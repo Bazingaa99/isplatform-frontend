@@ -42,6 +42,7 @@ import { MatListModule } from '@angular/material/list';
 import { WelcomeContentComponent } from './welcome-content/welcome-content.component';
 import { ItemDialogComponent } from './item-dialog/item-dialog.component'
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatSliderModule } from '@angular/material/slider';
 import { InviteToGroupComponent } from './invite-to-group/invite-to-group.component';
 import { AddToGroupComponent } from './add-to-group/add-to-group.component'
 import { RequestedItemsComponent } from './requested-items/requested-items.component';
@@ -119,7 +120,8 @@ import { GroupMembersModalComponent } from './group-members-modal/group-members-
     MatDividerModule,
     MatIconModule,
     MatCheckboxModule,
-    MatListModule
+    MatListModule,
+    MatSliderModule
   ],
   exports: [  ],
   providers: [,

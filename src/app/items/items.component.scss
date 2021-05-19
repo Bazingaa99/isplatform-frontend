@@ -22,6 +22,34 @@
   bottom: 0;
 }
 
+mat-slider {
+  width: 300px;
+}
+
+.slider{
+  display: inline-block;
+  margin-left: 0.5rem;
+  padding: 0;
+  margin-top: 0;
+}
+
+.duration-label{
+  display:block;
+  margin-left: 6rem;
+
+}
+
+.filters{
+  display: inline-block;
+}
+
+.top-panel{
+  display: flex;
+  justify-content: space-between;
+  height: 3rem;
+  margin-bottom: 1rem;
+}
+
 mat-card {
   margin-left: 268px;
   margin-top: 0.5rem;
