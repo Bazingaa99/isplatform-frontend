@@ -5,6 +5,7 @@ import { ItemCreationDialogComponent } from '../item-creation-dialog/item-creati
 import { Router } from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import { UsersGroupService } from '../services/users-group.service';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 
 @Component({
   selector: 'main-page',

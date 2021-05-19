@@ -118,9 +118,11 @@ export class RequestedItemDialogComponent implements OnInit {
           duration: 400000000000000,
           panelClass: ['green-snackbar']
         })
-        let userRespponse = acceptance? " accepted" : " declined";
-        
-        //this.notificationService.createUserNotification( userRespponse + " your item response.", Number(localStorage.getItem('userId')), receiverId);
+        this.requestService.getRequestById(requestId.toString()).subscribe(
+          (response: Request) => {
+            this.notificationService.createUserNotification( ((acceptance)? " accepted" : " declined") + " your item response.", Number(localStorage.getItem('userId')), Number(response.requester.id)).subscribe();
+          }
+        )
       })
   }
 
@@ -143,7 +145,7 @@ export class RequestedItemDialogComponent implements OnInit {
             },
             (error: HttpErrorResponse) => {
               console.log(error);
-              this.snackBar.open("Coould not open chat window. Please try again.","✓",{
+              this.snackBar.open("Could not open chat window. Please try again.","✓",{
                 duration: 400000000000000,
                 panelClass: ['red-snackbar']
               })

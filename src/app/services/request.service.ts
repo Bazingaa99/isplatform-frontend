@@ -68,4 +68,8 @@ export class RequestService {
   checkIfItemReturned(item: Item) {
     return this.http.get(`${this.apiServerUrl}/isp/request/checkIfItemIsReturned/${item.id}`);
   }
+
+  getRequestById(id: string): Observable<Request>{
+    return this.http.get<Request>( `${this.apiServerUrl}/isp/request/find/${id}`)
+  }
 }

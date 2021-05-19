@@ -1,5 +1,6 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 import { Subscription } from 'rxjs';
 import { NotificationService } from '../services/notification';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
@@ -15,21 +16,16 @@ export class NotificationsComponent implements OnInit {
   public notificationsLength: number;
   public pageSize: number;
   public pageSlice;
-  updateEventSubscription:Subscription;
 
-  constructor(private notificationService: NotificationService,
-              private updateService: UpdateUsersGroupsService) {
-                this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
-                  this.getUserNotifications();
-                });
+  constructor(private notificationService: NotificationService) {
   }
 
   ngOnInit(): void {
-    this.pageSize = 12;
+    this.pageSize = 9;
     this.notificationsLength = 0;
     this.getUserNotifications();
   }
-
+  
   public getUserNotifications(): void {
     this.notifications = [];
     this.notificationService.getUserNotifications(Number(localStorage.getItem('userId'))).subscribe(
@@ -47,5 +43,15 @@ export class NotificationsComponent implements OnInit {
         alert(error.message);
       }
     );
+  }
+  
+  public onPageChange(event: PageEvent){
+    const startIndex = event.pageIndex * event.pageSize;
+    let endIndex = startIndex + event.pageSize;
+
+    if(endIndex > this.notifications.length){
+      endIndex = this.notifications.length;
+    }
+    this.pageSlice = this.notifications.slice(startIndex, endIndex);
   }
 }

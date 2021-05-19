@@ -13,6 +13,7 @@ import { User } from '../shared/user';
 import { UserService } from '../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../services/notification';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 
 @Component({
   selector: 'header',
@@ -27,17 +28,26 @@ export class HeaderComponent implements OnInit {
   userId: number;  
   hidden = false;
   notificationsCount: number;
+  updateEventSubscription: any;
 
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
               private  router: Router,
               private userService: UserService,
               private roleGuardService: RoleGuardService,
-              private notificationService: NotificationService
-              ) {}
+              private notificationService: NotificationService,
+              private updateService: UpdateUsersGroupsService) {
+                this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
+                  this.getUserNotificationsCount();
+                });
+              }
 
   ngOnInit(): void {
     this.getUserNotificationsCount();
+  }
+
+  update(){
+    this.updateService.sendUpdate();
   }
 
   toggleBadgeVisibility() {

@@ -58,6 +58,7 @@ import { FeedbacksComponent } from './feedbacks/feedbacks.component';
 import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback-delete-dialog.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationsComponent } from './notifications/notifications.component';
+
 @NgModule({
   declarations: [
     AppComponent,

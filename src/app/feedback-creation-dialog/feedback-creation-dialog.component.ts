@@ -76,7 +76,7 @@ export class FeedbackCreationDialogComponent implements OnInit {
               duration: 400000000000000,
               panelClass: ['green-snackbar']
             })
-            this.notificationService.createUserNotification(" left you a feedback.", Number(localStorage.getItem('userId')), receiverId);
+            this.notificationService.createUserNotification(" left you a feedback.", Number(localStorage.getItem('userId')), receiverId).subscribe();
           },
           (error: HttpErrorResponse) => {
             this.snackBar.open("Couldn't leave a feedback. Please try again.","✓",{

@@ -20,12 +20,12 @@ export class NotificationService {
         return this.http.get<number>( `${this.apiServerUrl}/notifications/count/${userId}`)
     }
 
-    public createUserNotification(userNotificationMessage: String, writerId: Number, receiverId: Number): void{
+    public createUserNotification(userNotificationMessage: String, writerId: Number, receiverId: Number): any{
         let data = {userNotificationMessage, writerId, receiverId}
         data.userNotificationMessage = userNotificationMessage;
         data.writerId = writerId;
         data.receiverId = receiverId;
-        this.http.post( `${this.apiServerUrl}/notifications/create/`, data)
+        return this.http.post( `${this.apiServerUrl}/notifications/create/`, data)
     }
 
     public setNotificationsSeen(notificationId: Number): any{

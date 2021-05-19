@@ -10,6 +10,8 @@ import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 import { ItemDeleteDialogComponent } from '../item-delete-dialog/item-delete-dialog.component';
+import { NotificationService } from '../services/notification';
+import { UserService } from '../services/user.service'
 
 @Component({
   selector: 'item-dialog',
@@ -25,6 +27,8 @@ export class ItemDialogComponent implements OnInit {
                 public itemDialog: MatDialogRef<ItemDialogComponent>,
                 public requestService: RequestService,
                 public itemService: ItemService,
+                public userService: UserService,
+                public notificationService: NotificationService,
                 public router: Router,
                 private updateService: UpdateUsersGroupsService,
                 private snackBar: MatSnackBar,
@@ -83,7 +87,11 @@ export class ItemDialogComponent implements OnInit {
           duration: 400000000000000,
           panelClass: ['green-snackbar']
         })
-        //this.notificationService.createUserNotification( userRespponse + " your item response.", Number(localStorage.getItem('userId')), receiverId);
+        this.itemService.getItemById(itemId.toString()).subscribe(
+          (response: Item) => {
+            this.notificationService.createUserNotification( " requested for your item.", Number(localStorage.getItem('userId')), Number(response.owner.id)).subscribe();;    
+          }
+        )
       },
       (error: HttpErrorResponse) => {
         this.snackBar.open("Could not request item, please try again.","✓",{
