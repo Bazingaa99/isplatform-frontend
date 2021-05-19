@@ -67,8 +67,10 @@ export class ItemsComponent implements OnInit {
                   {
                     this.getUserItems();
                   } else {
-                    this.checkIfGroupOwner();
-                    this.getItems();
+                    if(this.router.url.slice(1, this.router.url.length) != "usersgroup"){
+                      this.checkIfGroupOwner();
+                      this.getItems();
+                    }
                   }
                 });
               }
@@ -85,13 +87,13 @@ export class ItemsComponent implements OnInit {
     this.itemsLength = 0;
     this.currentUserEmail = localStorage.getItem('email');
     if(this.currentPage === "profile")
-    {
-      console.log("profile");
-      this.getUserItems();
+    { 
+      this.getUserItems(); 
     } else {
-      console.log("notprofile");
-      this.checkIfGroupOwner();
-      this.getItems();
+      if(this.router.url.slice(1, this.router.url.length) != "usersgroup"){
+        this.checkIfGroupOwner();
+        this.getItems();
+      }
     }
   }
 

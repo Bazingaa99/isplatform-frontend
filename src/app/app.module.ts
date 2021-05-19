@@ -59,6 +59,9 @@ import { FeedbackCreationDialogComponent } from './feedback-creation-dialog/feed
 import { FeedbacksComponent } from './feedbacks/feedbacks.component';
 import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback-delete-dialog.component';
 import { GroupMembersModalComponent } from './group-members-modal/group-members-modal.component';
+import { MatBadgeModule } from '@angular/material/badge';
+import { NotificationsComponent } from './notifications/notifications.component';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -92,7 +95,8 @@ import { GroupMembersModalComponent } from './group-members-modal/group-members-
     FeedbackCreationDialogComponent,
     FeedbacksComponent,
     FeedbackDeleteDialogComponent,
-    GroupMembersModalComponent
+    GroupMembersModalComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -121,7 +125,8 @@ import { GroupMembersModalComponent } from './group-members-modal/group-members-
     MatIconModule,
     MatCheckboxModule,
     MatListModule,
-    MatSliderModule
+    MatSliderModule,
+    MatBadgeModule
   ],
   exports: [  ],
   providers: [,

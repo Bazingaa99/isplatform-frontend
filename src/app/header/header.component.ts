@@ -12,6 +12,8 @@ import { ItemService } from '../services/item.service';
 import { User } from '../shared/user';
 import { UserService } from '../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { NotificationService } from '../services/notification';
+import { UpdateUsersGroupsService } from '../services/update-users-group.service';
 
 @Component({
   selector: 'header',
@@ -23,17 +25,34 @@ export class HeaderComponent implements OnInit {
   groupId: string;
   bodyText: string;
   showProfileSidebar:boolean;
-  userId: number;
+  userId: number;  
+  hidden = false;
+  notificationsCount: number;
+  updateEventSubscription: any;
+
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
               private  router: Router,
               private userService: UserService,
-              private roleGuardService: RoleGuardService
-              ) {}
+              private roleGuardService: RoleGuardService,
+              private notificationService: NotificationService,
+              private updateService: UpdateUsersGroupsService) {
+                this.updateEventSubscription = this.updateService.getUpdate().subscribe(()=>{
+                  this.getUserNotificationsCount();
+                });
+              }
 
   ngOnInit(): void {
+    this.getUserNotificationsCount();
   }
 
+  update(){
+    this.updateService.sendUpdate();
+  }
+
+  toggleBadgeVisibility() {
+    this.hidden = !this.hidden;
+  }
   isGroupOpened():boolean{
     var mainpageUrlSegment = this.router.url.slice(1, 11)
     this.groupId = this.router.url.slice(12, this.router.url.length)
@@ -42,9 +61,8 @@ export class HeaderComponent implements OnInit {
     }else{
       return true
     }
-    
-    
   }
+
   logInCheck(): boolean {
     if (!this.auth.isAuthenticated()) {
       return false;
@@ -104,6 +122,17 @@ export class HeaderComponent implements OnInit {
   }
   openInviteDialog() {
     this.dialog.open(InviteToGroupComponent);
+  }
+  
+  public getUserNotificationsCount(): void {
+    this.notificationService.getUserNotificationsCount(Number(localStorage.getItem('userId'))).subscribe(
+      (response: number) => {
+        this.notificationsCount = response;
+      },
+      (error: HttpErrorResponse) => {
+        alert(error.message);
+      }
+    );
   }
 }
 

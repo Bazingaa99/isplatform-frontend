@@ -1,8 +1,10 @@
 import { Chat } from './chat';
+import { User } from './user';
+
 export interface Request {
     id?: number;
     item?: number;
-    requester?: number;
+    requester?: User;
     responded?: boolean;
     accepted?: boolean;
     returned?: boolean;

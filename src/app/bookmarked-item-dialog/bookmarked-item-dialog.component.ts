@@ -4,6 +4,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ItemService } from '../services/item.service';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
+import { Item } from '../shared/item';
 import { Request } from '../shared/request';
 
 @Component({

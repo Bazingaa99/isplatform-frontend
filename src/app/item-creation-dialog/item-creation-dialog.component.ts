@@ -56,7 +56,7 @@ export class ItemCreationDialogComponent implements OnInit {
         description: this.updatableItemData.description,
         category: this.updatableItemData.category['id'],
         duration: this.updatableItemData.duration,
-        owner_id: this.updatableItemData.owner_id
+        owner: this.updatableItemData.owner
       });
       this.setOldImage(this.updatableItemData)
       

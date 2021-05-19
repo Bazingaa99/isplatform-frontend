@@ -39,6 +39,10 @@ export class ProfilePageComponent implements OnInit {
     this.getFeedbacksCount();
   }
 
+  ngOnDestroy() {
+      this.updateEventSubscription.unsubscribe();
+  }
+  
   getUsername(): void {
     this.userService.getUserById(Number(this.router.url.slice(9, this.router.url.length))).subscribe(
       (response: User) => {
@@ -54,7 +58,6 @@ export class ProfilePageComponent implements OnInit {
     this.feedbackService.getFeedbacksCount(Number(this.router.url.slice(9, this.router.url.length))).subscribe(
       (response: number) => {
         this.feedbacksCount = response;
-        console.log(response);
       },
       (error: HttpErrorResponse) => {
         alert(error.message);
