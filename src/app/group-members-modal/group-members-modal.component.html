@@ -4,21 +4,24 @@
       Group members
     </h2>
     <mat-list>
-      <mat-selection-list #shoes [multiple]="false">
-        <mat-list-option a *ngFor="let user of users" (click)="goToUserProfile('/profile/' + user.id);">
+      <mat-selection-list [multiple]="false">
+        <mat-list-option a *ngFor="let user of pageSlice" (click)="goToUserProfile('/profile/' + user.id);">
             <div *ngIf="this.currentUser === user.email">
-              {{ user.username + '(you)' }}
+              {{ user.username + '(me)' }}
             </div>
             <div *ngIf="this.currentUser !== user.email">
               {{ user.username }}
             </div>
         </mat-list-option>
       </mat-selection-list>
-      <!-- <mat-list-item role="listitem" class="item" *ngFor="let user of users">
-        <a class="item-link" href="/profile/{{user.id}}">
-          <span class="link-text">{{ user.username }}</span>
-        </a>
-      </mat-list-item> -->
+      <mat-paginator class="item-paginator" style="margin-top: 0.5rem;" [length]="this.usersLength"
+        [pageSizeOptions]="[6]"
+        (page)="onPageChange($event)">
+      </mat-paginator>
+      <!-- <mat-paginator class="item-paginator" *ngIf="this.itemsLength > 0" style="margin-top: 0.5rem;" [length]="this.itemsLength"
+        [pageSizeOptions]="[12]"
+        (page)="onPageChange($event)">
+      </mat-paginator> -->
     </mat-list>
   </div>
 </mat-dialog-content>
