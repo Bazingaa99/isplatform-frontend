@@ -9,6 +9,10 @@ import {RoleGuardService} from '../services/role-guard-service.service';
 import { InviteToGroupComponent } from '../invite-to-group/invite-to-group.component';
 import { ItemsComponent } from '../items/items.component';
 import { ItemService } from '../services/item.service';
+import { SettingsComponent } from '../settings/settings.component';
+import { User } from '../shared/user';
+import { HttpErrorResponse } from '@angular/common/http';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'header',
@@ -18,12 +22,14 @@ import { ItemService } from '../services/item.service';
 export class HeaderComponent implements OnInit {
   currentRout: string;
   groupId: string;
+  user: User;
   bodyText: string;
   showProfileSidebar:boolean;
   constructor(private dialog: MatDialog,
               private auth: AuthServiceService,
               private  router: Router,
-              private roleGuardService: RoleGuardService
+              private roleGuardService: RoleGuardService,
+              private userService:UserService
               ) {}
 
   ngOnInit(): void {
@@ -88,6 +94,22 @@ export class HeaderComponent implements OnInit {
   openDialog() {
     this.dialog.open(RegistrationComponent);
   }
+  openSettings(){
+    this.getOldUserData()
+    this.dialog.open(SettingsComponent, {data:this.getOldUserData})
+  }
+
+  public getOldUserData(){
+    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
+      (response: User) => {
+        this.dialog.open(SettingsComponent,{data:response})
+      },
+      (error: HttpErrorResponse) => {
+        alert(error)
+      }
+    )
+  }
+
 
   openLoginDialog() {
     this.dialog.open(LoginComponent);

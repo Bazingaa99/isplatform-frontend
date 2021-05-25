@@ -13,6 +13,7 @@ import { User } from '../shared/user';
 })
 export class UserService {
 
+
   private apiServerUrl = environment.apiBaseUrl
 
   constructor(private httpClient: HttpClient) {
@@ -37,10 +38,24 @@ export class UserService {
     return this.httpClient.get<User>( `${this.apiServerUrl}/isp/user/${email}`)
   }
 
+  updateUser(user:User){
+    
+    return this.httpClient.put<User>((`${this.apiServerUrl}/isp/user/update`),user)
+  }
+
   private errorHandlerForTxt(error: HttpErrorResponse) {
     return throwError(error.status);
   }
   private errorHandler(error: HttpErrorResponse) {
     return throwError(error.error.message);
+  }
+
+  onSubmitPasswordChange(email,oldPassword,newPassword) {
+
+    let data={email,oldPassword,newPassword}
+    data.email=email;
+    data.newPassword=newPassword;
+    data.oldPassword=oldPassword;
+    return this.httpClient.put<User>((`${this.apiServerUrl}/isp/user/updatePassword`),data)
   }
 }
