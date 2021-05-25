@@ -51,17 +51,8 @@
             <a class="item-title profile" href="/profile/{{item.owner.id}}">
               {{ item.owner.username }}
             </a>
-            <div class="card-footer">
-            <div *ngIf="checkIfOwner(item)">
-              <div  class="card-actions">
-                <span class="important-info">My item</span>
-              </div>
-            </div>
-            <!-- <div class="card-footer">
-              <span>views: {{ item.viewCount }}</span>
-            </div> -->
-          </div>
         </div>
+    </div>
     </div>
   </ng-container>
   </div>

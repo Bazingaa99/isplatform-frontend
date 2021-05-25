@@ -31,13 +31,15 @@ export class FeedbacksComponent implements OnInit {
                   this.getUserFeedbacks(); 
                 });
               }
-
+  
   ngOnInit(): void {
     this.pageSize = 8;
     this.feedbacksLength = 0;
     this.getUserFeedbacks(); 
   }
-
+  ngOnDestroy():void{
+     this.updateEventSubscription.unsubscribe();
+  }
   openFeedbackUpdateDialog(feedbackData: number): void {
     this.feedbackActionDialog.open(FeedbackCreationDialogComponent, {
       data: feedbackData,
@@ -55,16 +57,17 @@ export class FeedbacksComponent implements OnInit {
   }
 
   public getUserFeedbacks(): void {
-    this.feedbackService.getUserFeedbacks(Number(this.router.url.substring(9, this.router.url.length))).subscribe(
-      (response: Feedback[]) => {
-        this.feedbacks = response;
-        this.feedbacksLength = this.feedbacks.length;
-        this.pageSlice = this.feedbacks.slice(0, this.pageSize)
-      },
-      (error: HttpErrorResponse) => {
-        alert(error.message);
-      }
-    );
+      this.feedbackService.getUserFeedbacks(Number(this.router.url.substring(9, this.router.url.length))).subscribe(
+        (response: Feedback[]) => {
+          this.feedbacks = response;
+          this.feedbacksLength = this.feedbacks.length;
+          this.pageSlice = this.feedbacks.slice(0, this.pageSize)
+        },
+        (error: HttpErrorResponse) => {
+          alert(error.message);
+        }
+      );
+    
   }
 
   userIsFeedbackOwner(ownerId: number){
