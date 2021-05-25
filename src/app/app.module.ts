@@ -61,7 +61,7 @@ import { FeedbackDeleteDialogComponent } from './feedback-delete-dialog/feedback
 import { GroupMembersModalComponent } from './group-members-modal/group-members-modal.component';
 import { MatBadgeModule } from '@angular/material/badge';
 import { NotificationsComponent } from './notifications/notifications.component';
-
+import { SettingsComponent } from './settings/settings.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -96,7 +96,8 @@ import { NotificationsComponent } from './notifications/notifications.component'
     FeedbacksComponent,
     FeedbackDeleteDialogComponent,
     GroupMembersModalComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    SettingsComponent
   ],
   imports: [
     BrowserModule,

@@ -50,8 +50,3 @@
                 <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemUpdateDialog(data.item)" mat-stroked-button>Update item</button>
                 <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemDeleteDialog(data.item.id)" color="warn" mat-stroked-button>Delete item</button>
             </div>
-
-            
-        </div>
-    </div>
-</mat-dialog-content>

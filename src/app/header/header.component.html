@@ -43,7 +43,7 @@
       <a mat-menu-item (click)="goToUserProfile()">Profile</a>
       <a mat-menu-item href="/requesteditems">Requests</a>
       <a mat-menu-item href="/bookmarks">Bookmarks</a>
-      <button mat-menu-item>Settings</button>
+      <button mat-menu-item (click)="getOldUserData()">Settings</button>
       <mat-divider></mat-divider>
       <button mat-menu-item (click)="onLogOut()">Sign out</button>
     </mat-menu>

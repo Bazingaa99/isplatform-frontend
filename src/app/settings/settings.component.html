@@ -1,0 +1,155 @@
+
+<h1 class="text-center" style="text-align: center;"
+>
+    User update
+</h1>
+<mat-dialog-content id="registration">
+        <form [formGroup]="registrationForm" (ngSubmit)="onSubmitPasswordChange()">
+            <div class="form-group">
+            <mat-form-field appearance="fill">
+                <mat-label>Username</mat-label>
+                <input matInput matInput
+                type="text"
+                class="form-control"
+                id="username"
+                formControlName="usernameReg"
+                maxlength="50"
+                required>
+                <mat-error *ngIf="registrationForm.controls.emailReg.errors?.required || registrationForm.controls.emailReg.valid">
+                    Username is mandatory
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.emailReg.errors?.maxLength">
+                    Username is too long
+                </mat-error>
+            </mat-form-field>
+            </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="margin-for-forms">
+                <mat-label for="name">E-mail</mat-label>
+                <input
+                    matInput
+                    type="email"
+                    class="form-control"
+                    id="email"
+                    formControlName="emailReg"
+                    maxlength="50"
+                    required
+                />
+                <mat-error *ngIf="registrationForm.controls.emailReg.errors?.required || registrationForm.controls.emailReg.valid">
+                    Email is mandatory
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.emailReg.errors?.pattern ">
+                    Wrong email
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.emailReg.errors?.maxLength">
+                    The email is too long
+                </mat-error>
+            </mat-form-field>
+            </div>
+                <p  *ngIf = "serverErrorMessageHidden" style="color:red">{{ this.serverErrorMessage }}</p>
+                <button
+                    *ngIf="!isLoading"
+                    hintLabel="Max 10 characters"
+                    mat-stroked-button
+                    color="primary"
+                    type="submit"
+                    class="btn-block sticky center"
+                    style="margin-left:-15px" 
+                    (click)="onSubmitUserData()"
+                    
+                >
+                    Update user data
+                </button>
+                <div class="form-group">
+                    <mat-form-field appearance="fill" class="margin-for-forms">
+                        <mat-label for="password1">Enter old password</mat-label>
+                        <input
+                            matInput
+                            type="password"
+                            id="oldPassword"
+                            class="form-control"
+                            formControlName="oldPassword"
+                            maxlength="30"
+                            required
+                        />
+                        <mat-error *ngIf="registrationForm.controls.oldPassword.errors?.required" class="pd-30">
+                            Old password is mandatory
+                        </mat-error>
+                    </mat-form-field>
+        
+                </div>
+            <div class="form-group">
+                <mat-form-field appearance="fill" class="margin-for-forms">
+                <mat-label for="password1">Password</mat-label>
+                <input
+                    matInput
+                    type="password"
+                    id="newPassword"
+                    class="form-control"
+                    formControlName="newPassword"
+                    maxlength="30"
+                    required
+                />
+                <mat-error *ngIf="registrationForm.controls.newPassword.errors?.required" class="pd-30">
+                    Password is mandatory
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.newPassword.hasError('hasNumber')" class="pd-30">
+                    Password must have at least 1 number
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.newPassword.hasError('hasCapitalCase')" class="pd-30">
+                    Password must have at least 1 uppercase letter
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.newPassword.hasError('hasSmallCase')" class="pd-30">
+                    Password must have at least 1 lowercase letter
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.newPassword.hasError('hasGaps')" class="pd-30">
+                    Password cannot have spaces
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.newPassword.errors?.minlength" class="pd-30">
+                    Password cannot be shorter than 7 characters
+                </mat-error>
+                <mat-error *ngIf="registrationForm.controls.newPassword.errors?.maxlength" class="pd-30">
+                    Password cannot be longer than 30 characters
+                </mat-error>
+            </mat-form-field>
+
+            </div>
+            <div class="form-group mt-10">
+                <mat-form-field appearance="fill" class="margin-for-forms">
+                <mat-label for="password2">Repeat password</mat-label>
+                <input
+                    matInput
+                    type="password"
+                    id="password2"
+                    class="form-control pd-30"
+                    formControlName="passwordRepeatReg"
+                    maxlength="30"
+                    [type]="hide ? 'password' : 'text'" 
+                    required
+                />               
+                <!-- <div  class="alert alert-danger"> -->
+                    <mat-error *ngIf="registrationForm.controls.passwordRepeatReg.errors?.isMatching === false">
+                        Passwords do not match
+                    </mat-error>  
+                <!-- </div> -->
+            </mat-form-field>
+            </div>
+        </form>
+</mat-dialog-content>
+<span class="align-bottom mt-2 mr-3 padding-bottom">
+    <p *ngIf="serverErrorMessageForPasswordHidden" style="color:red">{{ this.serverErrorMessageForPassword }}</p>
+    <button
+        *ngIf="!isLoading"
+        hintLabel="Max 10 characters"
+        mat-stroked-button
+        color="primary"
+        type="submit"
+        class="btn-block mt-10 sticky center" 
+        (click)="onSubmitPasswordChange()"
+        [disabled]="!registrationForm.valid"
+        style="margin-left: -20px;"
+    >
+        Change password
+    </button>
+</span>
+<mat-progress-spinner [diameter]="30" *ngIf="isLoading"  mode="indeterminate"></mat-progress-spinner>

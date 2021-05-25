@@ -14,6 +14,8 @@ import { UserService } from '../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NotificationService } from '../services/notification';
 import { UpdateUsersGroupsService } from '../services/update-users-group.service';
+import { SettingsComponent } from '../settings/settings.component';
+
 
 @Component({
   selector: 'header',
@@ -23,6 +25,7 @@ import { UpdateUsersGroupsService } from '../services/update-users-group.service
 export class HeaderComponent implements OnInit {
   currentRout: string;
   groupId: string;
+  user: User;
   bodyText: string;
   showProfileSidebar:boolean;
   userId: number;  
@@ -116,6 +119,22 @@ export class HeaderComponent implements OnInit {
   openDialog() {
     this.dialog.open(RegistrationComponent);
   }
+  openSettings(){
+    this.getOldUserData()
+    this.dialog.open(SettingsComponent, {data:this.getOldUserData})
+  }
+
+  public getOldUserData(){
+    this.userService.getUserByEmail(localStorage.getItem('email')).subscribe(
+      (response: User) => {
+        this.dialog.open(SettingsComponent,{data:response})
+      },
+      (error: HttpErrorResponse) => {
+        alert(error)
+      }
+    )
+  }
+
 
   openLoginDialog() {
     this.dialog.open(LoginComponent);

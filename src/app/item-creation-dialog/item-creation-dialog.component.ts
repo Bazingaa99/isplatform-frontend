@@ -24,7 +24,8 @@ export class ItemCreationDialogComponent implements OnInit {
               private router: Router,
               private updateService: UpdateUsersGroupsService,
               private snackBar: MatSnackBar,
-              @Inject(MAT_DIALOG_DATA) public updatableItemData: Item) { }
+              @Inject(MAT_DIALOG_DATA) public updatableItemData: Item) { 
+              }
 
   public categories: Category[];
   public item: Item;
