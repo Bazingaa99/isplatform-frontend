@@ -32,6 +32,8 @@
             <p>Category: {{ data.item.category['categoryName'] }}</p>
             <p>Duration: {{ data.item.duration + " days" }}</p>
             <p>Bookmarked by: {{ data.item.bookmarkCount + " user(s)" }}</p>
+            <p>Views: {{data.item.viewCount}}</p>
+            <p>Relisted: {{data.item.relistCount}}</p>
             <div class="spacer"></div>
             <p id="item-name">{{ data.item.name }}</p>
             <p>{{ data.item.description }}</p>
@@ -48,6 +50,8 @@
                 <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemUpdateDialog(data.item)" mat-stroked-button>Update item</button>
                 <button *ngIf="checkIfUserIsOwner() && !data.isItemRequested" (click)="openItemDeleteDialog(data.item.id)" color="warn" mat-stroked-button>Delete item</button>
             </div>
+
+            
         </div>
     </div>
 </mat-dialog-content>
